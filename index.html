@@ -1,0 +1,1813 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BarKnow — 愛犬との暮らしを、整える。</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --green: #008661;
+    --green-light: #d4ede6;
+    --green-mid: #006b4e;
+    --off-white: #f8f6f2;
+    --warm-white: #fdfcfa;
+    --text: #1a1a18;
+    --text-mid: #4a4a45;
+    --text-light: #8a8a82;
+    --border: #e4e0da;
+    --serif: 'Cormorant Garamond', 'Noto Serif JP', Georgia, serif;
+    --sans: 'Noto Sans JP', system-ui, sans-serif;
+    --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    font-family: var(--sans);
+    background: #fff;
+    color: var(--text);
+    line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─── TYPOGRAPHY ─── */
+  .serif { font-family: var(--serif); }
+
+  h1, h2, h3 { font-family: var(--serif); font-weight: 300; letter-spacing: 0.02em; }
+
+  .section-label {
+    font-family: var(--sans);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--green);
+    display: block;
+    margin-bottom: 1.2rem;
+  }
+
+  /* ─── HEADER ─── */
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 3rem;
+    height: 68px;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--transition), box-shadow var(--transition);
+  }
+
+  header.scrolled {
+    border-color: var(--border);
+    box-shadow: 0 1px 20px rgba(0,0,0,0.04);
+  }
+
+  .logo {
+    font-family: var(--serif);
+    font-size: 1.45rem;
+    font-weight: 400;
+    color: var(--text);
+    letter-spacing: 0.12em;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  .logo span { color: var(--green); }
+
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 2.4rem;
+  }
+
+  nav a {
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    color: var(--text-mid);
+    text-decoration: none;
+    transition: color var(--transition);
+    position: relative;
+  }
+
+  nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px; left: 0;
+    width: 0; height: 1px;
+    background: var(--green);
+    transition: width var(--transition);
+  }
+
+  nav a:hover { color: var(--text); }
+  nav a:hover::after { width: 100%; }
+
+  .header-cta {
+    background: var(--green);
+    color: #fff !important;
+    padding: 0.55rem 1.3rem;
+    border-radius: 2px;
+    font-size: 0.74rem !important;
+    letter-spacing: 0.12em !important;
+    font-weight: 500 !important;
+    transition: background var(--transition), transform var(--transition) !important;
+    white-space: nowrap;
+  }
+  .header-cta::after { display: none !important; }
+  .header-cta:hover { background: var(--green-mid) !important; transform: translateY(-1px); }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 1.5px;
+    background: var(--text);
+    transition: var(--transition);
+  }
+
+  /* Mobile nav */
+  .mobile-nav {
+    display: none;
+    position: fixed;
+    top: 68px; left: 0; right: 0;
+    background: #fff;
+    padding: 2rem 3rem;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    z-index: 99;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .mobile-nav.open { display: flex; }
+  .mobile-nav a {
+    font-size: 1rem;
+    color: var(--text-mid);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1rem;
+  }
+  .mobile-nav a:last-child { border-bottom: none; padding-bottom: 0; }
+
+  /* ─── SECTIONS ─── */
+  section { padding: 8rem 0; }
+
+  .container {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 3rem;
+  }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+    background: var(--warm-white);
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 70% 50%, rgba(0,134,97,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 20% 80%, rgba(0,134,97,0.04) 0%, transparent 50%);
+  }
+
+  .hero-grid-line {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 42%;
+    border-left: 1px solid var(--border);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 3rem;
+    padding-top: 68px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  .hero-content { padding: 4rem 0; }
+
+  .hero-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--green);
+    font-weight: 500;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+  .hero-tag::before {
+    content: '';
+    display: inline-block;
+    width: 28px;
+    height: 1px;
+    background: var(--green);
+  }
+
+  .hero-headline {
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    font-weight: 300;
+    line-height: 1.3;
+    letter-spacing: 0.03em;
+    color: var(--text);
+    margin-bottom: 1.8rem;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.35s forwards;
+  }
+
+  .hero-headline em {
+    font-style: italic;
+    color: var(--green);
+  }
+
+  .hero-sub {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    color: var(--text-mid);
+    font-weight: 300;
+    margin-bottom: 3rem;
+    max-width: 400px;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.5s forwards;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.65s forwards;
+  }
+
+  .btn-primary {
+    background: var(--green);
+    color: #fff;
+    padding: 0.9rem 2rem;
+    border-radius: 2px;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-decoration: none;
+    font-weight: 400;
+    transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+    display: inline-block;
+  }
+  .btn-primary:hover {
+    background: var(--green-mid);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,134,97,0.25);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--text);
+    padding: 0.9rem 2rem;
+    border-radius: 2px;
+    border: 1px solid var(--border);
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-decoration: none;
+    font-weight: 400;
+    transition: border-color var(--transition), color var(--transition), transform var(--transition);
+    display: inline-block;
+  }
+  .btn-secondary:hover {
+    border-color: var(--text);
+    color: var(--text);
+    transform: translateY(-2px);
+  }
+
+  .hero-visual {
+    position: relative;
+    height: 560px;
+    opacity: 0;
+    animation: fadeIn 1.2s 0.5s forwards;
+  }
+
+  .hero-img-main {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 85%;
+    height: 85%;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .hero-img-main img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    display: block;
+  }
+
+  .hero-badge {
+    position: absolute;
+    bottom: 12%;
+    right: 2%;
+    background: #fff;
+    border: 1px solid var(--border);
+    padding: 1rem 1.4rem;
+    border-radius: 4px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    font-size: 0.75rem;
+    color: var(--text-mid);
+    line-height: 1.5;
+  }
+
+  .hero-badge strong {
+    display: block;
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    color: var(--green);
+    font-weight: 400;
+    margin-bottom: 0.2rem;
+  }
+
+  /* ─── ABOUT ─── */
+  #about {
+    background: #fff;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .about-visual {
+    position: relative;
+    height: 480px;
+  }
+
+  .about-img {
+    position: absolute;
+    inset: 0;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .about-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  .about-img-accent {
+    position: absolute;
+    width: 55%;
+    height: 55%;
+    bottom: -5%;
+    right: -5%;
+    background: var(--green-light);
+    border-radius: 2px;
+    z-index: -1;
+  }
+
+  .about-content { }
+
+  .about-heading {
+    font-size: clamp(2rem, 3vw, 2.8rem);
+    line-height: 1.4;
+    margin-bottom: 2rem;
+    color: var(--text);
+  }
+
+  .about-body {
+    font-size: 0.93rem;
+    line-height: 2;
+    color: var(--text-mid);
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-quote {
+    border-left: 2px solid var(--green);
+    padding-left: 1.5rem;
+    margin: 2.5rem 0;
+  }
+
+  .about-quote p {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--text);
+    line-height: 1.8;
+  }
+
+  /* ─── VISION ─── */
+  #vision {
+    background: var(--text);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #vision::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -20%;
+    width: 70%;
+    height: 140%;
+    background: radial-gradient(ellipse, rgba(0,134,97,0.18) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .vision-header {
+    text-align: center;
+    margin-bottom: 6rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .vision-label {
+    color: rgba(0,134,97,0.9);
+    display: block;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .vision-heading {
+    font-size: clamp(2.2rem, 4vw, 3.6rem);
+    font-weight: 300;
+    color: #fff;
+    line-height: 1.35;
+    letter-spacing: 0.03em;
+  }
+
+  .vision-heading em {
+    font-style: italic;
+    color: rgba(0,200,140,0.85);
+  }
+
+  .vision-pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .vision-pillar {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 3rem 2.5rem;
+    transition: background var(--transition), border-color var(--transition);
+    position: relative;
+  }
+
+  .vision-pillar:hover {
+    background: rgba(255,255,255,0.07);
+    border-color: rgba(0,134,97,0.3);
+  }
+
+  .vision-num {
+    font-family: var(--serif);
+    font-size: 3rem;
+    font-weight: 300;
+    color: rgba(0,134,97,0.4);
+    line-height: 1;
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+
+  .vision-pillar h3 {
+    font-size: 1.1rem;
+    color: #fff;
+    font-weight: 300;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+
+  .vision-pillar p {
+    font-size: 0.84rem;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.9;
+    font-weight: 300;
+  }
+
+  /* ─── SERVICES ─── */
+  #services {
+    background: var(--off-white);
+  }
+
+  .services-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-bottom: 5rem;
+    align-items: end;
+  }
+
+  .services-heading {
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    line-height: 1.35;
+  }
+
+  .services-desc {
+    font-size: 0.9rem;
+    line-height: 2;
+    color: var(--text-mid);
+    font-weight: 300;
+  }
+
+  .services-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .service-card {
+    background: #fff;
+    padding: 2.8rem 2.4rem;
+    border-radius: 2px;
+    border: 1px solid var(--border);
+    transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--green);
+    transform: scaleX(0);
+    transition: transform var(--transition);
+    transform-origin: left;
+  }
+
+  .service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.07);
+    border-color: transparent;
+  }
+
+  .service-card:hover::after { transform: scaleX(1); }
+
+  .service-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--green-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.8rem;
+  }
+
+  .service-icon svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--green);
+    fill: none;
+    stroke-width: 1.5;
+  }
+
+  .service-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.6rem;
+    font-weight: 400;
+  }
+
+  .service-card .en {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: var(--green);
+    font-family: var(--sans);
+    font-weight: 500;
+    display: block;
+    margin-bottom: 1.2rem;
+  }
+
+  .service-card p {
+    font-size: 0.86rem;
+    color: var(--text-mid);
+    line-height: 1.9;
+    font-weight: 300;
+  }
+
+  /* ─── APP TEASER ─── */
+  #app {
+    background: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #app::before {
+    content: 'APP';
+    position: absolute;
+    font-family: var(--serif);
+    font-size: 22vw;
+    color: rgba(0,134,97,0.03);
+    right: -3%;
+    top: 50%;
+    transform: translateY(-50%);
+    line-height: 1;
+    pointer-events: none;
+    letter-spacing: -0.05em;
+    font-weight: 300;
+  }
+
+  .app-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .app-content {}
+
+  .app-heading {
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    line-height: 1.4;
+    margin-bottom: 1.5rem;
+  }
+
+  .app-heading em {
+    font-style: italic;
+    color: var(--green);
+  }
+
+  .app-desc {
+    font-size: 0.93rem;
+    line-height: 2;
+    color: var(--text-mid);
+    font-weight: 300;
+    margin-bottom: 2rem;
+  }
+
+  .app-keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 3rem;
+  }
+
+  .app-keyword {
+    padding: 0.4rem 1rem;
+    background: var(--green-light);
+    color: var(--green);
+    font-size: 0.76rem;
+    letter-spacing: 0.08em;
+    border-radius: 2px;
+    font-weight: 500;
+  }
+
+  .app-status {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.78rem;
+    color: var(--text-light);
+    margin-bottom: 2.5rem;
+  }
+
+  .app-status::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--green);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.3); }
+  }
+
+  .app-mockup {
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+
+  .phone-frame {
+    width: 260px;
+    height: 520px;
+    background: var(--text);
+    border-radius: 36px;
+    padding: 12px;
+    position: relative;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.2);
+  }
+
+  .phone-screen {
+    background: #fff;
+    border-radius: 26px;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .phone-statusbar {
+    height: 44px;
+    background: var(--green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .phone-statusbar span {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.85);
+    letter-spacing: 0.12em;
+    font-weight: 400;
+  }
+
+  .phone-content {
+    padding: 1.4rem 1.2rem;
+  }
+
+  .phone-greeting {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    margin-bottom: 0.3rem;
+  }
+
+  .phone-name {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    color: var(--text);
+    margin-bottom: 1.4rem;
+  }
+
+  .phone-card {
+    background: var(--off-white);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .phone-card-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--green);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .phone-card-title {
+    font-size: 0.82rem;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+  }
+
+  .phone-progress {
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .phone-progress-bar {
+    height: 100%;
+    background: var(--green);
+    border-radius: 2px;
+  }
+
+  .phone-streak {
+    display: flex;
+    gap: 6px;
+    margin-top: 1rem;
+  }
+
+  .streak-dot {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--green);
+    opacity: 0.15;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.6rem;
+    color: var(--green);
+    font-weight: 600;
+  }
+  .streak-dot.active { opacity: 1; color: #fff; }
+
+  .phone-note {
+    margin-top: 1rem;
+    background: var(--green-light);
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    font-size: 0.75rem;
+    color: var(--green-mid);
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  .phone-float {
+    position: absolute;
+    right: -30px;
+    top: 20%;
+    background: #fff;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    border-radius: 8px;
+    padding: 0.7rem 0.9rem;
+    font-size: 0.72rem;
+    color: var(--text-mid);
+    line-height: 1.5;
+    width: 130px;
+  }
+  .phone-float strong {
+    display: block;
+    font-family: var(--serif);
+    font-size: 0.95rem;
+    color: var(--green);
+    font-weight: 400;
+  }
+
+  /* ─── SHOP ─── */
+  #shop {
+    background: var(--off-white);
+    text-align: center;
+  }
+
+  .shop-inner {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .shop-heading {
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    margin-bottom: 1.2rem;
+  }
+
+  .shop-sub {
+    font-size: 0.9rem;
+    color: var(--text-mid);
+    line-height: 2;
+    font-weight: 300;
+    margin-bottom: 2.5rem;
+  }
+
+  /* ─── TEAM ─── */
+  #team {
+    background: var(--off-white);
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .team-content h2 {
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    line-height: 1.4;
+    margin-bottom: 1.8rem;
+  }
+
+  .team-content p {
+    font-size: 0.9rem;
+    line-height: 2;
+    color: var(--text-mid);
+    font-weight: 300;
+    margin-bottom: 1.2rem;
+  }
+
+  .team-values {
+    margin-top: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .team-value {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .team-value-icon {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+    margin-top: 0.55rem;
+    flex-shrink: 0;
+  }
+
+  .team-value p {
+    font-size: 0.86rem;
+    margin: 0;
+    color: var(--text);
+    font-weight: 400;
+  }
+
+  .team-visual {
+    border-radius: 2px;
+    height: 440px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .team-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 40%;
+    display: block;
+    transition: transform 0.8s ease;
+  }
+
+  .team-visual:hover img {
+    transform: scale(1.03);
+  }
+
+  /* ─── CONTACT ─── */
+  #contact {
+    background: #fff;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .contact-left h2 {
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    line-height: 1.4;
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-left p {
+    font-size: 0.9rem;
+    line-height: 2;
+    color: var(--text-mid);
+    font-weight: 300;
+    margin-bottom: 2rem;
+  }
+
+  .contact-info {
+    font-size: 0.82rem;
+    color: var(--text-light);
+    line-height: 2;
+  }
+
+  .contact-info a {
+    color: var(--green);
+    text-decoration: none;
+  }
+
+  .form-group {
+    margin-bottom: 1.8rem;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    color: var(--text-mid);
+    font-weight: 500;
+    margin-bottom: 0.6rem;
+  }
+
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    background: var(--off-white);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    font-family: var(--sans);
+    font-size: 0.88rem;
+    color: var(--text);
+    outline: none;
+    transition: border-color var(--transition), background var(--transition);
+    appearance: none;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus {
+    border-color: var(--green);
+    background: #fff;
+  }
+
+  .form-group input::placeholder { color: var(--text-light); font-weight: 300; }
+
+  .form-select-wrap {
+    position: relative;
+  }
+
+  .form-select-wrap::after {
+    content: '↓';
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-light);
+    pointer-events: none;
+    font-size: 0.8rem;
+  }
+
+  .form-submit {
+    width: 100%;
+    padding: 1rem;
+    background: var(--green);
+    color: #fff;
+    border: none;
+    border-radius: 2px;
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    transition: background var(--transition), transform var(--transition);
+    font-weight: 500;
+    margin-top: 0.5rem;
+  }
+
+  .form-submit:hover {
+    background: var(--green-mid);
+    transform: translateY(-1px);
+  }
+
+  .form-note {
+    margin-top: 1rem;
+    font-size: 0.74rem;
+    color: var(--text-light);
+    line-height: 1.8;
+  }
+
+  /* Success message */
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 3rem 2rem;
+    background: var(--green-light);
+    border-radius: 4px;
+  }
+  .form-success h3 {
+    font-size: 1.3rem;
+    color: var(--green);
+    margin-bottom: 0.8rem;
+  }
+  .form-success p {
+    font-size: 0.88rem;
+    color: var(--green-mid);
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--text);
+    color: rgba(255,255,255,0.55);
+    padding: 4rem 0 2.5rem;
+  }
+
+  .footer-inner {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 3rem;
+  }
+
+  .footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .footer-brand {
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    font-weight: 300;
+    color: #fff;
+    letter-spacing: 0.12em;
+    margin-bottom: 0.8rem;
+    display: block;
+  }
+  .footer-brand span { color: var(--green); }
+
+  .footer-tagline {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.08em;
+    font-weight: 300;
+  }
+
+  .footer-links {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+  }
+
+  .footer-col h4 {
+    font-family: var(--sans);
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    font-weight: 500;
+    margin-bottom: 1.2rem;
+  }
+
+  .footer-col a {
+    display: block;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    margin-bottom: 0.7rem;
+    transition: color var(--transition);
+  }
+  .footer-col a:hover { color: rgba(255,255,255,0.9); }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.74rem;
+    color: rgba(255,255,255,0.25);
+  }
+
+  .footer-bottom a {
+    color: rgba(255,255,255,0.3);
+    text-decoration: none;
+    font-size: 0.74rem;
+    transition: color var(--transition);
+  }
+  .footer-bottom a:hover { color: rgba(255,255,255,0.6); }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* ─── DIVIDER ─── */
+  .section-divider {
+    width: 48px;
+    height: 1px;
+    background: var(--green);
+    margin-bottom: 2rem;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 960px) {
+    header { padding: 0 1.5rem; }
+    nav { display: none; }
+    .hamburger { display: flex; }
+
+    .hero-inner {
+      grid-template-columns: 1fr;
+      padding: 0 1.5rem;
+      min-height: unset;
+      padding-top: 100px;
+      padding-bottom: 4rem;
+      gap: 3rem;
+    }
+
+    .hero-visual {
+      height: 340px;
+    }
+
+    .hero-grid-line { display: none; }
+
+    section { padding: 5rem 0; }
+
+    .container { padding: 0 1.5rem; }
+
+    .about-grid,
+    .app-grid,
+    .team-grid,
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    .about-visual { height: 280px; }
+    .team-visual { height: 240px; }
+
+    .vision-pillars {
+      grid-template-columns: 1fr;
+      gap: 1px;
+    }
+
+    .services-header {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .services-cards {
+      grid-template-columns: 1fr;
+    }
+
+    .footer-top {
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+
+    .footer-links {
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .footer-bottom {
+      flex-direction: column;
+      gap: 1rem;
+      text-align: center;
+    }
+
+    .phone-frame {
+      width: 220px;
+      height: 440px;
+    }
+
+    .phone-float { display: none; }
+  }
+
+  @media (max-width: 480px) {
+    .hero-ctas { flex-direction: column; }
+    .btn-primary, .btn-secondary { text-align: center; }
+    .footer-links { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── HEADER ─── -->
+<header id="main-header">
+  <a href="#" class="logo">Bar<span>Know</span></a>
+
+  <nav>
+    <a href="#vision">Vision</a>
+    <a href="#services">Services</a>
+    <a href="#app">App</a>
+    <a href="#team">About</a>
+    <a href="#contact">Contact</a>
+    <a href="#contact" class="header-cta">先行登録</a>
+  </nav>
+
+  <button class="hamburger" id="hamburger" aria-label="メニュー">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</header>
+
+<div class="mobile-nav" id="mobile-nav">
+  <a href="#vision" onclick="closeMobileNav()">Vision</a>
+  <a href="#services" onclick="closeMobileNav()">Services</a>
+  <a href="#app" onclick="closeMobileNav()">App</a>
+  <a href="#team" onclick="closeMobileNav()">About</a>
+  <a href="#contact" onclick="closeMobileNav()">Contact</a>
+  <a href="#contact" onclick="closeMobileNav()" style="color:var(--green);font-weight:500;">先行登録する →</a>
+</div>
+
+
+<!-- ─── HERO ─── -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-line"></div>
+
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-tag">Dog Care & Wellbeing</div>
+
+      <h1 class="hero-headline serif">
+        ケアの時間を、<br>
+        <em>愛犬との信頼へ。</em>
+      </h1>
+
+      <p class="hero-sub">
+        BarKnowは、愛犬との暮らしを心地よく整えるブランドです。<br>
+        ケア用品から、記録・継続を支えるアプリまで。<br>
+        「分かっているけど続かない」を、「少しずつ続けられる」に。
+      </p>
+
+      <div class="hero-ctas">
+        <a href="#contact" class="btn-primary">アプリの先行案内を受け取る</a>
+        <a href="#" class="btn-secondary">オンラインショップを見る</a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-img-main">
+        <img
+          src="https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=900&q=80"
+          alt="穏やかに佇む犬"
+          loading="eager"
+        >
+      </div>
+
+      <div class="hero-badge">
+        <strong>14日間継続</strong>
+        毎日のブラッシングを記録中
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─── WHAT IS BARKNOW ─── -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-visual reveal">
+        <div class="about-img">
+          <img
+            src="https://images.unsplash.com/photo-1534361960057-19f4434c2c88?auto=format&fit=crop&w=800&q=80"
+            alt="愛犬とのふれあいの時間"
+            loading="lazy"
+          >
+        </div>
+        <div class="about-img-accent"></div>
+      </div>
+
+      <div class="about-content">
+        <span class="section-label reveal">What is BarKnow</span>
+        <div class="section-divider reveal reveal-delay-1"></div>
+
+        <h2 class="about-heading reveal reveal-delay-1">
+          "いい用品"だけでは、<br>
+          毎日は変わりきらない。
+        </h2>
+
+        <div class="about-quote reveal reveal-delay-2">
+          <p>「やったほうがいいと分かってはいる。<br>でも、なかなか続かない。」</p>
+        </div>
+
+        <p class="about-body reveal reveal-delay-2">
+          愛犬のために、もっとケアをしてあげたい。そう思いながらも、どのように続ければいいのか分からなかったり、気づけば後回しになっていたりする。
+        </p>
+
+        <p class="about-body reveal reveal-delay-3">
+          BarKnowは、そんな飼い主の気持ちに寄り添うブランドです。愛犬に合ったケア用品を届けるだけでなく、<strong>ケアの習慣そのものを無理なく育てる仕組み</strong>をつくることを目指しています。
+        </p>
+
+        <p class="about-body reveal reveal-delay-3">
+          ケアする時間は、ただのお手入れではありません。愛犬のコンディションに気づき、向き合い、信頼関係を深める、大切なひとときです。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─── VISION ─── -->
+<section id="vision">
+  <div class="container">
+    <div class="vision-header reveal">
+      <span class="vision-label">Vision</span>
+      <h2 class="vision-heading">
+        犬のウェルビーイングは、<br>
+        <em>飼い主の習慣から育つ。</em>
+      </h2>
+    </div>
+
+    <div class="vision-pillars">
+      <div class="vision-pillar reveal">
+        <span class="vision-num">01</span>
+        <h3>困ったときだけでなく、<br>日常からそばに</h3>
+        <p>病気になってから気づくのではなく、毎日のケアの中で変化に気づける飼い主を増やしたい。BarKnowは「日常の伴走者」として存在します。</p>
+      </div>
+
+      <div class="vision-pillar reveal reveal-delay-1">
+        <span class="vision-num">02</span>
+        <h3>知識を、行動へ。<br>行動を、習慣へ。</h3>
+        <p>「知っている」と「続けられる」の間には、大きな壁があります。私たちはその壁を、記録・可視化・フィードバックの仕組みで乗り越えられるよう設計します。</p>
+      </div>
+
+      <div class="vision-pillar reveal reveal-delay-2">
+        <span class="vision-num">03</span>
+        <h3>モノ・情報・テクノロジーを、<br>ひとつの体験として届ける</h3>
+        <p>ケア用品、読みもの、アプリ。これらを分断したサービスとしてではなく、一貫した体験として提供することで、愛犬とのより良い暮らしを支えます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─── SERVICES ─── -->
+<section id="services">
+  <div class="container">
+    <div class="services-header">
+      <div>
+        <span class="section-label reveal">What We Do</span>
+        <h2 class="services-heading reveal reveal-delay-1">
+          BarKnowが<br>提供する、三つの柱。
+        </h2>
+      </div>
+      <p class="services-desc reveal reveal-delay-2">
+        商品を届けるだけではなく、飼い主が「続けられる」ための体験を設計する。その思想のもと、BarKnowは三つの領域で価値を提供します。
+      </p>
+    </div>
+
+    <div class="services-cards">
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <h3>ケア用品</h3>
+        <span class="en">Care Products</span>
+        <p>愛犬の犬種、毛質、ライフステージに合ったケアアイテムをセレクト。使いやすさと品質にこだわり、毎日のケアをストレスなく続けられるものだけをお届けします。</p>
+      </div>
+
+      <div class="service-card reveal reveal-delay-1">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>伴走・サポート</h3>
+        <span class="en">Coaching &amp; Support</span>
+        <p>「知る」だけで終わらず、「続ける」ことまでをサポート。ケア方法の解説から、習慣づくりのコツ、飼い主同士がつながれるコミュニティまで、実践的な伴走を提供します。</p>
+      </div>
+
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        </div>
+        <h3>アプリ開発</h3>
+        <span class="en">App Platform</span>
+        <p>愛犬のケア記録、体調の変化、ケアの継続を可視化するアプリを開発中。「分かっているけど続かない」をテクノロジーで解決し、習慣化をやさしく支えます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─── APP TEASER ─── -->
+<section id="app">
+  <div class="container">
+    <div class="app-grid">
+      <div class="app-content">
+        <span class="section-label reveal">Coming Soon</span>
+        <div class="section-divider reveal reveal-delay-1"></div>
+
+        <h2 class="app-heading reveal reveal-delay-1">
+          「続けられた」が、<br>
+          <em>見える。</em>
+        </h2>
+
+        <p class="app-desc reveal reveal-delay-2">
+          毎日のケアを記録し、愛犬の状態の変化を振り返り、小さな継続を積み重ねる。そんな体験をスマートフォンひとつで実現するアプリを、現在開発しています。
+        </p>
+
+        <p class="app-desc reveal reveal-delay-2">
+          「また忘れてしまった」ではなく、「今日もできた」と思える仕組みをつくること。それがBarKnow Appの目指す姿です。
+        </p>
+
+        <div class="app-keywords reveal reveal-delay-2">
+          <span class="app-keyword">記録</span>
+          <span class="app-keyword">可視化</span>
+          <span class="app-keyword">継続</span>
+          <span class="app-keyword">気づき</span>
+          <span class="app-keyword">伴走</span>
+        </div>
+
+        <div class="app-status reveal reveal-delay-3">開発中 — 先行案内受付中</div>
+
+        <a href="#contact" class="btn-primary reveal reveal-delay-3">先行案内に登録する</a>
+      </div>
+
+      <div class="app-mockup reveal reveal-delay-1">
+        <div class="phone-frame">
+          <div class="phone-screen">
+            <div class="phone-statusbar"><span>BarKnow</span></div>
+            <div class="phone-content">
+              <p class="phone-greeting">おはようございます</p>
+              <p class="phone-name">コロの今日のケア</p>
+
+              <div class="phone-card">
+                <div class="phone-card-label">ブラッシング</div>
+                <div class="phone-card-title">14日間連続達成中 🎉</div>
+                <div class="phone-progress">
+                  <div class="phone-progress-bar" style="width:75%"></div>
+                </div>
+              </div>
+
+              <div class="phone-card">
+                <div class="phone-card-label">耳のケア</div>
+                <div class="phone-card-title">今週の目標：残り2回</div>
+                <div class="phone-progress">
+                  <div class="phone-progress-bar" style="width:40%"></div>
+                </div>
+              </div>
+
+              <div class="phone-streak">
+                <div class="streak-dot active">月</div>
+                <div class="streak-dot active">火</div>
+                <div class="streak-dot active">水</div>
+                <div class="streak-dot active">木</div>
+                <div class="streak-dot">金</div>
+                <div class="streak-dot">土</div>
+                <div class="streak-dot">日</div>
+              </div>
+
+              <div class="phone-note">
+                「左耳を少し気にしている様子。次回のケアで確認してみよう。」
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="phone-float">
+          <strong>+3日</strong>
+          継続記録が更新されました
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─── SHOP ─── -->
+<section id="shop">
+  <div class="container">
+    <div class="shop-inner">
+      <span class="section-label reveal" style="text-align:center;display:block;">Shop</span>
+      <h2 class="shop-heading serif reveal reveal-delay-1">
+        まずは、毎日のケアから。
+      </h2>
+      <p class="shop-sub reveal reveal-delay-2">
+        今すぐ取り入れられるケア用品は、オンラインショップでご覧いただけます。愛犬のペースに合った、ひとつひとつ丁寧にセレクトしたアイテムを揃えています。
+      </p>
+      <a href="#" class="btn-secondary reveal reveal-delay-3">オンラインショップへ →</a>
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- ─── TEAM / ABOUT ─── -->
+<section id="team">
+  <div class="container">
+    <div class="team-grid">
+      <div class="team-content">
+        <span class="section-label reveal">About</span>
+        <div class="section-divider reveal reveal-delay-1"></div>
+        <h2 class="reveal reveal-delay-1">
+          犬との暮らしを、<br>
+          本気で良くしたい。
+        </h2>
+
+        <p class="reveal reveal-delay-2">
+          BarKnowは、愛犬との暮らしの中で「もっとうまくケアしてあげたい」という思いを持つメンバーが集まり、立ち上げたブランドです。
+        </p>
+
+        <p class="reveal reveal-delay-2">
+          私たち自身が飼い主として感じてきた「続けることの難しさ」「何が正しいのか分からない不安」「でも犬と過ごす時間は最高」という実感から、このブランドは生まれました。
+        </p>
+
+        <p class="reveal reveal-delay-3">
+          副業・兼業のチームですが、一つひとつのプロダクトと言葉に、誠実に向き合うことを大切にしています。
+        </p>
+
+        <div class="team-values reveal reveal-delay-3">
+          <div class="team-value">
+            <div class="team-value-icon"></div>
+            <p>愛犬のウェルビーイングを、飼い主の日常から支える</p>
+          </div>
+          <div class="team-value">
+            <div class="team-value-icon"></div>
+            <p>「続けられる仕組み」こそが、本当の価値だと信じる</p>
+          </div>
+          <div class="team-value">
+            <div class="team-value-icon"></div>
+            <p>誠実で、飾らず、愛犬への愛情を大切にする</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-visual reveal reveal-delay-2">
+        <img
+          src="https://images.unsplash.com/photo-1601758174493-415044f9d5ab?auto=format&fit=crop&w=800&q=80"
+          alt="犬と人の暮らし"
+          loading="lazy"
+        >
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─── CONTACT / WAITLIST ─── -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-left">
+        <span class="section-label reveal">Contact &amp; Waitlist</span>
+        <div class="section-divider reveal reveal-delay-1"></div>
+        <h2 class="reveal reveal-delay-1">
+          BarKnowの<br>
+          これからを、<br>
+          いっしょに。
+        </h2>
+
+        <p class="reveal reveal-delay-2">
+          アプリの先行案内や、β版モニター募集のご連絡はメールにてお送りします。ご興味のある方は、ぜひご登録ください。
+        </p>
+
+        <div class="contact-info reveal reveal-delay-3">
+          <p>お問い合わせ<br>
+          <a href="/cdn-cgi/l/email-protection#3e565b5252517e5c5f4c5550514910544e"><span class="__cf_email__" data-cfemail="59313c353536193b382b3237362e773329">[email&#160;protected]</span></a></p>
+          <br>
+          <p>Instagram<br>
+          <a href="#">@barknow_jp</a></p>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-2">
+        <div id="contact-form">
+          <div class="form-group">
+            <label>お名前</label>
+            <input type="text" placeholder="山田 花子">
+          </div>
+
+          <div class="form-group">
+            <label>メールアドレス</label>
+            <input type="email" placeholder="hello@example.com">
+          </div>
+
+          <div class="form-group">
+            <label>ご興味の内容</label>
+            <div class="form-select-wrap">
+              <select>
+                <option value="">選択してください</option>
+                <option value="app">アプリ先行案内を受け取りたい</option>
+                <option value="beta">β版・モニター募集に参加したい</option>
+                <option value="shop">オンラインショップについて</option>
+                <option value="other">その他のお問い合わせ</option>
+              </select>
+            </div>
+          </div>
+
+          <button class="form-submit" onclick="handleSubmit()">送信する</button>
+
+          <p class="form-note">
+            ご登録いただいたメールアドレスは、BarKnowからのご案内にのみ使用します。<br>
+            スパムメールは一切送りません。いつでも配信停止できます。
+          </p>
+        </div>
+
+        <div class="form-success" id="form-success">
+          <h3 class="serif">ご登録ありがとうございます。</h3>
+          <p>先行案内が準備できましたら、ご登録のメールアドレスへご連絡いたします。<br>BarKnowをこれからもどうぞよろしくお願いいたします。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <span class="footer-brand">Bar<span>Know</span></span>
+        <span class="footer-tagline">愛犬との暮らしを、整える。</span>
+      </div>
+
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <a href="#vision">Vision</a>
+          <a href="#services">Services</a>
+          <a href="#app">App</a>
+          <a href="#team">About</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Links</h4>
+          <a href="#">オンラインショップ</a>
+          <a href="#">Instagram</a>
+          <a href="#contact">Contact</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="#">Privacy Policy</a>
+          <a href="#">特定商取引法</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2025 BarKnow. All rights reserved.</span>
+      <a href="#">プライバシーポリシー</a>
+    </div>
+  </div>
+</footer>
+
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // ─── Header scroll effect
+  const header = document.getElementById('main-header');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 20) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  });
+
+  // ─── Mobile nav
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobile-nav');
+  let navOpen = false;
+
+  hamburger.addEventListener('click', () => {
+    navOpen = !navOpen;
+    mobileNav.classList.toggle('open', navOpen);
+  });
+
+  function closeMobileNav() {
+    navOpen = false;
+    mobileNav.classList.remove('open');
+  }
+
+  // ─── Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  reveals.forEach(el => observer.observe(el));
+
+  // ─── Form submit
+  function

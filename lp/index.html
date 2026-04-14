@@ -1,0 +1,2577 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BarKnow | 犬のコーチングサービス</title>
+  <meta name="description" content="犬診断×プロトレーナーマッチングで、愛犬の行動を科学的に改善。BarKnow — 正しく知ることから、すべては始まる。">
+
+  <!-- Google Fonts: Outfit (UI) + Cormorant Garamond (display) + Noto Sans JP (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,700&family=Outfit:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+  /* ============================================================
+     RESET & BASE
+  ============================================================ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+  body {
+    font-family: 'Noto Sans JP', 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #F8F6F2;
+    color: #1A2B1C;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+  img { max-width: 100%; height: auto; display: block; }
+  a { text-decoration: none; color: inherit; }
+  ul { list-style: none; }
+  button { border: none; cursor: pointer; background: none; font: inherit; }
+
+  /* ============================================================
+     DESIGN TOKENS
+  ============================================================ */
+  :root {
+    /* Green scale */
+    --g950: #071410;
+    --g900: #0C1E14;
+    --g800: #173B2A;
+    --g700: #1E5038;
+    --g600: #286645;
+    --g500: #338055;
+    --g400: #4EA870;
+    --g300: #82C9A0;
+    --g200: #B2DEC3;
+    --g100: #D6EEE0;
+    --g50:  #EDF7F2;
+
+    /* Warm neutral / stone */
+    --s900: #18130E;
+    --s700: #45392C;
+    --s600: #635345;
+    --s500: #857262;
+    --s400: #A89486;
+    --s300: #C5B8AE;
+    --s200: #DAD1C9;
+    --s100: #EAE4DE;
+    --s50:  #F8F6F2;
+
+    /* Accent amber */
+    --amber:   #D0762E;
+    --amber-d: #A85A1A;
+    --amber-l: #FFF0E0;
+
+    /* Misc */
+    --white: #FFFFFF;
+    --max-w: 1080px;
+    --px:    clamp(1.25rem, 5vw, 3rem);
+
+    /* Shadows */
+    --sh-xs: 0 1px 3px rgba(12,30,20,.06);
+    --sh-sm: 0 2px 10px rgba(12,30,20,.08);
+    --sh-md: 0 6px 24px rgba(12,30,20,.11);
+    --sh-lg: 0 16px 50px rgba(12,30,20,.14);
+    --sh-xl: 0 28px 72px rgba(12,30,20,.18);
+
+    /* Radius */
+    --r-xs:   6px;
+    --r-sm:   10px;
+    --r-md:   16px;
+    --r-lg:   24px;
+    --r-xl:   36px;
+    --r-full: 999px;
+  }
+
+  /* ============================================================
+     LAYOUT UTILS
+  ============================================================ */
+  .container {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 var(--px);
+  }
+  .section { padding: clamp(4.5rem, 9vw, 7.5rem) 0; }
+
+  /* ============================================================
+     SCROLL REVEAL
+  ============================================================ */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1);
+  }
+  .reveal.is-visible { opacity: 1; transform: none; }
+  .reveal.delay-1 { transition-delay: .1s; }
+  .reveal.delay-2 { transition-delay: .2s; }
+  .reveal.delay-3 { transition-delay: .32s; }
+  .reveal.delay-4 { transition-delay: .46s; }
+
+  /* ============================================================
+     BUTTONS
+  ============================================================ */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .45rem;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: .9rem;
+    letter-spacing: .01em;
+    padding: .8em 1.8em;
+    border-radius: var(--r-full);
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all .2s cubic-bezier(.22,1,.36,1);
+    text-decoration: none;
+  }
+  .btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+  .btn-primary {
+    background: var(--g800);
+    color: var(--white);
+    box-shadow: 0 4px 0 var(--g950), var(--sh-sm);
+  }
+  .btn-primary:hover { background: var(--g700); transform: translateY(3px); box-shadow: 0 1px 0 var(--g950); color: var(--white); }
+
+  .btn-amber {
+    background: var(--amber);
+    color: var(--white);
+    box-shadow: 0 4px 0 var(--amber-d), var(--sh-sm);
+  }
+  .btn-amber:hover { background: var(--amber-d); transform: translateY(3px); box-shadow: 0 1px 0 var(--amber-d); color: var(--white); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--g700);
+    border: 1.5px solid var(--g300);
+  }
+  .btn-ghost:hover { background: var(--g50); border-color: var(--g500); }
+
+  .btn-lg { font-size: 1rem; padding: .9em 2.2em; }
+  .btn-sm { font-size: .82rem; padding: .58em 1.3em; }
+
+  /* ============================================================
+     ICON CONTAINER
+  ============================================================ */
+  .icon-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: var(--r-sm);
+  }
+  .icon-box svg { flex-shrink: 0; }
+
+  .icon-box-sm  { width: 36px; height: 36px; }
+  .icon-box-sm  svg { width: 16px; height: 16px; stroke-width: 1.9; }
+  .icon-box-md  { width: 48px; height: 48px; }
+  .icon-box-md  svg { width: 22px; height: 22px; stroke-width: 1.65; }
+  .icon-box-lg  { width: 60px; height: 60px; }
+  .icon-box-lg  svg { width: 28px; height: 28px; stroke-width: 1.5; }
+
+  .icon-box-green  { background: var(--g50); }
+  .icon-box-green  svg { stroke: var(--g700); }
+  .icon-box-amber  { background: var(--amber-l); }
+  .icon-box-amber  svg { stroke: var(--amber); }
+  .icon-box-stone  { background: var(--s100); }
+  .icon-box-stone  svg { stroke: var(--s600); }
+  .icon-box-dark   { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); border-radius: 50%; }
+  .icon-box-dark   svg { stroke: var(--g300); }
+
+  /* ============================================================
+     EYEBROW & CHIPS
+  ============================================================ */
+  .eyebrow {
+    font-family: 'Outfit', sans-serif;
+    font-size: .7rem;
+    font-weight: 600;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--g500);
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: .3rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: .68rem;
+    font-weight: 600;
+    padding: .28em .82em;
+    border-radius: var(--r-full);
+    letter-spacing: .02em;
+  }
+  .chip svg { width: 10px; height: 10px; stroke-width: 2.8; }
+  .chip-green  { background: var(--g50);    color: var(--g700); }
+  .chip-green svg { stroke: var(--g500); }
+  .chip-amber  { background: var(--amber-l); color: var(--amber); }
+  .chip-stone  { background: var(--s100);   color: var(--s600); }
+
+  /* ============================================================
+     SECTION HEADER
+  ============================================================ */
+  .sec-header { text-align: center; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+  .sec-header .eyebrow { display: block; margin-bottom: .75rem; }
+  .sec-header h2 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(1.85rem, 3.8vw, 2.75rem);
+    font-weight: 700;
+    color: var(--g900);
+    line-height: 1.28;
+    letter-spacing: -.02em;
+  }
+  .sec-header .lead {
+    font-size: .92rem;
+    color: var(--s500);
+    margin-top: .85rem;
+    line-height: 1.8;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ============================================================
+     ▌HEADER / NAV
+  ============================================================ */
+  #site-header {
+    position: fixed;
+    top: 0; left: 0; width: 100%;
+    z-index: 900;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: .9rem var(--px);
+    background: rgba(248,246,242,.9);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid transparent;
+    transition: border-color .3s, background .3s, box-shadow .3s;
+  }
+  #site-header.scrolled {
+    border-color: var(--s200);
+    background: rgba(248,246,242,.97);
+    box-shadow: var(--sh-sm);
+  }
+
+  .site-logo {
+    display: flex;
+    align-items: center;
+    gap: .55rem;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--g900);
+    letter-spacing: -.03em;
+    flex-shrink: 0;
+    text-decoration: none;
+  }
+  .site-logo-mark {
+    width: 32px; height: 32px;
+    background: var(--g800);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .site-logo-mark svg { width: 17px; height: 17px; stroke: var(--white); stroke-width: 2; }
+
+  .site-nav {
+    display: flex;
+    gap: 1.6rem;
+    align-items: center;
+  }
+  .site-nav a {
+    font-family: 'Outfit', sans-serif;
+    font-size: .875rem;
+    font-weight: 500;
+    color: var(--s600);
+    transition: color .2s;
+  }
+  .site-nav a:hover { color: var(--g700); }
+
+  .header-actions { display: flex; gap: .7rem; align-items: center; }
+
+  /* ============================================================
+     ▌HERO
+  ============================================================ */
+  .hero {
+    padding-top: clamp(5.5rem, 11vw, 8.5rem);
+    padding-bottom: clamp(3rem, 5vw, 5rem);
+    background: var(--s50);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -15%; right: -8%;
+    width: 55vw; height: 55vw;
+    background: radial-gradient(ellipse, rgba(51,128,85,.11) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+  }
+
+  /* Hero Text */
+  .hero-kicker {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    margin-bottom: 1.4rem;
+  }
+  .hero-kicker svg { width: 13px; height: 13px; stroke: var(--g500); stroke-width: 2; flex-shrink: 0; }
+  .hero-kicker-text {
+    font-family: 'Outfit', sans-serif;
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--g600);
+  }
+  .hero-kicker-rule { flex: 1; height: 1px; background: linear-gradient(90deg, var(--g300), transparent); max-width: 72px; }
+
+  .hero-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.6rem, 5.2vw, 3.9rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -.03em;
+    color: var(--g900);
+    margin-bottom: 1.2rem;
+  }
+  .hero-headline em { font-style: italic; color: var(--g600); }
+
+  .hero-sub {
+    font-size: clamp(.88rem, 1.4vw, .96rem);
+    color: var(--s600);
+    line-height: 1.85;
+    margin-bottom: 2rem;
+    max-width: 460px;
+  }
+
+  .hero-ctas { display: flex; gap: .8rem; flex-wrap: wrap; margin-bottom: 2.4rem; }
+
+  .hero-stats {
+    display: flex;
+    gap: 2rem;
+    padding-top: 1.8rem;
+    border-top: 1px solid var(--s200);
+  }
+  .hero-stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--g800);
+    line-height: 1;
+    display: block;
+  }
+  .hero-stat-label {
+    font-family: 'Outfit', sans-serif;
+    font-size: .72rem;
+    color: var(--s500);
+    margin-top: .22rem;
+    display: block;
+  }
+
+  /* Hero Visual */
+  .hero-visual { position: relative; }
+  .hero-img-frame {
+    border-radius: 28px 28px 80px 28px;
+    overflow: hidden;
+    aspect-ratio: 4/5;
+    box-shadow: var(--sh-xl);
+    background: var(--g100);
+    position: relative;
+  }
+  .hero-img-frame img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform .6s ease;
+  }
+  .hero-img-frame:hover img { transform: scale(1.025); }
+
+  .hero-float-card {
+    position: absolute;
+    bottom: -1.4rem;
+    left: -1.7rem;
+    background: var(--white);
+    border-radius: var(--r-md);
+    padding: .95rem 1.1rem;
+    box-shadow: var(--sh-lg);
+    display: flex;
+    align-items: center;
+    gap: .85rem;
+    min-width: 188px;
+  }
+  .hero-float-card strong {
+    display: block;
+    font-size: .86rem;
+    font-weight: 700;
+    color: var(--g900);
+    font-family: 'Outfit', sans-serif;
+  }
+  .hero-float-card span { font-size: .72rem; color: var(--s500); }
+
+  /* ============================================================
+     ▌PROBLEM
+  ============================================================ */
+  .problem { background: var(--white); }
+
+  .problem-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: .9rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .problem-item {
+    display: flex;
+    align-items: flex-start;
+    gap: .8rem;
+    padding: 1.1rem 1.25rem;
+    border: 1px solid var(--s100);
+    border-radius: var(--r-md);
+    background: var(--s50);
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .problem-item:hover { border-color: var(--s300); box-shadow: var(--sh-sm); }
+  .problem-item-icon {
+    width: 34px; height: 34px;
+    background: var(--s100);
+    border-radius: var(--r-xs);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .problem-item-icon svg { width: 15px; height: 15px; stroke: var(--s600); stroke-width: 1.9; }
+  .problem-item-text { font-size: .875rem; color: var(--s600); line-height: 1.65; }
+
+  /* ============================================================
+     ▌BRIDGE
+  ============================================================ */
+  .bridge {
+    background: var(--g900);
+    padding: clamp(3rem, 5vw, 4.5rem) 0;
+    text-align: center;
+  }
+  .bridge-inner { max-width: 640px; margin: 0 auto; }
+  .bridge-icon {
+    width: 54px; height: 54px;
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.4rem;
+  }
+  .bridge-icon svg { width: 22px; height: 22px; stroke: var(--white); stroke-width: 1.5; }
+  .bridge h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.5rem, 3.2vw, 2.2rem);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.45;
+  }
+  .bridge-em { color: var(--g300); }
+
+  /* ============================================================
+     ▌WHY / INSIGHT
+  ============================================================ */
+  .why { background: var(--s50); }
+  .why-rows { display: flex; flex-direction: column; gap: clamp(4rem, 8vw, 6rem); }
+  .why-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(2.5rem, 5vw, 5rem);
+    align-items: center;
+  }
+  .why-row.reversed .why-visual { order: -1; }
+
+  .why-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.5rem;
+    font-weight: 700;
+    color: var(--g100);
+    line-height: 1;
+    margin-bottom: -.4rem;
+    display: block;
+  }
+  .why-label { display: block; margin-bottom: .6rem; }
+  .why h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.5rem, 2.8vw, 2rem);
+    font-weight: 700;
+    color: var(--g900);
+    line-height: 1.3;
+    margin-bottom: 1rem;
+  }
+  .why-text { font-size: .9rem; color: var(--s600); line-height: 1.9; }
+  .why-text strong { color: var(--g800); font-weight: 700; }
+
+  .why-img {
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    box-shadow: var(--sh-md);
+    background: var(--g100);
+  }
+  .why-img img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform .6s ease;
+  }
+  .why-img:hover img { transform: scale(1.03); }
+
+  /* ============================================================
+     ▌SERVICE INTRO
+  ============================================================ */
+  .service-intro {
+    background: var(--g800);
+    padding: clamp(4rem, 6vw, 5.5rem) 0;
+    text-align: center;
+  }
+  .service-intro-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -.04em;
+    display: block;
+    margin-bottom: .6rem;
+  }
+  .service-intro-copy {
+    font-size: clamp(.95rem, 1.8vw, 1.2rem);
+    font-weight: 300;
+    color: rgba(255,255,255,.72);
+    line-height: 1.75;
+    max-width: 580px;
+    margin: 0 auto;
+  }
+  .service-intro-copy strong {
+    color: var(--white);
+    font-weight: 600;
+    background: rgba(255,255,255,.13);
+    padding: .05em .3em;
+    border-radius: 4px;
+  }
+
+  /* ============================================================
+     ▌FEATURE SCROLL
+  ============================================================ */
+  .feature-scroll {
+    background: var(--s100);
+    padding: 2.5rem 0;
+    overflow: hidden;
+  }
+  .feature-track {
+    display: flex;
+    gap: 1.15rem;
+    padding: 0 var(--px);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .feature-track::-webkit-scrollbar { display: none; }
+  .feature-card {
+    flex-shrink: 0;
+    width: 232px;
+    background: var(--white);
+    border-radius: var(--r-md);
+    padding: 1.5rem 1.35rem;
+    scroll-snap-align: start;
+    box-shadow: var(--sh-xs);
+    border-top: 2.5px solid var(--g500);
+    transition: box-shadow .2s, transform .2s;
+  }
+  .feature-card:hover { box-shadow: var(--sh-sm); transform: translateY(-2px); }
+  .feature-card .icon-box { margin-bottom: .9rem; }
+  .feature-card h4 {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: .93rem;
+    color: var(--g900);
+    margin-bottom: .45rem;
+  }
+  .feature-card p { font-size: .79rem; color: var(--s600); line-height: 1.72; }
+
+  /* ============================================================
+     ▌STEPS
+  ============================================================ */
+  .steps { background: var(--white); }
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.4rem;
+    margin-bottom: 3rem;
+  }
+  .step-card {
+    border: 1px solid var(--s100);
+    border-radius: var(--r-lg);
+    padding: 2.2rem 1.8rem;
+    background: var(--s50);
+    position: relative;
+    overflow: hidden;
+    transition: border-color .25s, box-shadow .25s, transform .25s;
+  }
+  .step-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--g500), var(--g300));
+    opacity: 0;
+    transition: opacity .25s;
+  }
+  .step-card:hover { border-color: var(--g200); box-shadow: var(--sh-md); transform: translateY(-5px); }
+  .step-card:hover::before { opacity: 1; }
+
+  .step-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.2rem;
+    font-weight: 700;
+    color: var(--g100);
+    line-height: 1;
+    margin-bottom: .45rem;
+  }
+  .step-card .icon-box { margin-bottom: 1.05rem; }
+  .step-eyebrow {
+    font-family: 'Outfit', sans-serif;
+    font-size: .67rem;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--g500);
+    margin-bottom: .38rem;
+  }
+  .step-card h3 {
+    font-family: 'Outfit', sans-serif;
+    font-size: .97rem;
+    font-weight: 700;
+    color: var(--g900);
+    margin-bottom: .75rem;
+    line-height: 1.45;
+  }
+  .step-card p { font-size: .85rem; color: var(--s600); line-height: 1.8; }
+  .step-tags { display: flex; flex-wrap: wrap; gap: .32rem; margin-top: 1.1rem; }
+  .steps-cta { text-align: center; }
+  .steps-note { font-size: .88rem; color: var(--s500); margin-bottom: 1.2rem; line-height: 1.8; }
+
+  /* ============================================================
+     ▌APP SECTION
+  ============================================================ */
+  .app-section {
+    background: var(--g900);
+    padding: clamp(4rem, 7vw, 6.5rem) 0;
+  }
+  .app-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(3rem, 6vw, 6rem);
+    align-items: center;
+  }
+  .app-eyebrow { color: var(--g300); }
+  .app-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 3.3vw, 2.5rem);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.25;
+    margin: .9rem 0;
+  }
+  .app-title em { font-style: italic; color: var(--g300); }
+  .app-desc { font-size: .88rem; color: rgba(255,255,255,.62); line-height: 1.9; margin-bottom: 1.8rem; }
+
+  .app-features { display: flex; flex-direction: column; gap: 1rem; }
+  .app-feature { display: flex; align-items: flex-start; gap: .95rem; }
+  .app-feature-icon {
+    width: 38px; height: 38px;
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .app-feature-icon svg { width: 17px; height: 17px; stroke: var(--g300); stroke-width: 1.8; }
+  .app-feature-body {}
+  .app-feature-body strong { display: block; font-size: .87rem; font-weight: 700; color: var(--white); margin-bottom: .18rem; }
+  .app-feature-body span { font-size: .79rem; color: rgba(255,255,255,.58); line-height: 1.65; }
+
+  /* Phone mockup */
+  .app-phone-visual {
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+  .app-phone-visual::after {
+    content: '';
+    position: absolute;
+    inset: -25%;
+    background: radial-gradient(circle, rgba(51,128,85,.2) 0%, transparent 65%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .phone-mockup {
+    width: 215px;
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 30px 52px rgba(0,0,0,.55));
+  }
+
+  /* ============================================================
+     ▌DIAGNOSIS
+  ============================================================ */
+  .diagnosis { background: var(--s50); }
+  .diagnosis-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(3rem, 5vw, 5rem);
+    align-items: center;
+  }
+  .diagnosis-flow { display: flex; flex-direction: column; gap: .7rem; }
+  .diag-step {
+    display: flex;
+    align-items: flex-start;
+    gap: .9rem;
+    background: var(--white);
+    border: 1px solid var(--s100);
+    border-radius: var(--r-md);
+    padding: 1.05rem 1.25rem;
+    box-shadow: var(--sh-xs);
+    border-left: 3px solid var(--g300);
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .diag-step:hover { border-left-color: var(--g500); box-shadow: var(--sh-sm); }
+  .diag-step.result { border-left-color: var(--amber); }
+  .diag-step-num {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--g300);
+    flex-shrink: 0;
+    width: 1.4rem;
+    line-height: 1.5;
+  }
+  .diag-step.result .diag-step-num { color: var(--amber); }
+  .diag-step.result .diag-step-num svg { width: 17px; height: 17px; stroke: var(--amber); stroke-width: 2.5; }
+  .diag-step-title { font-size: .87rem; font-weight: 700; color: var(--g900); }
+  .diag-step-desc { font-size: .76rem; color: var(--s500); margin-top: .14rem; }
+  .diag-arrow { display: flex; justify-content: center; padding: .08rem 0; }
+  .diag-arrow svg { width: 18px; height: 18px; stroke: var(--g300); stroke-width: 1.7; }
+
+  .diagnosis-text {}
+  .diagnosis-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.5rem, 2.7vw, 1.9rem);
+    font-weight: 700;
+    color: var(--g900);
+    line-height: 1.35;
+    margin-bottom: 1rem;
+  }
+  .diagnosis-heading em { font-style: italic; color: var(--g700); }
+  .diagnosis-body { font-size: .88rem; color: var(--s600); line-height: 1.9; margin-bottom: 1.4rem; }
+  .diagnosis-points { display: flex; flex-direction: column; gap: .62rem; }
+  .diag-point {
+    display: flex;
+    align-items: flex-start;
+    gap: .72rem;
+    font-size: .86rem;
+    color: var(--s600);
+  }
+  .diag-point-icon {
+    width: 20px; height: 20px;
+    background: var(--g50);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: .1em;
+  }
+  .diag-point-icon svg { width: 10px; height: 10px; stroke: var(--g700); stroke-width: 2.8; }
+
+  /* ============================================================
+     ▌TRAINERS
+  ============================================================ */
+  .trainers { background: var(--white); }
+  .trainers-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.4rem;
+    margin-bottom: 3rem;
+  }
+  .trainer-card {
+    border: 1px solid var(--s100);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    background: var(--s50);
+    transition: box-shadow .25s, transform .25s;
+  }
+  .trainer-card:hover { box-shadow: var(--sh-md); transform: translateY(-4px); }
+  .trainer-card-img { aspect-ratio: 1; overflow: hidden; background: var(--g100); }
+  .trainer-card-img img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform .5s ease;
+  }
+  .trainer-card:hover .trainer-card-img img { transform: scale(1.05); }
+  .trainer-card-body { padding: 1.35rem; }
+  .trainer-role {
+    font-family: 'Outfit', sans-serif;
+    font-size: .68rem;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--g500);
+    margin-bottom: .35rem;
+  }
+  .trainer-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--g900);
+    margin-bottom: .55rem;
+  }
+  .trainer-bio { font-size: .79rem; color: var(--s600); line-height: 1.75; margin-bottom: .8rem; }
+  .trainer-tags { display: flex; flex-wrap: wrap; gap: .3rem; }
+
+  .trainers-cta { text-align: center; }
+  .trainers-note { font-size: .88rem; color: var(--s500); margin-bottom: 1.2rem; line-height: 1.8; }
+
+  /* ============================================================
+     ▌VOICE
+  ============================================================ */
+  .voice { background: var(--s50); }
+  .voice-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.4rem;
+  }
+  .voice-card {
+    background: var(--white);
+    border: 1px solid var(--s100);
+    border-radius: var(--r-lg);
+    padding: 1.7rem;
+    position: relative;
+    transition: box-shadow .25s;
+  }
+  .voice-card:hover { box-shadow: var(--sh-md); }
+  .voice-quote-icon {
+    position: absolute;
+    top: 1.1rem; right: 1.3rem;
+  }
+  .voice-quote-icon svg { width: 28px; height: 28px; stroke: var(--s200); fill: var(--s200); }
+  .voice-text {
+    font-size: .875rem;
+    font-weight: 500;
+    color: var(--g900);
+    line-height: 1.8;
+    margin-bottom: 1.2rem;
+    padding-top: 1.5rem;
+  }
+  .voice-meta { display: flex; align-items: center; gap: .75rem; }
+  .voice-avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--g50);
+    flex-shrink: 0;
+    border: 2px solid var(--s100);
+  }
+  .voice-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .voice-name { font-family: 'Outfit', sans-serif; font-size: .8rem; font-weight: 700; color: var(--s600); }
+  .voice-dog {
+    font-size: .71rem;
+    color: var(--g500);
+    display: flex;
+    align-items: center;
+    gap: .28rem;
+    margin-top: .12rem;
+  }
+  .voice-dog svg { width: 10px; height: 10px; stroke: var(--g400); stroke-width: 2.2; }
+
+  /* ============================================================
+     ▌PRICE
+  ============================================================ */
+  .price-section { background: var(--white); }
+  .price-box {
+    max-width: 720px;
+    margin: 0 auto;
+    border: 1px solid var(--s100);
+    border-radius: var(--r-xl);
+    padding: clamp(2rem, 4vw, 3.5rem);
+    background: var(--s50);
+    position: relative;
+    overflow: hidden;
+  }
+  .price-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--g700), var(--g300));
+  }
+  .price-plan-name {
+    font-family: 'Outfit', sans-serif;
+    font-size: .7rem;
+    font-weight: 600;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--g500);
+    margin-bottom: .9rem;
+  }
+  .price-amount { margin-bottom: .25rem; }
+  .price-amount sup { font-size: 1.1rem; color: var(--s600); vertical-align: super; font-weight: 600; }
+  .price-amount strong {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--g900);
+    letter-spacing: -.04em;
+    line-height: 1;
+  }
+  .price-amount span { font-size: .95rem; color: var(--s600); margin-left: .15rem; }
+  .price-tax { font-size: .75rem; color: var(--s500); margin-bottom: 1.7rem; }
+  .price-divider { border: none; border-top: 1px solid var(--s200); margin: 1.4rem 0; }
+  .price-features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: .65rem;
+    margin: 1.4rem 0;
+  }
+  .price-feature {
+    display: flex;
+    align-items: flex-start;
+    gap: .55rem;
+    font-size: .86rem;
+    color: var(--s600);
+  }
+  .price-feature svg { width: 15px; height: 15px; stroke: var(--g500); stroke-width: 2.5; flex-shrink: 0; margin-top: .14em; }
+  .price-campaign {
+    background: var(--white);
+    border: 1.5px dashed var(--amber);
+    border-radius: var(--r-md);
+    padding: .95rem 1.25rem;
+    font-size: .84rem;
+    color: var(--s600);
+    line-height: 1.7;
+    margin-bottom: 1.7rem;
+  }
+  .price-campaign strong { color: var(--amber); }
+  .price-note { font-size: .73rem; color: var(--s400); margin-top: .9rem; line-height: 1.7; }
+
+  /* ============================================================
+     ▌SCHEDULE
+  ============================================================ */
+  .schedule { background: var(--s50); }
+  .schedule-list {
+    max-width: 640px;
+    margin: 0 auto 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: .9rem;
+  }
+  .schedule-item {
+    background: var(--white);
+    border: 1px solid var(--s100);
+    border-radius: var(--r-md);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.3rem;
+    box-shadow: var(--sh-xs);
+    transition: box-shadow .2s;
+  }
+  .schedule-item:hover { box-shadow: var(--sh-sm); }
+  .schedule-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--s200);
+    flex-shrink: 0;
+    width: 1.8rem;
+    line-height: 1;
+  }
+  .schedule-icon svg { width: 18px; height: 18px; stroke: var(--g500); stroke-width: 1.8; flex-shrink: 0; }
+  .schedule-date { font-family: 'Outfit', sans-serif; font-size: .93rem; font-weight: 700; color: var(--g900); }
+  .schedule-detail { font-size: .76rem; color: var(--s500); margin-top: .13rem; }
+  .schedule-badge {
+    margin-left: auto;
+    font-family: 'Outfit', sans-serif;
+    font-size: .68rem;
+    font-weight: 700;
+    padding: .28em .85em;
+    border-radius: var(--r-full);
+    flex-shrink: 0;
+  }
+  .schedule-badge.hot  { background: var(--amber-l); color: var(--amber); }
+  .schedule-badge.open { background: var(--g50);     color: var(--g700); }
+  .schedule-note { font-size: .78rem; color: var(--s500); max-width: 640px; margin: 0 auto 2rem; line-height: 1.8; }
+  .schedule-cta { text-align: center; }
+  .guarantee-label {
+    display: flex; align-items: center; justify-content: center; gap: .4rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: .77rem; font-weight: 600; color: var(--g700);
+    margin-bottom: .7rem;
+  }
+  .guarantee-label svg { width: 13px; height: 13px; stroke: var(--g500); stroke-width: 2.5; }
+
+  /* ============================================================
+     ▌FLOW
+  ============================================================ */
+  .flow { background: var(--white); }
+  .flow-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 820px;
+    margin: 0 auto 3rem;
+    position: relative;
+  }
+  .flow-grid::before {
+    content: '';
+    position: absolute;
+    top: 1.9rem;
+    left: 22%; width: 56%;
+    height: 1px;
+    background: linear-gradient(90deg, var(--g200), var(--g300));
+    z-index: 0;
+  }
+  .flow-step { text-align: center; position: relative; z-index: 1; }
+  .flow-step-num {
+    width: 3.1rem; height: 3.1rem;
+    background: var(--g800);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Outfit', sans-serif;
+    font-size: .95rem; font-weight: 700;
+    margin: 0 auto .9rem;
+    box-shadow: 0 4px 14px rgba(23,59,42,.28);
+  }
+  .flow-step-icon svg { width: 26px; height: 26px; stroke: var(--s300); stroke-width: 1.4; margin-bottom: .65rem; }
+  .flow-step-title { font-family: 'Outfit', sans-serif; font-size: .88rem; font-weight: 700; color: var(--g900); margin-bottom: .38rem; }
+  .flow-step-desc { font-size: .79rem; color: var(--s500); line-height: 1.7; }
+  .flow-cta { text-align: center; }
+
+  /* ============================================================
+     ▌ABOUT
+  ============================================================ */
+  .about { background: var(--s50); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(3rem, 5vw, 5rem);
+    align-items: center;
+  }
+  .about-img {
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    box-shadow: var(--sh-xl);
+    background: var(--g100);
+  }
+  .about-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+  .about-img:hover img { transform: scale(1.03); }
+  .about h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.5rem, 2.7vw, 2rem);
+    font-weight: 700;
+    color: var(--g900);
+    line-height: 1.35;
+    margin-bottom: 1.15rem;
+  }
+  .about h3 em { font-style: italic; color: var(--g700); }
+  .about-text { font-size: .9rem; color: var(--s600); line-height: 1.95; }
+  .about-text strong { color: var(--g800); font-weight: 700; }
+
+  /* ============================================================
+     ▌GUARANTEE
+  ============================================================ */
+  .guarantee {
+    background: var(--g900);
+    padding: clamp(4rem, 6vw, 5.5rem) 0;
+  }
+  .guarantee-grid {
+    display: grid;
+    grid-template-columns: 1fr 190px;
+    gap: 2.8rem;
+    align-items: center;
+    max-width: 820px;
+    margin: 0 auto;
+  }
+  .guarantee-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.35rem, 2.3vw, 1.75rem);
+    font-weight: 700;
+    color: var(--g100);
+    line-height: 1.4;
+    margin: 1rem 0;
+  }
+  .guarantee-text { font-size: .86rem; color: rgba(255,255,255,.70); line-height: 1.9; margin-bottom: .8rem; }
+  .guarantee-text strong { color: var(--white); }
+  .guarantee-badge {
+    width: 175px; height: 175px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.05);
+    border: 2px solid rgba(255,255,255,.14);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 1.4rem;
+  }
+  .guarantee-badge svg { width: 34px; height: 34px; stroke: var(--g300); stroke-width: 1.5; margin-bottom: .55rem; }
+  .guarantee-badge-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.2;
+  }
+  .guarantee-badge-sub { font-size: .67rem; color: rgba(255,255,255,.5); margin-top: .3rem; }
+  .guarantee-note { font-size: .7rem; color: rgba(255,255,255,.32); line-height: 1.7; margin-top: 2.5rem; max-width: 820px; margin-left: auto; margin-right: auto; }
+  .guarantee-cta { text-align: center; margin-top: 2.3rem; }
+
+  /* ============================================================
+     ▌FAQ
+  ============================================================ */
+  .faq { background: var(--s50); }
+  .faq-list { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: .8rem; }
+  .faq-item {
+    background: var(--white);
+    border: 1px solid var(--s100);
+    border-radius: var(--r-md);
+    overflow: hidden;
+    transition: border-color .2s;
+  }
+  .faq-item:hover { border-color: var(--s300); }
+  .faq-q {
+    display: flex;
+    align-items: flex-start;
+    gap: .9rem;
+    padding: 1.25rem 1.45rem;
+    font-weight: 700;
+    color: var(--g900);
+    font-size: .9rem;
+    line-height: 1.6;
+  }
+  .faq-q-icon {
+    width: 24px; height: 24px;
+    background: var(--g50);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .faq-q-icon svg { width: 11px; height: 11px; stroke: var(--g700); stroke-width: 2.8; }
+  .faq-a {
+    display: flex;
+    align-items: flex-start;
+    gap: .9rem;
+    padding: 0 1.45rem 1.25rem;
+    font-size: .875rem;
+    color: var(--s600);
+    line-height: 1.85;
+  }
+  .faq-a-icon {
+    width: 24px; height: 24px;
+    background: var(--s100);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .faq-a-icon svg { width: 11px; height: 11px; stroke: var(--s600); stroke-width: 2.8; }
+
+  /* ============================================================
+     ▌FINAL CTA
+  ============================================================ */
+  .final-cta {
+    background: linear-gradient(148deg, var(--g800) 0%, var(--g900) 100%);
+    padding: clamp(5rem, 9vw, 8rem) 0;
+    text-align: center;
+  }
+  .final-cta-icon {
+    width: 62px; height: 62px;
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: var(--r-lg);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.7rem;
+  }
+  .final-cta-icon svg { width: 28px; height: 28px; stroke: var(--g300); stroke-width: 1.5; }
+  .final-cta h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.25;
+    margin-bottom: 1.15rem;
+  }
+  .final-cta-text {
+    font-size: .94rem;
+    color: rgba(255,255,255,.68);
+    line-height: 1.9;
+    margin-bottom: 2.3rem;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .final-cta-text strong { color: var(--white); }
+  .final-cta-badges {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.1rem;
+    flex-wrap: wrap;
+    font-family: 'Outfit', sans-serif;
+    font-size: .77rem;
+    color: rgba(255,255,255,.42);
+    margin-top: 1.2rem;
+  }
+  .final-cta-badges span { display: flex; align-items: center; gap: .3rem; }
+  .final-cta-badges svg { width: 12px; height: 12px; stroke: var(--g300); stroke-width: 2.2; }
+
+  /* ============================================================
+     ▌FOOTER
+  ============================================================ */
+  .site-footer {
+    background: var(--g950);
+    padding: 2.4rem var(--px);
+  }
+  .footer-inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.4rem;
+  }
+  .footer-logo {
+    display: flex; align-items: center; gap: .52rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.05rem; font-weight: 700; color: var(--white);
+    text-decoration: none;
+  }
+  .footer-logo-mark {
+    width: 26px; height: 26px;
+    background: rgba(255,255,255,.08);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .footer-logo-mark svg { width: 14px; height: 14px; stroke: var(--g300); stroke-width: 2.2; }
+  .footer-nav { display: flex; gap: 1.4rem; flex-wrap: wrap; }
+  .footer-nav a { font-size: .79rem; color: rgba(255,255,255,.42); transition: color .2s; }
+  .footer-nav a:hover { color: rgba(255,255,255,.82); }
+  .footer-bottom {
+    width: 100%;
+    border-top: 1px solid rgba(255,255,255,.07);
+    padding-top: 1.1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: .7rem;
+  }
+  .footer-policies { display: flex; gap: 1.1rem; flex-wrap: wrap; }
+  .footer-policies a { font-size: .7rem; color: rgba(255,255,255,.28); transition: color .2s; }
+  .footer-policies a:hover { color: rgba(255,255,255,.65); }
+  .footer-copy { font-size: .7rem; color: rgba(255,255,255,.22); }
+
+  /* ============================================================
+     ▌FLOATING CTA
+  ============================================================ */
+  .floating-cta {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 800;
+    background: rgba(12,30,20,.94);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,.08);
+    color: var(--white);
+    padding: .7rem 1rem .7rem 1.2rem;
+    border-radius: var(--r-full);
+    box-shadow: 0 8px 32px rgba(0,0,0,.35);
+    display: none;
+    align-items: center;
+    gap: .9rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: .82rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .floating-cta.active { display: flex; }
+  .floating-cta-label { color: rgba(255,255,255,.65); }
+  .floating-cta-accent { color: var(--g300); font-weight: 700; }
+
+  /* ============================================================
+     RESPONSIVE
+  ============================================================ */
+  @media (max-width: 1024px) {
+    .hero-headline { font-size: 2.9rem; }
+    .steps-grid { grid-template-columns: repeat(2, 1fr); }
+    .trainers-grid { grid-template-columns: repeat(2, 1fr); }
+    .voice-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 768px) {
+    /* Header */
+    .site-nav { display: none; }
+    .header-actions .btn-ghost { display: none; }
+
+    /* Hero */
+    .hero-grid { grid-template-columns: 1fr; gap: 2.4rem; }
+    .hero-visual { order: -1; }
+    .hero-headline { font-size: 2.2rem; }
+    .hero-ctas { flex-direction: column; }
+    .hero-ctas .btn { width: 100%; justify-content: center; }
+    .hero-stats { gap: 1.4rem; }
+    .hero-float-card { left: auto; right: 0; bottom: -1.6rem; min-width: auto; }
+
+    /* Problem */
+    .problem-grid { grid-template-columns: 1fr; }
+
+    /* Why */
+    .why-row { grid-template-columns: 1fr; }
+    .why-row.reversed .why-visual { order: 0; }
+
+    /* Steps */
+    .steps-grid { grid-template-columns: 1fr; }
+
+    /* App */
+    .app-grid { grid-template-columns: 1fr; }
+    .app-phone-visual { order: -1; }
+    .phone-mockup { width: 175px; }
+
+    /* Diagnosis */
+    .diagnosis-grid { grid-template-columns: 1fr; }
+
+    /* Trainers */
+    .trainers-grid { grid-template-columns: 1fr; }
+
+    /* Voice */
+    .voice-grid { grid-template-columns: 1fr; }
+
+    /* Price */
+    .price-features { grid-template-columns: 1fr; }
+
+    /* Schedule */
+    .schedule-item { flex-wrap: wrap; gap: 1rem; }
+
+    /* Flow */
+    .flow-grid { grid-template-columns: 1fr; gap: 1.8rem; }
+    .flow-grid::before { display: none; }
+
+    /* About */
+    .about-grid { grid-template-columns: 1fr; }
+
+    /* Guarantee */
+    .guarantee-grid { grid-template-columns: 1fr; text-align: center; }
+    .guarantee-badge { margin: 0 auto; }
+
+    /* Final CTA */
+    .final-cta h2 { font-size: 1.9rem; }
+
+    /* Footer */
+    .footer-inner { flex-direction: column; align-items: flex-start; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; }
+
+    /* Floating */
+    .floating-cta { width: 92%; justify-content: center; }
+
+    /* Sec header */
+    .sec-header h2 { font-size: 1.7rem; }
+  }
+
+  @media (max-width: 480px) {
+    .hero-headline { font-size: 1.85rem; }
+    .hero-stats { flex-wrap: wrap; gap: 1.1rem; }
+  }
+  </style>
+</head>
+<body>
+
+<!-- ================================================
+     HEADER
+================================================ -->
+<header id="site-header">
+  <a href="#top" class="site-logo">
+    <div class="site-logo-mark">
+      <i data-lucide="paw-print"></i>
+    </div>
+    BarKnow
+  </a>
+
+  <nav class="site-nav">
+    <a href="#steps">サービス</a>
+    <a href="#app">アプリ</a>
+    <a href="#trainer">トレーナー</a>
+    <a href="#price">料金</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+
+  <div class="header-actions">
+    <a href="#steps" class="btn btn-ghost btn-sm">詳しく見る</a>
+    <a href="#final-cta" class="btn btn-amber btn-sm">
+      <i data-lucide="search"></i>
+      無料で診断する
+    </a>
+  </div>
+</header>
+
+
+<!-- ================================================
+     HERO
+================================================ -->
+<section class="hero section" id="top">
+  <div class="container">
+    <div class="hero-grid">
+
+      <!-- Text -->
+      <div class="reveal">
+        <div class="hero-kicker">
+          <i data-lucide="scan-search"></i>
+          <span class="hero-kicker-text">Dog Coaching Service</span>
+          <div class="hero-kicker-rule"></div>
+        </div>
+
+        <h1 class="hero-headline">
+          愛犬のことを、<br>
+          <em>正しく知る</em>から<br>
+          始まる。
+        </h1>
+
+        <p class="hero-sub">
+          吠え癖・噛み癖・引っ張り……問題行動の本当の理由を、データと専門家が解き明かす。
+          BarKnowは<strong>犬診断 × プロトレーナーのマッチング</strong>で、
+          あなたと愛犬に合った改善策を届けます。
+        </p>
+
+        <div class="hero-ctas">
+          <a href="#final-cta" class="btn btn-amber btn-lg">
+            <i data-lucide="search"></i>
+            今すぐ無料で診断する
+          </a>
+          <a href="#steps" class="btn btn-ghost btn-lg">サービスを見る</a>
+        </div>
+
+        <div class="hero-stats">
+          <div>
+            <span class="hero-stat-num">5,000+</span>
+            <span class="hero-stat-label">登録飼い主数</span>
+          </div>
+          <div>
+            <span class="hero-stat-num">4.9</span>
+            <span class="hero-stat-label">満足度（5点満点）</span>
+          </div>
+          <div>
+            <span class="hero-stat-num">92%</span>
+            <span class="hero-stat-label">行動改善達成率</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Visual -->
+      <div class="hero-visual reveal delay-2">
+        <div class="hero-img-frame">
+          <!--
+            [IMAGE PROMPT / 画像生成AIプロンプト]
+            "A joyful Japanese woman in her 30s sitting on lush green grass in a
+            sunlit park, smiling warmly at her calm Shiba Inu dog who looks up at her
+            with trusting eyes. Natural golden-hour lighting, shallow depth of field,
+            warm tones, vertical portrait orientation."
+          -->
+          <img
+            src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=800&q=80&fit=crop&crop=top"
+            alt="笑顔の飼い主と落ち着いた愛犬が公園で穏やかに見つめ合っている写真">
+        </div>
+
+        <div class="hero-float-card">
+          <div class="icon-box icon-box-md icon-box-green">
+            <i data-lucide="bar-chart-3"></i>
+          </div>
+          <div>
+            <strong>犬診断 完了</strong>
+            <span>最適プランを提案中…</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ================================================
+     PROBLEM
+================================================ -->
+<section class="problem section">
+  <div class="container">
+    <div class="sec-header reveal">
+      <span class="eyebrow">Problem</span>
+      <h2>こんなお悩み、<br>抱えていませんか？</h2>
+    </div>
+
+    <ul class="problem-grid reveal delay-1">
+      <li class="problem-item">
+        <div class="problem-item-icon"><i data-lucide="volume-2"></i></div>
+        <span class="problem-item-text">散歩中に吠えまくって、毎回ヘトヘトになる</span>
+      </li>
+      <li class="problem-item">
+        <div class="problem-item-icon"><i data-lucide="alert-triangle"></i></div>
+        <span class="problem-item-text">噛み癖があって、来客や子どもに近づけられない</span>
+      </li>
+      <li class="problem-item">
+        <div class="problem-item-icon"><i data-lucide="graduation-cap"></i></div>
+        <span class="problem-item-text">ドッグスクールに通ったのに家だと全く言うことを聞かない</span>
+      </li>
+      <li class="problem-item">
+        <div class="problem-item-icon"><i data-lucide="book-open"></i></div>
+        <span class="problem-item-text">しつけ本・動画を見てもうちの子には当てはまらない</span>
+      </li>
+      <li class="problem-item">
+        <div class="problem-item-icon"><i data-lucide="search-x"></i></div>
+        <span class="problem-item-text">トレーナーを探したいが誰を選べばいいか分からない</span>
+      </li>
+      <li class="problem-item">
+        <div class="problem-item-icon"><i data-lucide="move-right"></i></div>
+        <span class="problem-item-text">リードをグイグイ引っ張られて散歩が全く楽しくない</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+
+<!-- ================================================
+     BRIDGE
+================================================ -->
+<div class="bridge">
+  <div class="container">
+    <div class="bridge-inner reveal">
+      <div class="bridge-icon">
+        <i data-lucide="help-circle"></i>
+      </div>
+      <h2>
+        なぜ、同じしつけでも<br>
+        <span class="bridge-em">「うちの子だけ上手くいかない」</span>のか。
+      </h2>
+    </div>
+  </div>
+</div>
+
+
+<!-- ================================================
+     WHY
+================================================ -->
+<section class="why section">
+  <div class="container">
+    <div class="why-rows">
+
+      <!-- Insight 01 -->
+      <div class="why-row reveal">
+        <div>
+          <span class="why-number">01</span>
+          <span class="eyebrow why-label">Insight</span>
+          <h3>犬の問題行動に<br>「万能なしつけ法」は<br>存在しない</h3>
+          <p class="why-text">
+            同じ「吠え」でも、<strong>恐怖・興奮・縄張り意識・要求</strong>……原因はまったく異なります。<br><br>
+            YouTubeや本で紹介されるしつけが「うちの子には効かない」理由は、あなたが間違っているのではなく、<strong>犬の行動の背景を正確に把握できていないから</strong>です。
+          </p>
+        </div>
+        <div class="why-visual">
+          <div class="why-img">
+            <!--
+              [IMAGE PROMPT]
+              "Close-up of a golden retriever barking with expressive, wide eyes,
+              bokeh green park background, natural daylight, warm editorial pet photography."
+            -->
+            <img
+              src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=800&q=80&fit=crop"
+              alt="犬が吠えているシーン写真（問題行動のイメージ）">
+          </div>
+        </div>
+      </div>
+
+      <!-- Insight 02 -->
+      <div class="why-row reversed reveal">
+        <div>
+          <span class="why-number">02</span>
+          <span class="eyebrow why-label">Insight</span>
+          <h3>「飼い主とのやり取り」が<br>行動パターンを<br>作っている</h3>
+          <p class="why-text">
+            犬の行動は、飼い主との<strong>日常のコミュニケーションパターン</strong>によって強化されていきます。<br><br>
+            「なぜそうなるのか」を正しく知り、<strong>飼い主自身の関わり方に気づくこと</strong>が、問題行動を根本から変える鍵です。BarKnowはその「気づき」を科学的なアプローチで提供します。
+          </p>
+        </div>
+        <div class="why-visual">
+          <div class="why-img">
+            <!--
+              [IMAGE PROMPT]
+              "A man calmly giving a hand-signal command to his attentive Border Collie
+              in a park, sense of trust and connection, warm afternoon sun, natural wide-angle."
+            -->
+            <img
+              src="https://images.unsplash.com/photo-1601758124510-52d02ddb7cbd?w=800&q=80&fit=crop"
+              alt="飼い主が犬にコマンドを出しているシーン写真">
+          </div>
+        </div>
+      </div>
+
+      <!-- Insight 03 -->
+      <div class="why-row reveal">
+        <div>
+          <span class="why-number">03</span>
+          <span class="eyebrow why-label">Insight</span>
+          <h3>正しいトレーナーとの<br>出会いが、<br>すべてを変える</h3>
+          <p class="why-text">
+            トレーナーにも得意分野や流派があります。<strong>犬種・月齢・問題行動の種類・飼い主のライフスタイル</strong>に合ったトレーナーと出会えるかどうかで、結果は大きく変わります。<br><br>
+            BarKnowは<strong>犬診断の結果をもとに最適なトレーナーをマッチング</strong>します。
+          </p>
+        </div>
+        <div class="why-visual">
+          <div class="why-img">
+            <!--
+              [IMAGE PROMPT]
+              "Professional female dog trainer working one-on-one with a focused German Shepherd
+              in a green field, confident body language, treats in hand, warm natural light."
+            -->
+            <img
+              src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=800&q=80&fit=crop"
+              alt="プロトレーナーが犬と1対1でトレーニングしている写真">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ================================================
+     SERVICE INTRO
+================================================ -->
+<div class="service-intro">
+  <div class="container">
+    <span class="service-intro-logo reveal">BarKnow</span>
+    <p class="service-intro-copy reveal delay-1">
+      犬を<strong>正しく知り</strong>、最適なトレーナーと出会い、<br>
+      愛犬との関係を根本から変えるサービスです。
+    </p>
+  </div>
+</div>
+
+
+<!-- ================================================
+     FEATURE SCROLL
+================================================ -->
+<div class="feature-scroll">
+  <div class="feature-track">
+    <div class="feature-card">
+      <div class="icon-box icon-box-md icon-box-green"><i data-lucide="scan-search"></i></div>
+      <h4>犬診断</h4>
+      <p>犬種・月齢・問題行動を入力すると行動の背景を分析。あなたの犬に合ったプランを自動生成します。</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon-box icon-box-md icon-box-green"><i data-lucide="handshake"></i></div>
+      <h4>トレーナーマッチング</h4>
+      <p>診断結果をもとに、相性の良いプロトレーナーを提案。プロフィール・実績・口コミを比較して選べます。</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon-box icon-box-md icon-box-green"><i data-lucide="video"></i></div>
+      <h4>オンラインセッション</h4>
+      <p>自宅にいながらプロと1対1。愛犬の様子をリアルタイムで見せながらアドバイスを受けられます。</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon-box icon-box-md icon-box-green"><i data-lucide="bar-chart-3"></i></div>
+      <h4>行動記録・分析</h4>
+      <p>毎日の行動を記録すると改善の推移をグラフで確認。トレーナーと情報を共有して精度を高めます。</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon-box icon-box-md icon-box-green"><i data-lucide="play-circle"></i></div>
+      <h4>コンテンツライブラリ</h4>
+      <p>犬種別・月齢別・症状別の動画ライブラリを完備。セッションの合間も自分のペースで学べます。</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon-box icon-box-md icon-box-green"><i data-lucide="users"></i></div>
+      <h4>コミュニティ</h4>
+      <p>同じ悩みを持つ飼い主仲間とつながり、情報交換や励まし合いができる安心のコミュニティです。</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ================================================
+     STEPS
+================================================ -->
+<section class="steps section" id="steps">
+  <div class="container">
+    <div class="sec-header reveal">
+      <span class="eyebrow">How It Works</span>
+      <h2>BarKnowの<br>3つのステップ</h2>
+      <p class="lead">診断 → マッチング → コーチング。このシンプルな流れで結果を出します。</p>
+    </div>
+
+    <div class="steps-grid">
+      <div class="step-card reveal">
+        <div class="step-number">01</div>
+        <div class="icon-box icon-box-md icon-box-green"><i data-lucide="scan-search"></i></div>
+        <p class="step-eyebrow">Step 1</p>
+        <h3>犬診断<br>「まず、正しく知る」</h3>
+        <p>犬種・月齢・問題行動・生活環境・飼い主のライフスタイルを入力。AIと専門家の知見を組み合わせて、あなたの犬の行動の背景を分析します。</p>
+        <div class="step-tags">
+          <span class="chip chip-green"><i data-lucide="check"></i>行動分析</span>
+          <span class="chip chip-green"><i data-lucide="check"></i>犬種別</span>
+          <span class="chip chip-amber">無料</span>
+        </div>
+      </div>
+
+      <div class="step-card reveal delay-1">
+        <div class="step-number">02</div>
+        <div class="icon-box icon-box-md icon-box-green"><i data-lucide="handshake"></i></div>
+        <p class="step-eyebrow">Step 2</p>
+        <h3>マッチング<br>「最適なトレーナーと出会う」</h3>
+        <p>診断結果をもとに、相性の良いプロトレーナーを提案。得意分野・指導スタイル・口コミを比較して、自分に合ったトレーナーを選べます。</p>
+        <div class="step-tags">
+          <span class="chip chip-green"><i data-lucide="check"></i>プロ厳選</span>
+          <span class="chip chip-green"><i data-lucide="check"></i>口コミあり</span>
+        </div>
+      </div>
+
+      <div class="step-card reveal delay-2">
+        <div class="step-number">03</div>
+        <div class="icon-box icon-box-md icon-box-green"><i data-lucide="trending-up"></i></div>
+        <p class="step-eyebrow">Step 3</p>
+        <h3>コーチング<br>「継続して、変える」</h3>
+        <p>週1回のオンラインセッションとアプリの行動記録を組み合わせ、改善を継続。トレーナーが毎週進捗を確認し、プランを柔軟に調整します。</p>
+        <div class="step-tags">
+          <span class="chip chip-green"><i data-lucide="check"></i>週1セッション</span>
+          <span class="chip chip-green"><i data-lucide="check"></i>進捗管理</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="steps-cta reveal">
+      <p class="steps-note">まずは無料の犬診断から始めてみてください。3分で完了します。</p>
+      <a href="#final-cta" class="btn btn-amber btn-lg">
+        <i data-lucide="search"></i>
+        無料で犬診断を始める
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================================================
+     APP
+================================================ -->
+<section class="app-section" id="app">
+  <div class="container">
+    <div class="app-grid">
+
+      <div class="reveal">
+        <span class="eyebrow app-eyebrow">App — Bark</span>
+        <h2 class="app-title">
+          毎日の記録が、<br>
+          <em>改善への地図</em>になる
+        </h2>
+        <p class="app-desc">コーチングはセッションだけでは終わりません。日常の記録と振り返りが、問題行動の改善を加速させます。</p>
+
+        <div class="app-features">
+          <div class="app-feature">
+            <div class="app-feature-icon"><i data-lucide="calendar-check-2"></i></div>
+            <div class="app-feature-body">
+              <strong>毎日の行動ログ</strong>
+              <span>散歩・食事・吠えた回数・トレーニング結果を30秒で記録。グラフで改善の推移を可視化。</span>
+            </div>
+          </div>
+          <div class="app-feature">
+            <div class="app-feature-icon"><i data-lucide="video"></i></div>
+            <div class="app-feature-body">
+              <strong>動画レッスン（300本以上）</strong>
+              <span>犬種別・問題行動別の動画ライブラリ。隙間時間に自分のペースで学習できます。</span>
+            </div>
+          </div>
+          <div class="app-feature">
+            <div class="app-feature-icon"><i data-lucide="message-circle"></i></div>
+            <div class="app-feature-body">
+              <strong>トレーナーとのチャット</strong>
+              <span>セッション外でも気になることをすぐに相談。返信は原則24時間以内。</span>
+            </div>
+          </div>
+          <div class="app-feature">
+            <div class="app-feature-icon"><i data-lucide="award"></i></div>
+            <div class="app-feature-body">
+              <strong>達成バッジ・マイルストーン</strong>
+              <span>「初めて待てができた」などの小さな成功を記録し、モチベーションを維持。</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phone Mockup (SVG) -->
+      <div class="app-phone-visual reveal delay-2">
+        <svg class="phone-mockup" viewBox="0 0 220 440" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <clipPath id="screen-clip">
+              <rect x="10" y="10" width="200" height="420" rx="26"/>
+            </clipPath>
+          </defs>
+          <!-- Phone body -->
+          <rect width="220" height="440" rx="34" fill="#173B2A"/>
+          <rect x="7" y="7" width="206" height="426" rx="29" fill="#0C1E14"/>
+          <!-- Screen -->
+          <g clip-path="url(#screen-clip)">
+            <rect x="10" y="10" width="200" height="420" fill="#18281C"/>
+            <!-- Status bar -->
+            <text x="26" y="33" font-size="9" fill="rgba(255,255,255,.5)" font-family="system-ui,sans-serif">9:41</text>
+            <!-- App header -->
+            <rect x="10" y="44" width="200" height="52" fill="#1E5038"/>
+            <text x="26" y="66" font-size="11" fill="#FFF" font-weight="700" font-family="system-ui,sans-serif">BarKnow</text>
+            <text x="26" y="83" font-size="8.5" fill="rgba(255,255,255,.6)" font-family="system-ui,sans-serif">まるちゃんの今日の記録</text>
+            <!-- Score card -->
+            <rect x="18" y="108" width="184" height="82" rx="12" fill="#243C2D"/>
+            <text x="32" y="127" font-size="8.5" fill="rgba(255,255,255,.5)" font-weight="600" font-family="system-ui,sans-serif">今週の改善スコア</text>
+            <text x="32" y="158" font-size="30" fill="#82C9A0" font-weight="700" font-family="system-ui,sans-serif">87</text>
+            <text x="78" y="158" font-size="14" fill="rgba(255,255,255,.38)" font-family="system-ui,sans-serif"> /100</text>
+            <rect x="32" y="166" width="144" height="5" rx="2.5" fill="rgba(255,255,255,.1)"/>
+            <rect x="32" y="166" width="125" height="5" rx="2.5" fill="#338055"/>
+            <text x="178" y="174" font-size="8" fill="#82C9A0" font-family="system-ui,sans-serif">+12%</text>
+            <!-- Mini cards -->
+            <rect x="18" y="202" width="86" height="70" rx="12" fill="#243C2D"/>
+            <text x="30" y="222" font-size="8" fill="rgba(255,255,255,.5)" font-family="system-ui,sans-serif">今日の吠え</text>
+            <text x="30" y="250" font-size="24" fill="#FFF" font-weight="700" font-family="system-ui,sans-serif">3</text>
+            <text x="30" y="263" font-size="8" fill="#82C9A0" font-family="system-ui,sans-serif">回  昨日比−4</text>
+            <rect x="116" y="202" width="86" height="70" rx="12" fill="#243C2D"/>
+            <text x="128" y="222" font-size="8" fill="rgba(255,255,255,.5)" font-family="system-ui,sans-serif">散歩</text>
+            <text x="128" y="250" font-size="24" fill="#FFF" font-weight="700" font-family="system-ui,sans-serif">45</text>
+            <text x="128" y="263" font-size="8" fill="rgba(255,255,255,.5)" font-family="system-ui,sans-serif">分</text>
+            <!-- Chat preview -->
+            <rect x="18" y="284" width="184" height="58" rx="12" fill="#243C2D"/>
+            <circle cx="36" cy="308" r="12" fill="#338055"/>
+            <text x="36" y="312" text-anchor="middle" font-size="8" fill="#FFF" font-weight="700" font-family="system-ui,sans-serif">T</text>
+            <rect x="54" y="298" width="134" height="22" rx="8" fill="rgba(255,255,255,.07)"/>
+            <text x="62" y="313" font-size="8" fill="rgba(255,255,255,.75)" font-family="system-ui,sans-serif">今日はとても良かったです！</text>
+            <text x="30" y="334" font-size="7.5" fill="rgba(255,255,255,.35)" font-family="system-ui,sans-serif">山田トレーナー · 14:23</text>
+            <!-- Bottom nav -->
+            <rect x="10" y="392" width="200" height="40" fill="#0C1E14"/>
+            <line x1="10" y1="392" x2="210" y2="392" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+            <text x="48"  y="417" text-anchor="middle" font-size="8" fill="#338055" font-family="system-ui,sans-serif">ホーム</text>
+            <text x="110" y="417" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.32)" font-family="system-ui,sans-serif">記録</text>
+            <text x="172" y="417" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.32)" font-family="system-ui,sans-serif">学ぶ</text>
+          </g>
+          <!-- Notch -->
+          <rect x="80" y="12" width="60" height="14" rx="7" fill="#0C1E14"/>
+          <!-- Side buttons -->
+          <rect x="-1" y="108" width="3" height="28" rx="1.5" fill="#243C2D"/>
+          <rect x="218" y="118" width="3" height="48" rx="1.5" fill="#243C2D"/>
+        </svg>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ================================================
+     DIAGNOSIS
+================================================ -->
+<section class="diagnosis section" id="diagnosis">
+  <div class="container">
+    <div class="sec-header reveal">
+      <span class="eyebrow">Dog Diagnosis</span>
+      <h2>犬診断の流れ</h2>
+      <p class="lead">3分で完了。あなたの犬の行動パターンと最適な改善アプローチを特定します。</p>
+    </div>
+
+    <div class="diagnosis-grid">
+      <!-- Flow steps -->
+      <div class="diagnosis-flow reveal">
+        <div class="diag-step">
+          <span class="diag-step-num">1</span>
+          <div>
+            <p class="diag-step-title">基本情報を入力</p>
+            <p class="diag-step-desc">犬種・月齢・性別・体重・飼育環境を選択</p>
+          </div>
+        </div>
+        <div class="diag-arrow"><i data-lucide="chevron-down"></i></div>
+
+        <div class="diag-step">
+          <span class="diag-step-num">2</span>
+          <div>
+            <p class="diag-step-title">問題行動を選択</p>
+            <p class="diag-step-desc">吠え・噛み・引っ張り・トイレなど複数選択可</p>
+          </div>
+        </div>
+        <div class="diag-arrow"><i data-lucide="chevron-down"></i></div>
+
+        <div class="diag-step">
+          <span class="diag-step-num">3</span>
+          <div>
+            <p class="diag-step-title">飼い主情報を入力</p>
+            <p class="diag-step-desc">飼育歴・生活スタイル・訓練経験を選択</p>
+          </div>
+        </div>
+        <div class="diag-arrow"><i data-lucide="chevron-down"></i></div>
+
+        <div class="diag-step result">
+          <span class="diag-step-num"><i data-lucide="check"></i></span>
+          <div>
+            <p class="diag-step-title">診断レポート + トレーナー提案</p>
+            <p class="diag-step-desc">行動分析 × 最適なトレーナー3名を提示</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Text -->
+      <div class="reveal delay-1">
+        <h3 class="diagnosis-heading">
+          「なんとなく合わない」ではなく、<br>
+          <em>データで最適を選ぶ。</em>
+        </h3>
+        <p class="diagnosis-body">
+          BarKnowの犬診断は、単なるアンケートではありません。犬種ごとの行動傾向・月齢による発達段階・飼い主との関係性パターンを総合的に分析し、<strong>あなたの犬に本当に合ったアプローチ</strong>を特定します。
+        </p>
+        <div class="diagnosis-points">
+          <div class="diag-point">
+            <div class="diag-point-icon"><i data-lucide="check"></i></div>
+            犬種・月齢・問題行動を組み合わせた多変量分析
+          </div>
+          <div class="diag-point">
+            <div class="diag-point-icon"><i data-lucide="check"></i></div>
+            飼い主のライフスタイルを考慮したプラン設計
+          </div>
+          <div class="diag-point">
+            <div class="diag-point-icon"><i data-lucide="check"></i></div>
+            トレーナーの得意分野との精密マッチング
+          </div>
+          <div class="diag-point">
+            <div class="diag-point-icon"><i data-lucide="check"></i></div>
+            診断結果は無料・登録不要でも閲覧可能
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================================================
+     TRAINERS
+================================================ -->
+<section class="trainers section" id="trainer">
+  <div class="container">
+    <div class="sec-header reveal">
+      <span class="eyebrow">Trainers</span>
+      <h2>厳選されたプロトレーナー</h2>
+      <p class="lead">BarKnowに登録するトレーナーは、審査・研修・実績確認をクリアした認定トレーナーのみ。</p>
+    </div>
+
+    <div class="trainers-grid">
+
+      <div class="trainer-card reveal">
+        <div class="trainer-card-img">
+          <!--
+            [IMAGE PROMPT]
+            "Professional portrait of a Japanese woman dog trainer in her 40s,
+            warm smile, with a Shiba Inu dog beside her in a bright outdoor setting,
+            natural soft light, approachable and expert appearance."
+          -->
+          <img
+            src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&q=80&fit=crop&crop=face"
+            alt="トレーナー 山田 花子のプロフィール写真">
+        </div>
+        <div class="trainer-card-body">
+          <p class="trainer-role">認定ドッグトレーナー</p>
+          <h3 class="trainer-name">山田 花子</h3>
+          <p class="trainer-bio">動物行動学専攻後、英国認定コースを修了。10年・3,000組以上の指導実績。問題行動の根本原因に踏み込むアプローチが高評価。</p>
+          <div class="trainer-tags">
+            <span class="chip chip-green">吠え癖</span>
+            <span class="chip chip-green">噛み癖</span>
+            <span class="chip chip-stone">大型犬</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="trainer-card reveal delay-1">
+        <div class="trainer-card-img">
+          <!--
+            [IMAGE PROMPT]
+            "Professional portrait of a Japanese man dog trainer in his 30s,
+            confident warm expression, outdoors with a Labrador Retriever puppy,
+            natural candid light, approachable professional look."
+          -->
+          <img
+            src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&q=80&fit=crop&crop=face"
+            alt="トレーナー 鈴木 一郎のプロフィール写真">
+        </div>
+        <div class="trainer-card-body">
+          <p class="trainer-role">認定ドッグトレーナー</p>
+          <h3 class="trainer-name">鈴木 一郎</h3>
+          <p class="trainer-bio">子犬のしつけ専門家として12年のキャリア。パピークラス出身犬の問題行動発生率は業界平均の3分の1以下という実績を持つ。</p>
+          <div class="trainer-tags">
+            <span class="chip chip-green">子犬専門</span>
+            <span class="chip chip-green">トイレ</span>
+            <span class="chip chip-stone">引っ張り</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="trainer-card reveal delay-2">
+        <div class="trainer-card-img">
+          <!--
+            [IMAGE PROMPT]
+            "Professional portrait of a Japanese woman in her 50s,
+            gentle and wise expression, holding a small Dachshund in her arms,
+            warm soft indoor or garden lighting, clinic or garden background."
+          -->
+          <img
+            src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&q=80&fit=crop&crop=face"
+            alt="トレーナー 田中 美咲のプロフィール写真">
+        </div>
+        <div class="trainer-card-body">
+          <p class="trainer-role">認定ドッグトレーナー</p>
+          <h3 class="trainer-name">田中 美咲</h3>
+          <p class="trainer-bio">小型犬・老犬のリハビリトレーニングが専門。「怒らない・強制しない」ポジティブ強化法の第一人者として雑誌・テレビ出演多数。</p>
+          <div class="trainer-tags">
+            <span class="chip chip-green">小型犬</span>
+            <span class="chip chip-green">老犬</span>
+            <span class="chip chip-stone">ポジティブ強化</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="trainers-cta reveal">
+      <p class="trainers-note">BarKnowには現在<strong>50名以上</strong>のトレーナーが在籍。犬診断の結果をもとに、あなたに合ったトレーナーを提案します。</p>
+      <a href="#final-cta" class="btn btn-primary">
+        <i data-lucide="search"></i>
+        トレーナーを探す
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================================================
+     VOICE
+================================================ -->
+<section class="voice section" id="voice">
+  <div class="container">
+    <div class="sec-header reveal">
+      <span class="eyebrow">Voices</span>
+      <h2>参加者の皆様の声</h2>
+    </div>
+
+    <div class="voice-grid reveal delay-1">
+
+      <div class="voice-card">
+        <div class="voice-quote-icon"><i data-lucide="quote"></i></div>
+        <p class="voice-text">犬診断の結果を見て「なるほど」と思いました。うちの子が吠えていたのは恐怖からだったと初めて分かり、アプローチが180度変わりました。</p>
+        <div class="voice-meta">
+          <!-- [IMAGE PROMPT] "Friendly Japanese woman in her 40s, casual portrait, warm smile" -->
+          <div class="voice-avatar"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80&fit=crop&crop=face" alt="K.M さんのアイコン"></div>
+          <div>
+            <p class="voice-name">K.M さん（40代・女性）</p>
+            <p class="voice-dog"><i data-lucide="paw-print"></i> チワワ 3歳</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="voice-card">
+        <div class="voice-quote-icon"><i data-lucide="quote"></i></div>
+        <p class="voice-text">診断からトレーナー紹介まで本当にスムーズでした。マッチしたトレーナーさんが自分のペースに合わせてくれるので、3か月続けられています。</p>
+        <div class="voice-meta">
+          <!-- [IMAGE PROMPT] "Friendly Japanese man in his 30s, casual portrait, confident smile" -->
+          <div class="voice-avatar"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&q=80&fit=crop&crop=face" alt="T.H さんのアイコン"></div>
+          <div>
+            <p class="voice-name">T.H さん（30代・男性）</p>
+            <p class="voice-dog"><i data-lucide="paw-print"></i> ラブラドール 1歳</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="voice-card">
+        <div class="voice-quote-icon"><i data-lucide="quote"></i></div>
+        <p class="voice-text">アプリの記録機能が便利で、改善の推移がグラフで見えるのがモチベーションになっています。2ヶ月でリードの引っ張りが劇的に改善しました。</p>
+        <div class="voice-meta">
+          <!-- [IMAGE PROMPT] "Friendly Japanese woman in her 20s, casual outdoor portrait, bright smile" -->
+          <div class="voice-avatar"><img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=80&q=80&fit=crop&crop=face" alt="S.A さんのアイコン"></div>
+          <div>
+            <p class="voice-name">S.A さん（20代・女性）</p>
+            <p class="voice-dog"><i data-lucide="paw-print"></i> 柴犬 2歳</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="voice-card">
+        <div class="voice-quote-icon"><i data-lucide="quote"></i></div>
+        <p class="voice-text">噛み癖があって本当に困っていました。診断で「社会化不足からくる防衛行動」と分析され、1ヶ月指導してもらったら見違えるほど落ち着きました。</p>
+        <div class="voice-meta">
+          <div class="voice-avatar"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&q=80&fit=crop&crop=face" alt="N.Y さんのアイコン"></div>
+          <div>
+            <p class="voice-name">N.Y さん（30代・女性）</p>
+            <p class="voice-dog"><i data-lucide="paw-print"></i> ミニチュアシュナウザー 4歳</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="voice-card">
+        <div class="voice-quote-icon"><i data-lucide="quote"></i></div>
+        <p class="voice-text">以前は何人かトレーナーを試したけど合わなかった。BarKnowでマッチングしてもらったトレーナーさんは初回から「この子のことが分かる」感じがしました。</p>
+        <div class="voice-meta">
+          <div class="voice-avatar"><img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=80&q=80&fit=crop&crop=face" alt="O.R さんのアイコン"></div>
+          <div>
+            <p class="voice-name">O.R さん（50代・女性）</p>
+            <p class="voice-dog"><i data-lucide="paw-print"></i> ダックスフント 7歳</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="voice-card">
+        <div class="voice-quote-icon"><i data-lucide="quote"></i></div>
+        <p class="voice-text">チャット相談が24時間できるのが助かります。「今日こういうことがあったんですが…」と気軽に送れて、次のセッションを待たずにアドバイスをもらえます。</p>
+        <div class="voice-meta">
+          <div class="voice-avatar"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&q=80&fit=crop&crop=face" alt="I.K さんのアイコン"></div>
+          <div>
+            <p class="voice-name">I.K さん（40代・男性）</p>
+            <p class="voice-dog"><i data-lucide="paw-print"></i> ゴールデンレトリーバー 2歳</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ================================================
+     PRICE
+================================================ -->
+<section class="price-section section" id="price">
+  <div class="container">
+    <div class="sec-header reveal">
+      <span class="eyebrow">Pricing</span>
+      <h2>参加費用について</h2>
+    </div>
+
+    <div class="price-box reveal delay-1">
+      <p class="price-plan-name">Standard Plan</p>
+      <div class="price-amount">
+        月額 <sup>¥</sup><strong>9,800</strong>
+      </div>
+      <p class="price-tax">（税込 10,780円）</p>
+
+      <hr class="price-divider">
+
+      <div class="price-features">
+        <div class="price-feature"><i data-lucide="check-circle-2"></i>無料の犬診断（何度でも）</div>
+        <div class="price-feature"><i data-lucide="check-circle-2"></i>トレーナーマッチング</div>
+        <div class="price-feature"><i data-lucide="check-circle-2"></i>週1回のオンラインセッション</div>
+        <div class="price-feature"><i data-lucide="check-circle-2"></i>アプリ「Bark」フル機能</div>
+        <div class="price-feature"><i data-lucide="check-circle-2"></i>動画ライブラリ（300本以上）</div>
+        <div class="price-feature"><i data-lucide="check-circle-2"></i>トレーナーへの24hチャット</div>
+        <div class="price-feature"><i data-lucide="check-circle-2"></i>行動記録・グラフ分析</div>
+        <div class="price-feature"><i data-lucide="check-circle-2"></i>飼い主コミュニティ</div>
+      </div>
+
+      <hr class="price-divider">
+
+      <div class="price-campaign">
+        <strong>初月50%OFFキャンペーン実施中</strong><br>
+        初めてご利用の方限定で、1か月目を <strong>¥4,900（税込 5,390円）</strong> でご提供。<br>
+        ※先着100名様限定。枠が埋まり次第終了します。
+      </div>
+
+      <a href="#final-cta" class="btn btn-amber btn-lg" style="width:100%; justify-content:center;">
+        <i data-lucide="arrow-right"></i>
+        今すぐ申し込む（30日返金保証付き）
+      </a>
+      <p class="price-note">※いつでも解約可能。解約手続きはアプリ内から1分で完了します。</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================================================
+     SCHEDULE
+================================================ -->
+<section class="section" id="schedule" style="background: var(--s50);">
+  <div class="container">
+    <div class="sec-header reveal">
+      <span class="eyebrow">Schedule</span>
+      <h2>セッション 開催日程</h2>
+    </div>
+
+    <div class="schedule-list reveal delay-1">
+      <div class="schedule-item">
+        <span class="schedule-num">01</span>
+        <div class="schedule-icon"><i data-lucide="calendar"></i></div>
+        <div>
+          <p class="schedule-date">5月17日（土） 10:00〜 / 14:00〜</p>
+          <p class="schedule-detail">オンライン（Zoom） ／ トレーナー：山田 花子</p>
+        </div>
+        <span class="schedule-badge hot">残り3枠</span>
+      </div>
+      <div class="schedule-item">
+        <span class="schedule-num">02</span>
+        <div class="schedule-icon"><i data-lucide="calendar"></i></div>
+        <div>
+          <p class="schedule-date">5月24日（土） 10:00〜 / 14:00〜</p>
+          <p class="schedule-detail">オンライン（Zoom） ／ トレーナー：鈴木 一郎</p>
+        </div>
+        <span class="schedule-badge open">受付中</span>
+      </div>
+      <div class="schedule-item">
+        <span class="schedule-num">03</span>
+        <div class="schedule-icon"><i data-lucide="calendar"></i></div>
+        <div>
+          <p class="schedule-date">6月7日（土） 10:00〜 / 14:00〜</p>
+          <p class="schedule-detail">オンライン（Zoom） ／ トレーナー：田中 美咲</p>
+        </div>
+        <span class="schedule-badge open">受付中</span>
+      </div>
+    </div>
+
+    <p class="schedule-note reveal">
+      ※セッションは毎月定期開催。申し込み後、担当トレーナーから日程調整のご連絡が届きます。<br>
+      ※アプリ機能・動画コンテンツは申し込み当日からご利用いただけます。
+    </p>
+
+    <div class="schedule-cta reveal">
+      <p class="guarantee-label">
+        <i data-lucide="shield-check"></i>
+        30日間全額返金保証付き
+      </p>
+      <a href="#final-cta" class="btn btn-primary">
+        <i data-lucide="arrow-right"></i>
+        今すぐ申し込む
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================================================
+     FLOW
+================================================ -->
+<section class="flow section" id="flow">
+  <div class="container">
+    <div class="sec-header reveal">
+      <span class="eyebrow">How to Start</span>
+      <h2>お申し込みの流れ</h2>
+    </div>
+
+    <div class="flow-grid reveal delay-1">
+      <div class="flow-step">
+        <div class="flow-step-num">01</div>
+        <div class="flow-step-icon"><i data-lucide="smartphone"></i></div>
+        <h3 class="flow-step-title">アプリをダウンロード</h3>
+        <p class="flow-step-desc">App Store / Google Play から「Bark」を無料でダウンロード。</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step-num">02</div>
+        <div class="flow-step-icon"><i data-lucide="scan-search"></i></div>
+        <h3 class="flow-step-title">犬診断（3分）</h3>
+        <p class="flow-step-desc">犬種・問題行動・環境を入力。診断レポートとトレーナー候補が届きます。</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step-num">03</div>
+        <div class="flow-step-icon"><i data-lucide="paw-print"></i></div>
+        <h3 class="flow-step-title">コーチング開始</h3>
+        <p class="flow-step-desc">トレーナーを選んで申し込み。初回セッションの日程調整が届きます。</p>
+      </div>
+    </div>
+
+    <div class="flow-cta reveal">
+      <a href="#final-cta" class="btn btn-primary">
+        <i data-lucide="arrow-right"></i>
+        今すぐ始める
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================================================
+     ABOUT
+================================================ -->
+<section class="about section" id="about">
+  <div class="container">
+    <div class="sec-header reveal">
+      <span class="eyebrow">About</span>
+      <h2>BarKnowについて</h2>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-img reveal">
+        <!--
+          [IMAGE PROMPT]
+          "A diverse and joyful group of 4-5 dog trainers standing together with their dogs
+          in a bright park or modern studio. Warm afternoon light, professional yet
+          warm team photo, dogs of various breeds."
+        -->
+        <img
+          src="https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?w=800&q=80&fit=crop"
+          alt="BarKnowチームと犬たちの集合写真">
+      </div>
+
+      <div class="reveal delay-1">
+        <h3>
+          「なんとなく」ではなく、<br>
+          <em>「正しく知る」</em>が<br>
+          すべての出発点。
+        </h3>
+        <p class="about-text">
+          <strong>問題行動のある犬は、悪い犬ではありません。</strong><br>
+          ただ、まだ誰にも「正しく理解されていない」だけです。<br><br>
+          BarKnow（バークノウ）という名前は、
+          "Bark（吠える）" ＋ "Know（知る）"——
+          <strong>愛犬の行動を正しく知ることで、関係が変わる</strong>という想いから生まれました。<br><br>
+          犬診断・トレーナーマッチング・継続コーチング。この3つを一つのアプリにまとめることで、
+          <strong>飼い主とトレーナーが同じ情報を見ながら</strong>、同じ目標に向かって進める環境を作りました。<br><br>
+          あなたと愛犬の関係が変わる瞬間を、私たちはずっと待っています。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================================================
+     GUARANTEE
+================================================ -->
+<section class="guarantee section">
+  <div class="container">
+    <div class="sec-header reveal">
+      <span class="eyebrow" style="color: var(--g300);">Guarantee</span>
+      <h2 style="color: var(--white);">安心の全額返金保証</h2>
+    </div>
+
+    <div class="guarantee-grid reveal delay-1">
+      <div>
+        <span class="eyebrow" style="color: var(--g300); display: block; margin-bottom: .75rem;">Money Back Guarantee</span>
+        <h3 class="guarantee-title">30日間、安心して試してください</h3>
+        <p class="guarantee-text">
+          「本当に効果があるの？」と感じるのは当然のことです。だからこそ、
+          <strong>利用開始から30日以内に効果を実感できなかった場合、全額返金いたします。</strong>
+        </p>
+        <p class="guarantee-text">リスクゼロで試せます。あとは一歩踏み出すだけです。</p>
+      </div>
+
+      <div class="guarantee-badge">
+        <i data-lucide="shield-check"></i>
+        <div class="guarantee-badge-title">30日間<br>全額返金</div>
+        <div class="guarantee-badge-sub">Money Back Guarantee</div>
+      </div>
+    </div>
+
+    <p class="guarantee-note">
+      ＜返金条件＞ ①利用開始から30日以内に全額返金希望のご連絡をいただくこと ②アンケートにて満足度3未満であること ③満足いただけなかった理由をご記入いただけること ※当社が不適切と判断した場合は対象外となる場合がございます。
+    </p>
+
+    <div class="guarantee-cta reveal">
+      <a href="#final-cta" class="btn btn-amber btn-lg" style="min-width: 280px;">
+        <i data-lucide="arrow-right"></i>
+        30日返金保証付きで始める
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================================================
+     FAQ
+================================================ -->
+<section class="faq section" id="faq">
+  <div class="container">
+    <div class="sec-header reveal">
+      <span class="eyebrow">FAQ</span>
+      <h2>よくある質問</h2>
+    </div>
+
+    <div class="faq-list reveal delay-1">
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <div class="faq-q-icon"><i data-lucide="help-circle"></i></div>
+          <div>犬種や年齢に関係なく利用できますか？</div>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-icon"><i data-lucide="message-circle"></i></div>
+          <div>はい。子犬から老犬まで、小型犬から大型犬まで対応しています。犬診断で犬種・月齢を入力すると、それぞれに合ったプランとトレーナーを提案します。</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <div class="faq-q-icon"><i data-lucide="help-circle"></i></div>
+          <div>スマートフォンだけで利用できますか？</div>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-icon"><i data-lucide="message-circle"></i></div>
+          <div>はい。iOS・Android両対応のアプリ「Bark」でご利用いただけます。オンラインセッションはZoom（無料）を使用し、スマートフォンのみで参加可能です。</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <div class="faq-q-icon"><i data-lucide="help-circle"></i></div>
+          <div>申し込み後すぐに使えますか？</div>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-icon"><i data-lucide="message-circle"></i></div>
+          <div>はい。決済完了後すぐにアプリのすべての機能が利用可能になります。トレーナーとの初回セッションは、申し込み翌営業日以内に日程調整のご連絡が届きます。</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <div class="faq-q-icon"><i data-lucide="help-circle"></i></div>
+          <div>気に入らなかった場合、トレーナーを変更できますか？</div>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-icon"><i data-lucide="message-circle"></i></div>
+          <div>はい。トレーナーの変更はアプリ内から無制限に申請いただけます。相性の良いトレーナーと出会えるまで、サポートします。</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <div class="faq-q-icon"><i data-lucide="help-circle"></i></div>
+          <div>解約はいつでもできますか？</div>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-icon"><i data-lucide="message-circle"></i></div>
+          <div>はい。いつでも解約可能です。解約手続きはアプリ内から1分で完了。翌月以降の請求は発生しません。</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <div class="faq-q-icon"><i data-lucide="help-circle"></i></div>
+          <div>本当に効果はありますか？</div>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-icon"><i data-lucide="message-circle"></i></div>
+          <div>5,000名以上の飼い主さんにご利用いただいており、満足度は4.9/5（5点満点）、行動改善達成率は92%です。30日間の全額返金保証もあるので、まずお試しください。</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ================================================
+     FINAL CTA
+================================================ -->
+<section class="final-cta" id="final-cta">
+  <div class="container">
+    <div class="final-cta-icon reveal">
+      <i data-lucide="paw-print"></i>
+    </div>
+    <h2 class="reveal delay-1">
+      まず、愛犬のことを<br>
+      正しく知るところから始めよう。
+    </h2>
+    <p class="final-cta-text reveal delay-2">
+      <strong>「うちの子だけなぜ…」と悩んでいるあなたへ。</strong><br>
+      原因は必ずあります。BarKnowはその原因を特定し、最適なトレーナーと一緒に解決する道を開きます。<br><br>
+      <strong>犬診断は無料・3分で完了。</strong>まず診断を試してみてください。
+    </p>
+
+    <div class="reveal delay-3">
+      <a href="#" class="btn btn-amber btn-lg" style="min-width: 300px; justify-content: center;">
+        <i data-lucide="search"></i>
+        無料で犬診断を始める
+      </a>
+    </div>
+
+    <div class="final-cta-badges reveal delay-4">
+      <span><i data-lucide="check"></i> 先着100名様限定</span>
+      <span><i data-lucide="check"></i> 初月50%OFF</span>
+      <span><i data-lucide="shield-check"></i> 30日間全額返金保証</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================================================
+     FOOTER
+================================================ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <a href="#top" class="footer-logo">
+      <div class="footer-logo-mark"><i data-lucide="paw-print"></i></div>
+      BarKnow
+    </a>
+    <nav class="footer-nav">
+      <a href="#steps">サービス</a>
+      <a href="#app">アプリ</a>
+      <a href="#trainer">トレーナー</a>
+      <a href="#price">料金</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="footer-bottom">
+      <div class="footer-policies">
+        <a href="#">プライバシーポリシー</a>
+        <a href="#">特定商取引法に基づく表記</a>
+        <a href="#">利用規約</a>
+      </div>
+      <span class="footer-copy">© 2025 BarKnow All rights Reserved</span>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ================================================
+     FLOATING CTA
+================================================ -->
+<div class="floating-cta" id="floatingCta">
+  <span class="floating-cta-label">初月</span>
+  <span class="floating-cta-accent">50% OFF</span>
+  <a href="#final-cta" class="btn btn-amber btn-sm">
+    <i data-lucide="search"></i>
+    無料で診断する
+  </a>
+</div>
+
+
+<!-- ================================================
+     SCRIPTS — Lucide + interactions
+     (placed just before </body> as instructed)
+================================================ -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+  /* ── 1. Lucide icons init ── */
+  lucide.createIcons();
+
+  /* ── 2. Scroll reveal (IntersectionObserver) ── */
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -48px 0px' });
+  revealEls.forEach(el => revealObserver.observe(el));
+
+  /* ── 3. Header scroll state ── */
+  const siteHeader = document.getElementById('site-header');
+  const onScroll = () => {
+    siteHeader.classList.toggle('scrolled', window.scrollY > 60);
+    document.getElementById('floatingCta').classList.toggle('active', window.scrollY > 500);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+</script>
+
+</body>
+</html>

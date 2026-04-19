@@ -230,6 +230,59 @@
       .force-center p,
       .force-center .bar-accent { text-align: center; margin-left: auto; margin-right: auto; }
     }
+
+    /* Float CTA pulse animation */
+    @keyframes floatPulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50%       { transform: scale(1.35); opacity: 0.7; }
+    }
+    /* Float CTA entrance */
+    #floatCta.show-cta {
+      animation: floatSlideIn 0.4s cubic-bezier(0.16,1,0.3,1) both;
+    }
+    @keyframes floatSlideIn {
+      from { opacity: 0; transform: translateY(16px) scale(0.96); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    /* ── Hero Headline responsive ── */
+    .hero-headline {
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+      font-size: clamp(2.4rem, 6vw, 3.6rem);
+    }
+    .hero-line-1,
+    .hero-line-2,
+    .hero-line-3 { display: block; }
+
+    /* PC: tighten to 3 clean lines at controlled size */
+    @media (min-width: 1024px) {
+      .hero-headline { font-size: clamp(2.8rem, 3.8vw, 3.5rem); }
+    }
+    /* Large screens: cap font size so it doesn't blow out */
+    @media (min-width: 1280px) {
+      .hero-headline { font-size: 3.2rem; }
+    }
+    /* Tablet: medium size */
+    @media (min-width: 768px) and (max-width: 1023px) {
+      .hero-headline { font-size: 3rem; }
+    }
+    /* Mobile: big impact but not overflowing */
+    @media (max-width: 767px) {
+      .hero-headline { font-size: clamp(2.2rem, 8vw, 2.8rem); }
+      .hero-line-2 { display: inline; }
+    }
+
+    @keyframes gradientSpin {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    /* Mobile: float CTA slightly smaller */
+    @media (max-width: 480px) {
+      #floatCta { right: 10px !important; bottom: 12px !important; }
+      #floatCta > div > div:nth-child(2) { min-width: 0; }
+    }
   </style>
 </head>
 
@@ -274,10 +327,11 @@
     <!-- Text -->
     <div class="flex-1 reveal">
       <span class="eyebrow eyebrow-light mb-5">Dog Coaching Service</span>
-      <h1 class="headline-display text-white text-5xl md:text-6xl lg:text-7xl font-semibold mb-6 leading-tight">
-        愛犬との、<br>
-        <em class="not-italic text-brand-pale">正しい</em><br>
-        最初の一歩。
+      <h1 class="text-white font-black mb-6 hero-headline">
+        <!-- Mobile: 2 lines / PC: controlled 2-line with accent -->
+        <span class="hero-line-1">愛犬との、</span>
+        <span class="hero-line-2" style="color:#ddeee8;">正しい</span>
+        <span class="hero-line-3">最初の一歩。</span>
       </h1>
       <p class="text-white/65 text-sm font-light leading-relaxed mb-8 max-w-md">
         はじめて犬を迎えるあなたへ。<br>
@@ -1167,33 +1221,67 @@
 <!-- ================================================================
      ABOUT
 ================================================================ -->
-<section class="bg-brand py-24" id="about">
-  <div class="max-w-6xl mx-auto px-6">
-    <div class="grid md:grid-cols-2 gap-0 border border-brand-pale/15 overflow-hidden shadow-card">
-      <div class="img-zoom min-h-72 md:min-h-0">
-        <!-- [IMAGE PROMPT] "Group of smiling professional dog trainers with dogs in a bright green park, warm afternoon light, professional team photo" -->
-        <img src="https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?w=800&q=80&fit=crop" class="w-full h-full object-cover opacity-70 mix-blend-luminosity" alt="BarKnowチーム">
+<section id="about" style="background: #f0f8f4; padding: 96px 0; position: relative; z-index: 0;">
+  <div style="max-width: 1120px; margin: 0 auto; padding: 0 clamp(1.25rem,5vw,3.5rem);">
+
+    <!-- Section label -->
+    <div class="reveal" style="margin-bottom: 48px;">
+      <span class="eyebrow">About BarKnow</span>
+      <div style="width:40px; height:3px; background:#008661; border-radius:2px; margin-top:10px;"></div>
+    </div>
+
+    <!-- 2-column grid -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center;"
+         class="about-inner-grid">
+
+      <!-- LEFT: Image — clean, no blend modes -->
+      <div class="reveal img-zoom" style="border-radius:20px; overflow:hidden; box-shadow:0 12px 48px rgba(0,0,0,0.12); aspect-ratio:4/3; position:relative; z-index:1;">
+        <!--
+          [IMAGE PROMPT]
+          "Group of smiling professional dog trainers with dogs in a bright green park,
+          warm afternoon light, professional team photo, approachable and expert."
+        -->
+        <img src="https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?w=900&q=85&fit=crop"
+             alt="BarKnowチームと犬たちの写真"
+             style="width:100%; height:100%; object-fit:cover; display:block;">
       </div>
-      <div class="p-10 md:p-14 bg-brand-pale/5 border-l border-brand-pale/15 reveal">
-        <span class="eyebrow eyebrow-light mb-5">About BarKnow</span>
-        <h2 class="headline-display text-white text-3xl md:text-4xl font-semibold mb-6 leading-tight">
-          「正しく知ること」が、<br>
-          <em class="text-brand-pale">すべての出発点。</em>
+
+      <!-- RIGHT: Text — white card on pale-green bg for clear contrast -->
+      <div class="reveal delay-100" style="background:#fff; border-radius:20px; padding:48px; box-shadow:0 4px 24px rgba(0,134,97,0.08); position:relative; z-index:1; border-left:4px solid #008661;">
+
+        <span style="font-size:11px; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:#008661; display:block; margin-bottom:16px;">Our Mission</span>
+
+        <h2 style="font-size:clamp(1.6rem, 2.8vw, 2.2rem); font-weight:900; color:#008661; line-height:1.35; margin-bottom:20px; font-family:'Noto Sans JP',sans-serif;">
+          「正しく知ること」が、<br>すべての出発点。
         </h2>
-        <p class="text-white/62 text-sm font-light leading-loose mb-6">
-          <strong class="text-white font-medium">問題行動のある犬は、悪い犬ではありません。</strong><br>
+
+        <p style="font-size:14px; color:#374151; line-height:1.95; margin-bottom:28px; font-family:'Noto Sans JP',sans-serif;">
+          <strong style="color:#008661; font-weight:700;">問題行動のある犬は、悪い犬ではありません。</strong><br>
           ただ、まだ誰にも「正しく理解されていない」だけです。<br><br>
           BarKnow（バークナウ）——"Bark（吠える）" ＋ "Know（知る）"。<br>
-          <strong class="text-white font-medium">愛犬の行動を正しく知ることで、関係が変わる</strong>という想いから生まれました。<br><br>
-          犬診断・トレーナーマッチング・継続コーチング。この3つを組み合わせることで、<strong class="text-white font-medium">飼い主とトレーナーが同じ情報を見ながら</strong>、同じ目標に向かって進める環境を作りました。
+          <strong style="color:#008661; font-weight:700;">愛犬の行動を正しく知ることで、関係が変わる</strong>という想いから生まれました。<br><br>
+          犬診断・トレーナーマッチング・継続コーチング。この3つを組み合わせることで、<strong style="color:#008661; font-weight:700;">飼い主とトレーナーが同じ情報を見ながら</strong>、同じ目標に向かって進める環境を作りました。
         </p>
-        <a href="#final-cta" class="inline-flex items-center gap-2 bg-brand-pale text-brand font-bold text-sm px-7 py-3.5 rounded-sm hover:bg-white transition-all">
-          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+
+        <a href="#final-cta" style="display:inline-flex; align-items:center; gap:8px; background:#008661; color:#fff; font-size:14px; font-weight:700; padding:14px 28px; border-radius:8px; text-decoration:none; transition:background 0.2s, transform 0.2s; box-shadow:0 4px 0 #005c44; font-family:'Noto Sans JP',sans-serif;"
+           onmouseover="this.style.background='#005c44'; this.style.transform='translateY(3px)'; this.style.boxShadow='0 1px 0 #005c44';"
+           onmouseout="this.style.background='#008661'; this.style.transform=''; this.style.boxShadow='0 4px 0 #005c44';">
+          <i data-lucide="arrow-right" style="width:16px;height:16px;stroke:#fff;stroke-width:2.5;"></i>
           無料で始める
         </a>
       </div>
     </div>
   </div>
+
+  <!-- Mobile responsive override -->
+  <style>
+    @media (max-width: 768px) {
+      .about-inner-grid {
+        grid-template-columns: 1fr !important;
+        gap: 24px !important;
+      }
+    }
+  </style>
 </section>
 
 
@@ -1357,15 +1445,90 @@
 <!-- ================================================================
      FLOATING CTA
 ================================================================ -->
-<div id="floatCta" class="fixed bottom-5 right-5 z-50 items-center gap-3 bg-brand border border-brand-pale/20 text-white px-5 py-3 shadow-hover" style="display:none;">
-  <i data-lucide="search" class="w-4 h-4 text-brand-pale stroke-2 shrink-0"></i>
-  <div class="flex flex-col leading-tight">
-    <span class="text-xs text-white/55 font-light">無料診断</span>
-    <span class="text-xs text-brand-pale font-bold">先着10名</span>
+<!-- Floating CTA — high-impact, limited-offer urgency -->
+<div id="floatCta" style="display:none; position:fixed; bottom:20px; right:16px; z-index:850; font-family:'Noto Sans JP',sans-serif;">
+  <!-- Outer glow ring animation -->
+  <div style="
+    position: absolute;
+    inset: -4px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #008661, #ddeee8, #008661);
+    background-size: 200% 200%;
+    animation: gradientSpin 3s linear infinite;
+    z-index: -1;
+  "></div>
+
+  <div style="
+    background: #fff;
+    border-radius: 16px;
+    padding: 14px 14px 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    overflow: visible;
+    min-width: 0;
+  ">
+    <!-- Pulsing red dot (urgency) -->
+    <span style="
+      position: absolute;
+      top: -5px; right: -5px;
+      width: 13px; height: 13px;
+      background: #ef4444;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      animation: floatPulse 1.6s ease-in-out infinite;
+    "></span>
+
+    <!-- Left: icon -->
+    <div style="
+      width: 38px; height: 38px;
+      background: #ddeee8;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    ">
+      <i data-lucide="paw-print" style="width:17px;height:17px;stroke:#008661;stroke-width:2;"></i>
+    </div>
+
+    <!-- Middle: text -->
+    <div style="line-height:1.3; flex:1;">
+      <div style="display:flex; align-items:center; gap:5px; margin-bottom:3px; flex-wrap:nowrap;">
+        <span style="
+          background:#ef4444; color:#fff;
+          font-size:9px; font-weight:800;
+          padding:2px 7px; border-radius:99px;
+          letter-spacing:0.08em; white-space:nowrap;
+        ">残り僅か</span>
+        <span style="font-size:11px; font-weight:800; color:#ef4444; white-space:nowrap;">先着10名</span>
+      </div>
+      <span style="font-size:12.5px; font-weight:700; color:#003d2b;">無料で犬診断</span>
+    </div>
+
+    <!-- Right: CTA button -->
+    <a href="#final-cta"
+       style="
+         display: inline-flex;
+         align-items: center;
+         gap: 4px;
+         background: #008661;
+         color: #fff;
+         font-size: 12px;
+         font-weight: 800;
+         padding: 10px 14px;
+         border-radius: 10px;
+         text-decoration: none;
+         white-space: nowrap;
+         box-shadow: 0 4px 0 #005c44;
+         transition: transform 0.12s, box-shadow 0.12s;
+         flex-shrink: 0;
+       "
+       onmouseover="this.style.transform='translateY(3px)';this.style.boxShadow='0 1px 0 #005c44';"
+       onmouseout="this.style.transform='';this.style.boxShadow='0 4px 0 #005c44';">
+      診断する
+      <i data-lucide="arrow-right" style="width:12px;height:12px;stroke:#fff;stroke-width:3;"></i>
+    </a>
   </div>
-  <a href="#final-cta" class="bg-brand-pale text-brand text-xs font-bold px-3.5 py-2 hover:bg-white transition-colors ml-1">
-    診断する
-  </a>
 </div>
 
 
@@ -1401,8 +1564,18 @@
 
   // Floating CTA
   const floatCta = document.getElementById('floatCta');
+  let floatVisible = false;
   window.addEventListener('scroll', () => {
-    floatCta.style.display = window.scrollY > 600 ? 'flex' : 'none';
+    const shouldShow = window.scrollY > 600;
+    if (shouldShow && !floatVisible) {
+      floatCta.style.display = 'block';
+      floatCta.classList.add('show-cta');
+      floatVisible = true;
+    } else if (!shouldShow && floatVisible) {
+      floatCta.style.display = 'none';
+      floatCta.classList.remove('show-cta');
+      floatVisible = false;
+    }
   }, { passive: true });
 </script>
 </body>

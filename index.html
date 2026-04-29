@@ -62,7 +62,7 @@ section{padding:9rem 0;}
 .reveal-scale.visible{opacity:1;transform:scale(1);}
 
 /* HERO */
-#hero{min-height:100vh;position:relative;overflow:hidden;padding:0;background:var(--warm-white);display:flex;align-items:center;}
+#hero{min-height:78vh;background-image:linear-gradient(rgba(255,255,255,.72),rgba(255,255,255,.62)),url("images/ragar-noriko.jpg");background-size:cover;background-position:center;}
 .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 55% 55% at 75% 50%,rgba(0,134,97,.055) 0%,transparent 65%),radial-gradient(ellipse 35% 50% at 15% 75%,rgba(0,134,97,.032) 0%,transparent 55%);animation:bgPulse 8s ease-in-out infinite alternate;}
 @keyframes bgPulse{from{opacity:.7;}to{opacity:1;}}
 .hero-texture{position:absolute;inset:0;pointer-events:none;z-index:0;background-image:radial-gradient(circle,rgba(0,134,97,.055) 1px,transparent 1px);background-size:32px 32px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 0%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 0%,transparent 100%);}
@@ -73,7 +73,7 @@ section{padding:9rem 0;}
 .hero-eyebrow::before{content:'';display:inline-block;width:26px;height:1px;background:var(--green);}
 .hero-headline{font-size:clamp(2.4rem,4vw,3.7rem);font-weight:300;line-height:1.5;letter-spacing:.05em;margin-bottom:2.5rem;opacity:0;animation:fadeUp 1s .45s forwards;}
 .hero-headline .accent{color:var(--green);display:inline-block;border-bottom:1.5px solid rgba(0,134,97,.45);padding-bottom:2px;}
-.hero-sub{font-size:.82rem;line-height:1.95;margin-bottom:1.8rem;color:#4a4a4a;font-weight:400;opacity:0;animation:fadeUp 1s .6s forwards;}
+.hero-sub{font-size:.82rem;line-height:1.95;margin-bottom:1.8rem;color:#5a5a5a;font-weight:400;opacity:0;animation:fadeUp 1s .6s forwards;}
 .hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;opacity:0;animation:fadeUp 1s .75s forwards;}
 .btn-primary{background:var(--green);color:#fff;padding:.95rem 1.9rem;border-radius:2px;font-family:var(--sans);font-size:.76rem;letter-spacing:.1em;text-decoration:none;font-weight:400;display:inline-block;transition:background .4s ease,transform .4s ease,box-shadow .4s ease;position:relative;overflow:hidden;}
 .btn-primary::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,.1);transform:translateX(-100%);transition:transform .5s ease;}

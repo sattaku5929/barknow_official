@@ -62,7 +62,7 @@ section{padding:9rem 0;}
 .reveal-scale.visible{opacity:1;transform:scale(1);}
 
 /* HERO */
-#hero{min-height:78vh;background-image:linear-gradient(rgba(255,255,255,.72),rgba(255,255,255,.62)),url("images/ragar-noriko.jpg");background-size:90%;background-position:center top;background-repeat:no-repeat;}
+#hero{min-height:100vh;position:relative;overflow:hidden;padding:0;background:var(--warm-white);background-image:none;display:flex;align-items:center;}
 .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 55% 55% at 75% 50%,rgba(0,134,97,.055) 0%,transparent 65%),radial-gradient(ellipse 35% 50% at 15% 75%,rgba(0,134,97,.032) 0%,transparent 55%);animation:bgPulse 8s ease-in-out infinite alternate;}
 @keyframes bgPulse{from{opacity:.7;}to{opacity:1;}}
 .hero-texture{position:absolute;inset:0;pointer-events:none;z-index:0;background-image:radial-gradient(circle,rgba(0,134,97,.055) 1px,transparent 1px);background-size:32px 32px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 0%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 0%,transparent 100%);}
@@ -253,7 +253,8 @@ footer{background:#008661;color:rgba(255,255,255,.72);padding:4.8rem 0 2.4rem;}
   .phone-float{display:none;}
 }
 @media(max-width:480px){
-#hero{min-height:78vh;background-image:linear-gradient(rgba(255,255,255,.90),rgba(255,255,255,.82)),url("images/ragar-noriko.jpg");background-size:cover;background-position:center;}
+#hero{min-height:78vh;background-image:linear-gradient(rgba(255,255,255,.72),rgba(255,255,255,.62)),url("images/ragar-noriko.jpg");background-size:95%;background-position:center top;background-repeat:no-repeat;}}
+.hero-visual{display:none;}
 .hero-inner{min-height:78vh;display:flex;align-items:center;padding:82px 1.2rem 2.2rem;gap:1.4rem;}
 .hero-content{padding:0;}
 .hero-headline{font-size:2rem;line-height:1.5;margin-bottom:1.2rem;}
@@ -262,6 +263,7 @@ footer{background:#008661;color:rgba(255,255,255,.72);padding:4.8rem 0 2.4rem;}
 .btn-primary,.btn-secondary{width:100%;max-width:320px;text-align:center;padding:.82rem 1.2rem;font-size:.74rem;}
 .hero-ctas{align-items:center;}
 .hero-badge{display:none !important;}
+  
 
 section{padding:4.2rem 0;}
 .container{padding:0 1.2rem;}

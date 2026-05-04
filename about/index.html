@@ -1,1 +1,1354 @@
 
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About | BarKnow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+
+    :root {
+      --green:       #008661;
+      --green-pale:  #eef7f3;
+      --green-soft:  #c8e8db;
+      --green-mid:   #00a878;
+      --sand:        #faf7f2;
+      --sand-dark:   #ece8e0;
+      --ink:         #2a2a2a;
+      --ink-light:   #5a5a5a;
+      --ink-muted:   #9a9a9a;
+      --white:       #ffffff;
+
+      --f-serif: 'Shippori Mincho', 'Georgia', serif;
+      --f-sans:  'Noto Sans JP', sans-serif;
+
+      --r-pill: 999px;
+      --r-lg:   24px;
+      --r-md:   16px;
+
+      --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+    body {
+      font-family: var(--f-sans);
+      background: var(--sand);
+      color: var(--ink);
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    /* ── Global dot grid ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image: radial-gradient(circle, rgba(0,134,97,0.10) 1px, transparent 1px);
+      background-size: 26px 26px;
+    }
+
+    body > * { position: relative; z-index: 1; }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 50;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(250,247,242,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .logo {
+      font-family: var(--f-serif);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--green);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+    }
+
+    .nav-sub {
+      font-size: 10px;
+      color: var(--ink-muted);
+      letter-spacing: 0.14em;
+      font-weight: 300;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 130px 28px 72px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* 葉モチーフ装飾（SVGで挿入） */
+
+    .hero-blob {
+      position: absolute;
+      top: 50px; left: 50%;
+      transform: translateX(-50%);
+      width: min(360px, 95vw);
+      height: min(360px, 95vw);
+      border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
+      background: radial-gradient(ellipse at 40% 40%, var(--green-soft) 0%, var(--green-pale) 55%, transparent 100%);
+      opacity: 0.5;
+      z-index: 0;
+      animation: blobMorph 9s ease-in-out infinite;
+    }
+
+    @keyframes blobMorph {
+      0%, 100% { border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%; }
+      33%       { border-radius: 40% 60% 45% 55% / 60% 40% 55% 45%; }
+      66%       { border-radius: 55% 45% 60% 40% / 45% 55% 50% 50%; }
+    }
+
+    .hero-img-wrap {
+      position: relative;
+      z-index: 1;
+      width: 148px;
+      height: 148px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 0 auto 28px;
+      border: 4px solid var(--white);
+      box-shadow: 0 8px 32px rgba(0,134,97,0.14);
+    }
+
+    .hero-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-eyebrow {
+      position: relative;
+      z-index: 1;
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 14px;
+    }
+
+    .hero-title {
+      position: relative;
+      z-index: 1;
+      font-family: var(--f-serif);
+      font-size: clamp(30px, 8.5vw, 46px);
+      font-weight: 500;
+      line-height: 1.55;
+      color: var(--ink);
+      margin-bottom: 18px;
+    }
+
+    .hero-title span { color: var(--green); }
+
+    .hero-lead {
+      position: relative;
+      z-index: 1;
+      font-size: 13.5px;
+      font-weight: 300;
+      color: var(--ink-light);
+      line-height: 2.1;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    /* ── Divider ── */
+    .soft-divider {
+      width: 40px;
+      height: 2px;
+      background: var(--green-soft);
+      border-radius: 99px;
+      margin: 0 28px 56px;
+      position: relative;
+    }
+
+    /* 区切り線の両脇に広がる薄いライン */
+    .soft-divider::before,
+    .soft-divider::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 1px;
+      width: 60px;
+      background: linear-gradient(to right, var(--green-soft), transparent);
+    }
+    .soft-divider::before { right: 100%; margin-right: 6px; transform: translateY(-50%) scaleX(-1); }
+    .soft-divider::after  { left: 100%;  margin-left: 6px; }
+
+    /* ── Sections ── */
+    .section {
+      padding: 0 28px 64px;
+      position: relative;
+    }
+
+    /* セクション右端に薄い縦ライン装飾 */
+    .section::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 20px;
+      width: 1px;
+      height: 100%;
+      background: linear-gradient(to bottom, transparent 0%, rgba(0,134,97,0.12) 30%, rgba(0,134,97,0.12) 70%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 18px;
+    }
+
+    .section-tag::before {
+      content: '';
+      width: 16px; height: 1px;
+      background: var(--green);
+      display: block;
+    }
+
+    .section-title {
+      font-family: var(--f-serif);
+      font-size: clamp(24px, 7vw, 34px);
+      font-weight: 500;
+      line-height: 1.55;
+      color: var(--ink);
+      margin-bottom: 18px;
+    }
+
+    .section-body {
+      font-size: 13.5px;
+      font-weight: 300;
+      line-height: 2.1;
+      color: var(--ink-light);
+    }
+
+    .section-body + .section-body { margin-top: 14px; }
+
+    /* ── Name pair ── */
+    .name-pair {
+      display: flex;
+      gap: 10px;
+      margin: 28px 0;
+    }
+
+    .name-chip {
+      flex: 1;
+      background: var(--white);
+      border-radius: var(--r-md);
+      padding: 20px 12px;
+      text-align: center;
+      border: 1.5px solid var(--green-soft);
+    }
+
+    .name-chip-en {
+      font-family: var(--f-serif);
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--green);
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+    }
+
+    .name-chip-jp {
+      font-size: 11px;
+      font-weight: 300;
+      color: var(--ink-muted);
+      line-height: 1.7;
+    }
+
+    .name-plus {
+      display: flex;
+      align-items: center;
+      font-size: 18px;
+      color: var(--green-soft);
+      padding-bottom: 4px;
+    }
+
+    /* ── Quote ── */
+    .quote-block {
+      background: var(--green-pale);
+      border-radius: var(--r-lg);
+      padding: 26px 22px;
+      margin-top: 28px;
+      border-left: 3px solid var(--green-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .quote-block p {
+      font-family: var(--f-serif);
+      font-size: 15.5px;
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.95;
+    }
+
+    /* ── Criteria ── */
+    .criteria-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 26px;
+    }
+
+    .criteria-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--white);
+      border-radius: var(--r-md);
+      padding: 16px 14px;
+      border: 1.5px solid var(--sand-dark);
+    }
+
+    .ci-icon {
+      width: 46px; height: 46px;
+      border-radius: 12px;
+      background: var(--green-pale);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      padding: 10px;
+    }
+
+    .ci-icon svg { width: 100%; height: 100%; }
+
+    .ci-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 2px;
+    }
+
+    .ci-desc {
+      font-size: 11.5px;
+      font-weight: 300;
+      color: var(--ink-muted);
+      line-height: 1.7;
+    }
+
+    /* ── Phone Mockup ── */
+    .phone-mockup-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      margin: 28px 0 0;
+    }
+
+    .phone-mockup {
+      perspective: 800px;
+    }
+
+    .phone-frame {
+      position: relative;
+      width: 220px;
+      background: #111;
+      border-radius: 36px;
+      padding: 12px 8px 10px;
+      box-shadow:
+        0 0 0 1.5px #333,
+        0 0 0 3px #222,
+        0 24px 60px rgba(0,0,0,0.35),
+        0 8px 20px rgba(0,134,97,0.12);
+      transform: rotateY(-4deg) rotateX(2deg);
+    }
+
+    .phone-notch {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 6px;
+    }
+
+    .phone-notch-pill {
+      width: 72px;
+      height: 8px;
+      background: #000;
+      border-radius: 99px;
+      border: 1.5px solid #2a2a2a;
+    }
+
+    .phone-screen {
+      background: var(--sand);
+      border-radius: 26px;
+      overflow: hidden;
+      min-height: 380px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ステータスバー */
+    .screen-statusbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 14px 4px;
+      font-size: 9px;
+      font-weight: 600;
+      color: var(--ink);
+      background: var(--sand);
+      font-family: var(--f-sans);
+    }
+
+    .statusbar-icons {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--ink);
+    }
+
+    /* アプリヘッダー */
+    .screen-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 14px 6px;
+      background: var(--sand);
+    }
+
+    .screen-header-left {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .screen-avatar {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--green-pale);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+      border: 1.5px solid var(--green-soft);
+    }
+
+    .screen-greeting {
+      font-size: 8px;
+      color: var(--ink-muted);
+      font-family: var(--f-sans);
+      font-weight: 300;
+    }
+
+    .screen-name {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--ink);
+      font-family: var(--f-sans);
+    }
+
+    .screen-date {
+      font-size: 9px;
+      color: var(--ink-muted);
+      font-family: var(--f-sans);
+      background: var(--sand-dark);
+      padding: 3px 8px;
+      border-radius: 99px;
+    }
+
+    /* スコアカード */
+    .screen-score-card {
+      margin: 6px 10px;
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-mid) 100%);
+      border-radius: 16px;
+      padding: 14px 16px;
+      color: #fff;
+    }
+
+    .screen-score-label {
+      font-size: 8px;
+      letter-spacing: 0.12em;
+      opacity: 0.8;
+      font-family: var(--f-sans);
+      margin-bottom: 2px;
+    }
+
+    .screen-score-value {
+      font-family: var(--f-serif);
+      font-size: 34px;
+      font-weight: 600;
+      line-height: 1.1;
+    }
+
+    .screen-score-value span {
+      font-size: 13px;
+      font-weight: 400;
+      font-family: var(--f-sans);
+      opacity: 0.85;
+    }
+
+    .screen-score-sub {
+      font-size: 9px;
+      opacity: 0.8;
+      font-family: var(--f-sans);
+      margin-top: 4px;
+    }
+
+    /* バー */
+    .screen-bars {
+      padding: 10px 12px 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      flex: 1;
+    }
+
+    .screen-bar-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .screen-bar-label {
+      font-size: 8.5px;
+      color: var(--ink-muted);
+      width: 22px;
+      flex-shrink: 0;
+      font-family: var(--f-sans);
+    }
+
+    .screen-bar-track {
+      flex: 1;
+      height: 5px;
+      background: var(--sand-dark);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .screen-bar-fill {
+      height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, var(--green) 0%, var(--green-mid) 100%);
+      animation: fillBar 1.4s var(--ease) both;
+    }
+
+    .screen-bar-val {
+      font-size: 8px;
+      color: var(--green);
+      font-weight: 500;
+      width: 16px;
+      text-align: right;
+      font-family: var(--f-sans);
+    }
+
+    /* ボトムナビ */
+    .screen-bottom-nav {
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 6px 10px;
+      border-top: 1px solid var(--sand-dark);
+      background: rgba(250,247,242,0.95);
+    }
+
+    .screen-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      color: var(--ink-muted);
+      font-size: 7px;
+      font-family: var(--f-sans);
+    }
+
+    .screen-nav-item.active { color: var(--green); }
+
+    /* サイドボタン */
+    .phone-btn-right {
+      position: absolute;
+      top: 80px; right: -3px;
+      width: 3px; height: 56px;
+      background: #2a2a2a;
+      border-radius: 0 2px 2px 0;
+    }
+
+    .phone-btn-left-1 {
+      position: absolute;
+      top: 60px; left: -3px;
+      width: 3px; height: 28px;
+      background: #2a2a2a;
+      border-radius: 2px 0 0 2px;
+    }
+
+    .phone-btn-left-2 {
+      position: absolute;
+      top: 96px; left: -3px;
+      width: 3px; height: 44px;
+      background: #2a2a2a;
+      border-radius: 2px 0 0 2px;
+    }
+
+    /* Coming Soonバッジ */
+    .phone-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      color: var(--green);
+      background: var(--green-pale);
+      border: 1px solid var(--green-soft);
+      border-radius: 99px;
+      padding: 6px 16px;
+      font-family: var(--f-sans);
+    }
+
+    /* ── App card (旧、削除対象なのでdisplay:none) ── */
+    .app-card { display: none; }
+      background: #1e2d27;
+      border-radius: var(--r-lg);
+      padding: 26px 22px;
+      margin: 26px 0 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .app-card::before {
+      content: '';
+      position: absolute;
+      top: -50px; right: -50px;
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,168,120,0.2) 0%, transparent 70%);
+    }
+
+    .app-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      color: var(--green-mid);
+      background: rgba(0,168,120,0.1);
+      border: 1px solid rgba(0,168,120,0.22);
+      border-radius: 99px;
+      padding: 5px 12px;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .app-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--green-mid);
+      animation: blink 1.8s ease infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.25; }
+    }
+
+    .app-title {
+      font-family: var(--f-serif);
+      font-size: 19px;
+      color: rgba(255,255,255,0.9);
+      font-weight: 400;
+      line-height: 1.6;
+      margin-bottom: 18px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .app-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .app-bar-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .app-bar-label {
+      font-size: 10px;
+      color: rgba(255,255,255,0.35);
+      width: 30px;
+      flex-shrink: 0;
+    }
+
+    .app-bar-track {
+      flex: 1;
+      height: 5px;
+      background: rgba(255,255,255,0.07);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .app-bar-fill {
+      height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, var(--green) 0%, var(--green-mid) 100%);
+      animation: fillBar 1.4s var(--ease) both;
+    }
+
+    @keyframes fillBar { from { width: 0 !important; } }
+
+    /* ── Feature grid ── */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .feature-chip {
+      background: var(--white);
+      border-radius: var(--r-md);
+      padding: 16px 14px;
+      border: 1.5px solid var(--sand-dark);
+    }
+
+    .feature-chip-icon { margin-bottom: 10px; }
+    .feature-chip-icon svg { width: 28px; height: 28px; }
+
+    .feature-chip-title {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 3px;
+    }
+
+    .feature-chip-desc {
+      font-size: 11px;
+      font-weight: 300;
+      color: var(--ink-muted);
+      line-height: 1.7;
+    }
+
+    /* ── Message ── */
+    .message-section {
+      background: var(--white);
+      border-radius: 28px 28px 0 0;
+      padding: 52px 28px 80px;
+      margin-top: 8px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* 葉モチーフ装飾（SVGで挿入） */
+    .message-section::before,
+    .message-section::after { display: none; }
+
+    .message-icon {
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      background: var(--green-pale);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 22px;
+    }
+
+    .message-icon svg { width: 26px; height: 26px; }
+
+    .message-title {
+      font-family: var(--f-serif);
+      font-size: clamp(24px, 6.5vw, 34px);
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+
+    .message-body {
+      font-size: 13.5px;
+      font-weight: 300;
+      color: var(--ink-light);
+      line-height: 2.1;
+      margin-bottom: 36px;
+      max-width: 320px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--green);
+      color: var(--white);
+      font-family: var(--f-sans);
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      padding: 18px 36px;
+      border-radius: var(--r-pill);
+      text-decoration: none;
+      min-height: 56px;
+      transition: background 0.2s, transform 0.15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .cta-btn:active {
+      background: var(--green-mid);
+      transform: scale(0.97);
+    }
+
+    .cta-btn svg { width: 15px; height: 15px; }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--ink);
+      padding: 40px 28px;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: var(--f-serif);
+      font-size: 20px;
+      color: var(--green-mid);
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      margin-bottom: 8px;
+    }
+
+    .footer-sub {
+      font-size: 11px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.28);
+      letter-spacing: 0.12em;
+      margin-bottom: 26px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      margin-bottom: 24px;
+    }
+
+    .footer-links a {
+      font-size: 12px;
+      color: rgba(255,255,255,0.32);
+      text-decoration: none;
+    }
+
+    .footer-copy {
+      font-size: 10px;
+      color: rgba(255,255,255,0.16);
+    }
+
+    /* ── 葉・草モチーフ ── */
+    .leaf-deco {
+      position: absolute;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .leaf-deco svg {
+      display: block;
+      opacity: 0.28;
+    }
+
+    /* ── Reveal ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+    }
+
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    .d1 { transition-delay: 0.08s; }
+    .d2 { transition-delay: 0.16s; }
+    .d3 { transition-delay: 0.24s; }
+
+    @media (min-width: 480px) {
+      .section, .soft-divider { max-width: 480px; margin-left: auto; margin-right: auto; }
+      .hero { max-width: 480px; margin: 0 auto; }
+      .message-section { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav>
+  <a class="logo" href="#">BarKnow</a>
+  <span class="nav-sub">WELL-BEING FOR YOUR DOG</span>
+</nav>
+
+
+<!-- ① Hero -->
+<section class="hero">
+  <div class="hero-blob"></div>
+
+  <!-- スケッチ葉①：右上 細長いランセット葉 -->
+  <div class="leaf-deco" style="top:70px;right:-6px;transform:rotate(18deg)">
+    <svg width="52" height="96" viewBox="0 0 52 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M26 92 C10 72 4 52 6 34 C8 18 16 6 26 4 C36 6 44 18 46 34 C48 52 42 72 26 92Z"
+            stroke="#008661" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"
+            stroke-dasharray="3 2.5"/>
+      <line x1="26" y1="90" x2="26" y2="8" stroke="#008661" stroke-width="0.9" stroke-linecap="round"/>
+      <path d="M26 50 Q16 42 12 28" stroke="#008661" stroke-width="0.8" fill="none" stroke-linecap="round"/>
+      <path d="M26 64 Q36 54 40 38" stroke="#008661" stroke-width="0.8" fill="none" stroke-linecap="round"/>
+      <path d="M26 34 Q18 26 15 16" stroke="#008661" stroke-width="0.7" fill="none" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <!-- スケッチ葉②：左下 丸みのある小葉ふたつ -->
+  <div class="leaf-deco" style="bottom:36px;left:-4px;transform:rotate(-12deg)">
+    <svg width="68" height="72" viewBox="0 0 68 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- 左の丸葉 -->
+      <path d="M18 68 C6 54 4 36 10 22 C14 12 22 6 28 8 C22 22 18 46 18 68Z"
+            stroke="#008661" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"
+            stroke-dasharray="2.5 2.5"/>
+      <path d="M18 68 C22 52 26 30 28 8" stroke="#008661" stroke-width="0.8" stroke-linecap="round"/>
+      <!-- 右の笹葉（細長い） -->
+      <path d="M44 62 C36 44 36 26 42 12 C46 4 54 2 58 6 C50 18 46 40 44 62Z"
+            stroke="#008661" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"
+            stroke-dasharray="2.5 2.5"/>
+      <path d="M44 62 C46 46 50 24 58 6" stroke="#008661" stroke-width="0.8" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <div class="hero-img-wrap reveal">
+    <img src="https://placehold.co/300x300/c8e8db/008661?text=🐾" alt="愛犬イメージ" />
+  </div>
+
+  <p class="hero-eyebrow reveal d1">About BarKnow</p>
+
+  <h1 class="hero-title reveal d2">
+    愛犬の声を、<br />
+    <span>深く知る</span>ために。
+  </h1>
+
+  <p class="hero-lead reveal d3">
+    「健康を守る」だけじゃない。<br />
+    愛犬が心からしあわせでいられる、<br />
+    そんな毎日を一緒につくりたい。
+  </p>
+</section>
+
+<div class="soft-divider"></div>
+
+<!-- ② Our Story -->
+<section class="section">
+  <!-- スケッチ葉③：右上 ハート型のハーブ葉 -->
+  <div class="leaf-deco" style="top:0;right:18px;transform:rotate(-22deg) scale(0.85)">
+    <svg width="58" height="62" viewBox="0 0 58 62" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M29 58 C16 46 4 34 6 20 C8 10 16 4 24 6 C26 7 28 9 29 12 C30 9 32 7 34 6 C42 4 50 10 52 20 C54 34 42 46 29 58Z"
+            stroke="#008661" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"
+            stroke-dasharray="3 2"/>
+      <line x1="29" y1="58" x2="29" y2="14" stroke="#008661" stroke-width="0.85" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <p class="section-tag reveal">Our Story</p>
+  <h2 class="section-title reveal d1">名前に込めた、<br />ひとつの想い。</h2>
+
+  <div class="name-pair reveal d2">
+    <div class="name-chip">
+      <div class="name-chip-en">Bark</div>
+      <div class="name-chip-jp">吠える・声<br />愛犬のサイン</div>
+    </div>
+    <div class="name-plus">＋</div>
+    <div class="name-chip">
+      <div class="name-chip-en">Know</div>
+      <div class="name-chip-jp">知る・理解する<br />深いつながり</div>
+    </div>
+  </div>
+
+  <p class="section-body reveal">
+    愛犬は言葉を話しません。でも、しっぽの揺れ方、吠え声のトーン、目の輝き——そのすべてに、彼らの気持ちが宿っています。
+  </p>
+  <p class="section-body reveal d1">
+    BarKnow は「もっと愛犬のことを知りたい」という純粋な気持ちから生まれたブランドです。<strong>Bark（声）</strong> と <strong>Know（知る）</strong> を組み合わせた名前には、愛犬のサインを深く理解し、もっと確信を持って愛せるようになってほしい、という願いが込められています。
+  </p>
+
+  <div class="quote-block reveal d2">
+    <p>「単なる健康維持を超えた、<br />心身ともに満たされる日々を。」</p>
+  </div>
+</section>
+
+<div class="soft-divider"></div>
+
+<!-- ③ Curation -->
+<section class="section">
+  <!-- スケッチ葉④：左 細い茎3本＋小さな葉 -->
+  <div class="leaf-deco" style="top:8px;left:-2px;transform:rotate(8deg) scale(0.9)">
+    <svg width="56" height="88" viewBox="0 0 56 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- 茎1 -->
+      <path d="M12 84 C12 70 10 52 14 34 C16 22 22 14 26 12"
+            stroke="#008661" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+      <path d="M26 12 C22 8 14 8 10 14" stroke="#008661" stroke-width="1.1" stroke-linecap="round" fill="none" stroke-dasharray="2.5 2"/>
+      <!-- 茎2 -->
+      <path d="M26 82 C26 66 24 46 28 28 C30 16 36 8 40 8"
+            stroke="#008661" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+      <path d="M40 8 C44 4 50 6 50 14" stroke="#008661" stroke-width="1.1" stroke-linecap="round" fill="none" stroke-dasharray="2.5 2"/>
+      <!-- 茎3 途中に横葉 -->
+      <path d="M40 80 C40 66 38 48 42 32 C44 20 50 14 54 14"
+            stroke="#008661" stroke-width="1" stroke-linecap="round" fill="none"/>
+      <path d="M42 48 Q32 42 28 34" stroke="#008661" stroke-width="0.9" stroke-linecap="round" fill="none" stroke-dasharray="2 2"/>
+    </svg>
+  </div>
+  <p class="section-tag reveal">Curation Policy</p>
+  <h2 class="section-title reveal d1">自分の愛犬に<br />使いたいものだけ。</h2>
+
+  <p class="section-body reveal">
+    シャンプー、肉球クリーム、ブラシ——どの一品も「本当に使いたいか」を自分に問いながら選んでいます。「なんとなく良さそう」は、ここには存在しません。
+  </p>
+
+  <div class="criteria-list">
+    <div class="criteria-item reveal d1">
+      <div class="ci-icon">
+        <!-- フラスコ：リッチ版。首・目盛り線・液面・泡・台座 -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="#008661" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 2h6" stroke-width="2"/>
+          <path d="M10 2v5.5L5.5 14A5 5 0 0 0 10 22h4a5 5 0 0 0 4.5-8.5L14 7.5V2" stroke-width="1.9"/>
+          <path d="M8.5 17.5 Q10 16 12 17 Q14 18 15.5 17" stroke-width="1.3"/>
+          <path d="M7.5 20 Q9.5 19 12 20 Q14.5 19 16.5 20" stroke-width="1.1"/>
+          <circle cx="10" cy="15" r="0.7" fill="#008661" stroke-width="0"/>
+          <circle cx="13.5" cy="16.5" r="0.55" fill="#008661" stroke-width="0"/>
+          <line x1="10" y1="5" x2="14" y2="5" stroke-width="1"/>
+          <line x1="10" y1="3.5" x2="14" y2="3.5" stroke-width="0.8"/>
+        </svg>
+      </div>
+      <div>
+        <div class="ci-title">成分の透明性</div>
+        <div class="ci-desc">不要な添加物・香料は徹底的に除外</div>
+      </div>
+    </div>
+    <div class="criteria-item reveal d2">
+      <div class="ci-icon">
+        <!-- 葉：リッチ版。複数の葉脈・曲がった茎・地面ライン -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="#008661" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 21 C12 21 3 16 3 9 C3 5 7 2 12 2 C17 2 21 5 21 9 C21 16 12 21 12 21Z" stroke-width="1.9"/>
+          <line x1="12" y1="21" x2="12" y2="5" stroke-width="1.2"/>
+          <path d="M12 13 Q8 11 6 7" stroke-width="1.1"/>
+          <path d="M12 16 Q16 13 18 9" stroke-width="1.1"/>
+          <path d="M12 9 Q9 7 7.5 4.5" stroke-width="0.95"/>
+          <path d="M12 9 Q15 7 16.5 4.5" stroke-width="0.95"/>
+          <path d="M5 21 Q8.5 20 12 21 Q15.5 20 19 21" stroke-width="1.1"/>
+        </svg>
+      </div>
+      <div>
+        <div class="ci-title">倫理的な調達</div>
+        <div class="ci-desc">動物実験不使用・環境に配慮した選定</div>
+      </div>
+    </div>
+    <div class="criteria-item reveal d3">
+      <div class="ci-icon">
+        <!-- 肉球ハート：リッチ版。ハート＋4つの小円＋内側のアーチ線 -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="#008661" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 20 C12 20 3 13.5 3 8 C3 5.2 5.2 3 8 3 C9.8 3 11.3 4 12 5.2 C12.7 4 14.2 3 16 3 C18.8 3 21 5.2 21 8 C21 13.5 12 20 12 20Z" stroke-width="1.9"/>
+          <circle cx="8.5" cy="7" r="1.5" stroke-width="1.4"/>
+          <circle cx="15.5" cy="7" r="1.5" stroke-width="1.4"/>
+          <circle cx="6.5" cy="10.5" r="1.2" stroke-width="1.3"/>
+          <circle cx="17.5" cy="10.5" r="1.2" stroke-width="1.3"/>
+          <path d="M9 15 Q12 17.5 15 15" stroke-width="1.1"/>
+        </svg>
+      </div>
+      <div>
+        <div class="ci-title">愛犬ファースト</div>
+        <div class="ci-desc">「うちの子が喜ぶか」を最後の判断基準に</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="soft-divider"></div>
+
+<!-- ④ Tech for Love -->
+<section class="section">
+  <!-- スケッチ葉⑤：右上 扇形に広がるクローバー風 -->
+  <div class="leaf-deco" style="top:2px;right:14px;transform:rotate(-15deg) scale(0.8)">
+    <svg width="72" height="66" viewBox="0 0 72 66" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- 中央の茎 -->
+      <line x1="36" y1="62" x2="36" y2="30" stroke="#008661" stroke-width="1" stroke-linecap="round"/>
+      <!-- 左の楕円葉 -->
+      <ellipse cx="18" cy="22" rx="14" ry="8" transform="rotate(-30 18 22)"
+               stroke="#008661" stroke-width="1.1" stroke-dasharray="2.8 2"/>
+      <line x1="18" y1="28" x2="36" y2="30" stroke="#008661" stroke-width="0.85" stroke-linecap="round"/>
+      <!-- 中央の楕円葉 -->
+      <ellipse cx="36" cy="16" rx="13" ry="8"
+               stroke="#008661" stroke-width="1.1" stroke-dasharray="2.8 2"/>
+      <line x1="36" y1="24" x2="36" y2="30" stroke="#008661" stroke-width="0.85" stroke-linecap="round"/>
+      <!-- 右の楕円葉 -->
+      <ellipse cx="54" cy="22" rx="14" ry="8" transform="rotate(30 54 22)"
+               stroke="#008661" stroke-width="1.1" stroke-dasharray="2.8 2"/>
+      <line x1="54" y1="28" x2="36" y2="30" stroke="#008661" stroke-width="0.85" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <p class="section-tag reveal">Tech for Love</p>
+  <h2 class="section-title reveal d1">アプリで広がる、<br />新しいケアの形。</h2>
+
+  <p class="section-body reveal">
+    BarKnow は愛犬の健康を毎日記録・可視化できるアプリを開発中です。「いつもと違う」をデータで捉えることで、言葉のない愛犬との新しい対話が生まれます。
+  </p>
+
+  <div class="phone-mockup-wrap reveal d1">
+    <div class="phone-mockup">
+      <!-- 本体フレーム -->
+      <div class="phone-frame">
+        <!-- ノッチ -->
+        <div class="phone-notch">
+          <div class="phone-notch-pill"></div>
+        </div>
+        <!-- 画面 -->
+        <div class="phone-screen">
+          <!-- ステータスバー -->
+          <div class="screen-statusbar">
+            <span>9:41</span>
+            <div class="statusbar-icons">
+              <svg width="12" height="10" viewBox="0 0 12 10"><rect x="0" y="3" width="2" height="7" rx="0.5" fill="currentColor"/><rect x="3" y="2" width="2" height="8" rx="0.5" fill="currentColor"/><rect x="6" y="0.5" width="2" height="9.5" rx="0.5" fill="currentColor"/><rect x="9" y="0" width="3" height="10" rx="0.5" fill="currentColor" opacity="0.3"/></svg>
+              <svg width="14" height="10" viewBox="0 0 14 10"><path d="M7 2C9.5 2 11.7 3.1 13.2 4.8L14 4C12.3 2.1 9.8 1 7 1C4.2 1 1.7 2.1 0 4L0.8 4.8C2.3 3.1 4.5 2 7 2Z" fill="currentColor"/><path d="M7 4.5C8.8 4.5 10.4 5.3 11.5 6.5L12.3 5.7C11 4.3 9.1 3.5 7 3.5C4.9 3.5 3 4.3 1.7 5.7L2.5 6.5C3.6 5.3 5.2 4.5 7 4.5Z" fill="currentColor"/><circle cx="7" cy="8.5" r="1" fill="currentColor"/></svg>
+              <svg width="22" height="10" viewBox="0 0 22 10"><rect x="0" y="1" width="19" height="8" rx="2" stroke="currentColor" stroke-width="1" fill="none"/><rect x="19.5" y="3.5" width="2" height="3" rx="1" fill="currentColor" opacity="0.5"/><rect x="1" y="2" width="14" height="6" rx="1.2" fill="currentColor"/></svg>
+            </div>
+          </div>
+          <!-- アプリヘッダー -->
+          <div class="screen-header">
+            <div class="screen-header-left">
+              <div class="screen-avatar">🐶</div>
+              <div>
+                <div class="screen-greeting">こんにちは</div>
+                <div class="screen-name">むぎちゃん</div>
+              </div>
+            </div>
+            <div class="screen-date">5月1日</div>
+          </div>
+          <!-- スコアカード -->
+          <div class="screen-score-card">
+            <div class="screen-score-label">Today's Well-being</div>
+            <div class="screen-score-value">88<span>点</span></div>
+            <div class="screen-score-sub">昨日より +3点 🌿</div>
+          </div>
+          <!-- バーリスト -->
+          <div class="screen-bars">
+            <div class="screen-bar-row">
+              <span class="screen-bar-label">食欲</span>
+              <div class="screen-bar-track"><div class="screen-bar-fill" style="width:88%"></div></div>
+              <span class="screen-bar-val">88</span>
+            </div>
+            <div class="screen-bar-row">
+              <span class="screen-bar-label">活動</span>
+              <div class="screen-bar-track"><div class="screen-bar-fill" style="width:72%"></div></div>
+              <span class="screen-bar-val">72</span>
+            </div>
+            <div class="screen-bar-row">
+              <span class="screen-bar-label">被毛</span>
+              <div class="screen-bar-track"><div class="screen-bar-fill" style="width:91%"></div></div>
+              <span class="screen-bar-val">91</span>
+            </div>
+            <div class="screen-bar-row">
+              <span class="screen-bar-label">睡眠</span>
+              <div class="screen-bar-track"><div class="screen-bar-fill" style="width:79%"></div></div>
+              <span class="screen-bar-val">79</span>
+            </div>
+          </div>
+          <!-- ボトムナビ -->
+          <div class="screen-bottom-nav">
+            <div class="screen-nav-item active">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+              <span>ホーム</span>
+            </div>
+            <div class="screen-nav-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="17" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg>
+              <span>記録</span>
+            </div>
+            <div class="screen-nav-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+              <span>グラフ</span>
+            </div>
+            <div class="screen-nav-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+              <span>プロフィール</span>
+            </div>
+          </div>
+        </div>
+        <!-- サイドボタン -->
+        <div class="phone-btn-right"></div>
+        <div class="phone-btn-left-1"></div>
+        <div class="phone-btn-left-2"></div>
+      </div>
+    </div>
+    <!-- Coming Soonバッジ -->
+    <div class="phone-badge">
+      <div class="app-dot"></div>
+      Coming Soon
+    </div>
+  </div>
+
+  <div class="feature-grid">
+    <div class="feature-chip reveal">
+      <div class="feature-chip-icon">
+        <!-- カレンダー＋チェック：日付ページ・リング・チェックマーク -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="#008661" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="17" rx="2.5" stroke-width="1.9"/>
+          <line x1="3" y1="9" x2="21" y2="9" stroke-width="1.6"/>
+          <line x1="8" y1="2" x2="8" y2="6" stroke-width="1.8"/>
+          <line x1="16" y1="2" x2="16" y2="6" stroke-width="1.8"/>
+          <path d="M8 14 L10.5 16.5 L16 12" stroke-width="1.8"/>
+          <line x1="7" y1="19.5" x2="10" y2="19.5" stroke-width="1.3"/>
+          <line x1="14" y1="19.5" x2="17" y2="19.5" stroke-width="1.3"/>
+        </svg>
+      </div>
+      <div class="feature-chip-title">毎日の記録</div>
+      <div class="feature-chip-desc">体調・食事・運動をシンプルにトラック</div>
+    </div>
+    <div class="feature-chip reveal d1">
+      <div class="feature-chip-icon">
+        <!-- ベル：リッチ版。本体曲線・クラッパー・音波2本 -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="#008661" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 3 C12 3 12 2 12 2" stroke-width="1.6"/>
+          <circle cx="12" cy="2.5" r="1" stroke-width="1.4"/>
+          <path d="M5 18 C5 18 4 10 8 7 C9.5 5.8 10.7 5.2 12 5.2 C13.3 5.2 14.5 5.8 16 7 C20 10 19 18 19 18Z" stroke-width="1.9"/>
+          <path d="M3.5 18 Q7 17 12 17 Q17 17 20.5 18" stroke-width="1.6"/>
+          <path d="M9.5 18 Q10 20.5 12 21 Q14 20.5 14.5 18" stroke-width="1.4"/>
+          <path d="M20.5 8 Q22 9.5 22.5 11.5" stroke-width="1.2"/>
+          <path d="M3.5 8 Q2 9.5 1.5 11.5" stroke-width="1.2"/>
+        </svg>
+      </div>
+      <div class="feature-chip-title">異変のアラート</div>
+      <div class="feature-chip-desc">変化のサインを早期にお知らせ</div>
+    </div>
+    <div class="feature-chip reveal d2">
+      <div class="feature-chip-icon">
+        <!-- 聴診器：丸部・チューブ・イヤーピース -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="#008661" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="16" cy="16" r="3.5" stroke-width="1.9"/>
+          <path d="M16 12.5 C16 8 14 5 11 5" stroke-width="1.7"/>
+          <path d="M7 5 C4 5 4 9 4 9 C4 9 4 13 8 13 C12 13 12 9 12 9" stroke-width="1.7"/>
+          <circle cx="7" cy="5" r="1.2" stroke-width="1.4"/>
+          <circle cx="11" cy="5" r="1.2" stroke-width="1.4"/>
+          <line x1="16" y1="19.5" x2="16" y2="21" stroke-width="1.6"/>
+          <circle cx="16" cy="21.5" r="0.7" fill="#008661" stroke-width="0"/>
+        </svg>
+      </div>
+      <div class="feature-chip-title">受診サポート</div>
+      <div class="feature-chip-desc">記録を獣医さんとスムーズに共有</div>
+    </div>
+    <div class="feature-chip reveal d3">
+      <div class="feature-chip-icon">
+        <!-- 上昇グラフ＋星：棒グラフ3本・折れ線・星マーク -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="#008661" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="20" x2="21" y2="20" stroke-width="1.7"/>
+          <rect x="4" y="13" width="3.5" height="7" rx="1" stroke-width="1.6"/>
+          <rect x="10" y="9" width="3.5" height="11" rx="1" stroke-width="1.6"/>
+          <rect x="16" y="5" width="3.5" height="15" rx="1" stroke-width="1.6"/>
+          <path d="M5.5 13 L12 9 L18 5" stroke-width="1.4" stroke-dasharray="1.5 1.5"/>
+          <path d="M18 2.5 L18.5 4 L20 4 L18.8 5 L19.3 6.5 L18 5.6 L16.7 6.5 L17.2 5 L16 4 L17.5 4Z" stroke-width="1.1"/>
+        </svg>
+      </div>
+      <div class="feature-chip-title">継続が力に</div>
+      <div class="feature-chip-desc">積み重ねたデータが愛犬を守る</div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑤ Message -->
+<section class="message-section">
+  <!-- スケッチ葉⑥：右上 大きめ羽状複葉（羽のような形） -->
+  <div class="leaf-deco" style="top:-8px;right:-8px;transform:rotate(22deg)">
+    <svg width="72" height="90" viewBox="0 0 72 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- 中央茎 -->
+      <line x1="36" y1="88" x2="36" y2="8" stroke="#008661" stroke-width="1" stroke-linecap="round"/>
+      <!-- 左の小葉 上 -->
+      <path d="M36 24 C28 18 18 18 16 26 C14 34 24 38 36 36"
+            stroke="#008661" stroke-width="1.05" stroke-linecap="round" fill="none" stroke-dasharray="2.5 2"/>
+      <!-- 右の小葉 上 -->
+      <path d="M36 24 C44 18 54 18 56 26 C58 34 48 38 36 36"
+            stroke="#008661" stroke-width="1.05" stroke-linecap="round" fill="none" stroke-dasharray="2.5 2"/>
+      <!-- 左の小葉 中 -->
+      <path d="M36 46 C26 40 16 42 15 50 C14 58 26 60 36 58"
+            stroke="#008661" stroke-width="1.05" stroke-linecap="round" fill="none" stroke-dasharray="2.5 2"/>
+      <!-- 右の小葉 中 -->
+      <path d="M36 46 C46 40 56 42 57 50 C58 58 46 60 36 58"
+            stroke="#008661" stroke-width="1.05" stroke-linecap="round" fill="none" stroke-dasharray="2.5 2"/>
+      <!-- 先端の小葉 -->
+      <path d="M36 8 C30 4 24 6 24 12 C24 18 30 20 36 18 C42 20 48 18 48 12 C48 6 42 4 36 8Z"
+            stroke="#008661" stroke-width="1.05" stroke-linecap="round" fill="none" stroke-dasharray="2.5 2"/>
+    </svg>
+  </div>
+
+  <!-- スケッチ葉⑦：左下 小さな4枚葉クラスター -->
+  <div class="leaf-deco" style="bottom:20px;left:-4px;transform:rotate(-6deg) scale(0.82)">
+    <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- 茎 -->
+      <line x1="32" y1="62" x2="32" y2="38" stroke="#008661" stroke-width="1" stroke-linecap="round"/>
+      <!-- 左上 -->
+      <path d="M32 38 C24 30 12 28 10 36 C8 44 20 48 32 44"
+            stroke="#008661" stroke-width="1.05" fill="none" stroke-linecap="round" stroke-dasharray="2.5 2"/>
+      <!-- 右上 -->
+      <path d="M32 38 C40 30 52 28 54 36 C56 44 44 48 32 44"
+            stroke="#008661" stroke-width="1.05" fill="none" stroke-linecap="round" stroke-dasharray="2.5 2"/>
+      <!-- 左下 -->
+      <path d="M32 44 C22 42 12 46 12 54 C12 60 22 62 32 58"
+            stroke="#008661" stroke-width="1.05" fill="none" stroke-linecap="round" stroke-dasharray="2.5 2"/>
+      <!-- 右下 -->
+      <path d="M32 44 C42 42 52 46 52 54 C52 60 42 62 32 58"
+            stroke="#008661" stroke-width="1.05" fill="none" stroke-linecap="round" stroke-dasharray="2.5 2"/>
+    </svg>
+  </div>
+  <div class="message-icon reveal">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#008661" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+    </svg>
+  </div>
+
+  <h2 class="message-title reveal d1">
+    もっと自由に、<br />笑い合うために。
+  </h2>
+
+  <p class="message-body reveal d2">
+    「これで合っているのかな」という小さな不安が、愛犬との時間を曇らせてしまうことがあります。BarKnow は、その不安を確信に変えるお手伝いをしたい。正しいケアと、テクノロジーと、あなたの愛情が揃えば——きっと、もっと楽しい毎日が待っています。
+  </p>
+
+  <a class="cta-btn reveal d3" href="#">
+    ショップを見る
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M5 12h14M12 5l7 7-7 7"/>
+    </svg>
+  </a>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-logo">BarKnow</div>
+  <div class="footer-sub">Bark × Know — Well-being for Your Dog</div>
+  <nav class="footer-links">
+    <a href="#">Shop</a>
+    <a href="#">About</a>
+    <a href="#">App</a>
+    <a href="#">Contact</a>
+  </nav>
+  <div class="footer-copy">© 2025 BarKnow. All rights reserved.</div>
+</footer>
+
+<script>
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.1 });
+  els.forEach(el => io.observe(el));
+</script>
+</body>
+</html>

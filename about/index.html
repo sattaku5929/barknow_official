@@ -49,7 +49,7 @@
       inset: 0;
       z-index: 0;
       pointer-events: none;
-      background-image: radial-gradient(circle, rgba(0,134,97,0.10) 1px, transparent 1px);
+      background-image: radial-gradient(circle, rgba(0,134,97,0.05) 1px, transparent 1px);
       background-size: 26px 26px;
     }
 
@@ -78,8 +78,8 @@
     }
 
     .logo-img {
-      height: 40px;
-      width: auto;
+      width: 42px;
+      height: auto;
       display: block;
     }
 
@@ -200,7 +200,7 @@
 
     /* ── Hero ── */
     .hero {
-      padding: 220px 28px 72px;
+      padding: 180px 28px 72px;
       text-align: center;
       position: relative;
       overflow: hidden;
@@ -230,8 +230,8 @@
     .hero-img-wrap {
       position: relative;
       z-index: 1;
-      width: 148px;
-      height: 148px;
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
       overflow: hidden;
       margin: 0 auto 28px;
@@ -1090,6 +1090,11 @@
     }
 
     .footer-logo {
+      width: 42px;
+      height: auto;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
       font-family: var(--f-serif);
       font-size: 20px;
       color: var(--white);
@@ -1191,11 +1196,21 @@
         max-width: 640px;
       }
       .hero {
-        padding: 150px 40px 88px;
+        padding: 124px 40px 88px;
       }
       .section {
         padding: 0 40px 88px;
       }
+    }
+    /* Readable mobile copy; preserve mockup and card typography. */
+    @media (max-width: 767px) {
+      .hero-lead, .section-body, .message-body {
+        font-weight: 400;
+        color: #3f3f3b;
+      }
+    }
+    @media (max-width: 480px) {
+      .logo-img, .footer-logo { width: 34px; height: auto; }
     }
   </style>
 </head>
@@ -1206,7 +1221,7 @@
 <!-- Header -->
 <header id="main-header">
   <a href="/">
-    <img class="logo-img" src="https://raw.githubusercontent.com/sattaku5929/barknow_official/main/images/logo-square.png" alt="BarKnow" onerror="this.src=''" />
+    <img class="logo-img" src="/images/logo-transparent.png" alt="BarKnow" />
   </a>
   <nav class="header-nav">
     <a href="/#vision">Vision</a>
@@ -1669,7 +1684,7 @@
 <!-- Footer -->
 <footer>
   <div class="page-inner" style="padding: 0 28px;">
-    <div class="footer-logo">BarKnow</div>
+    <img class="footer-logo" src="/images/logo-transparent-white.png" alt="BarKnow" />
     <div class="footer-copy">© 2026 BarKnow. All rights reserved.</div>
   </div>
 </footer>

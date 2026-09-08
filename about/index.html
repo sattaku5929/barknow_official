@@ -1100,45 +1100,14 @@
       opacity: 0.28;
     }
 
-    /* ── Animations ── */
-
-    /* フェードアップ（基本） */
-    .reveal {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.65s var(--ease), transform 0.65s var(--ease);
-    }
-    .reveal.in { opacity: 1; transform: translateY(0); }
-
-    /* 左からスライドイン */
-    .reveal-left {
-      opacity: 0;
-      transform: translateX(-32px);
-      transition: opacity 0.65s var(--ease), transform 0.65s var(--ease);
-    }
-    .reveal-left.in { opacity: 1; transform: translateX(0); }
-
-    /* 右からスライドイン */
-    .reveal-right {
-      opacity: 0;
-      transform: translateX(32px);
-      transition: opacity 0.65s var(--ease), transform 0.65s var(--ease);
-    }
-    .reveal-right.in { opacity: 1; transform: translateX(0); }
-
-    /* スケールアップ */
+    /* Content remains visible without JavaScript or scroll detection. */
+    .reveal,
+    .reveal-left,
+    .reveal-right,
     .reveal-scale {
-      opacity: 0;
-      transform: scale(0.92);
-      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+      opacity: 1;
+      transform: none;
     }
-    .reveal-scale.in { opacity: 1; transform: scale(1); }
-
-    /* 遅延クラス */
-    .d1 { transition-delay: 0.08s; }
-    .d2 { transition-delay: 0.18s; }
-    .d3 { transition-delay: 0.28s; }
-    .d4 { transition-delay: 0.38s; }
 
     @media (min-width: 480px) {
       .page-inner {
@@ -1665,17 +1634,6 @@
   });
   function closeMobileNav() { menuOpen = false; mobileNav.classList.remove('open'); }
 
-  // Reveal animations
-  const targets = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('in');
-        io.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.12 });
-  targets.forEach(el => io.observe(el));
 </script>
 </body>
 </html>

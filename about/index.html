@@ -822,21 +822,34 @@
       margin-top: 16px;
     }
 
-    .feature-chip-icon { margin-bottom: 10px; }
-    .feature-chip-icon svg { width: 28px; height: 28px; }
+    .feature-chip-icon {
+      width: 36px;
+      height: 36px;
+      margin-bottom: 11px;
+      border-radius: 50%;
+      background: var(--green-pale);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .feature-chip-icon svg {
+      width: 20px;
+      height: 20px;
+    }
 
     .feature-chip-title {
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 500;
       color: var(--ink);
-      margin-bottom: 3px;
+      margin-bottom: 5px;
     }
 
     .feature-chip-desc {
-      font-size: 11px;
-      font-weight: 300;
+      font-size: 11.5px;
+      font-weight: 400;
       color: var(--ink-muted);
-      line-height: 1.7;
+      line-height: 1.65;
     }
 
     /* ── Message ── */
@@ -924,29 +937,20 @@
       transition: background 0.22s;
     }
 
-    /* feature-chip */
     .feature-chip {
-      background: var(--white);
-      border-radius: var(--r-md);
-      padding: 16px 14px;
-      border: 1.5px solid var(--sand-dark);
-      transition: transform 0.22s var(--ease), box-shadow 0.22s var(--ease), border-color 0.22s;
+      background: rgba(255,255,255,0.68);
+      border: 1px solid rgba(0,134,97,0.14);
+      border-radius: 14px;
+      padding: 15px 14px;
       cursor: default;
+      transition: background 0.2s, border-color 0.2s;
     }
 
-    .feature-chip:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 24px rgba(0,134,97,0.12);
-      border-color: var(--green-soft);
-    }
-
-    .feature-chip:hover .feature-chip-icon svg {
-      transform: scale(1.15);
-      transition: transform 0.22s var(--ease);
-    }
-
-    .feature-chip-icon svg {
-      transition: transform 0.22s var(--ease);
+    @media (hover: hover) {
+      .feature-chip:hover {
+        background: var(--white);
+        border-color: rgba(0,134,97,0.28);
+      }
     }
 
     /* CTA buttons */

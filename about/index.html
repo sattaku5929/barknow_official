@@ -456,15 +456,15 @@
       perspective: 1000px;
     }
 
-    /* Slim white frame */
+    /* iPhone frame */
     .phone-frame {
       position: relative;
       width: 220px;
-      padding: 5px;
-      background: #f6f7f6;
-      border-radius: 37px;
-      box-shadow: 0 0 0 1px #e3e6e3,
-                  0 5px 14px rgba(27,48,38,.10);
+      padding: 4px;
+      border: 1px solid #cfd4d1;
+      background: #e9ecea;
+      border-radius: 42px;
+      box-shadow: 0 6px 16px rgba(27,48,38,.10);
       transform: none;
       transition: transform .3s var(--ease);
     }
@@ -473,12 +473,24 @@
       .phone-frame:hover { transform: translateY(-3px); }
     }
 
-    /* Dynamic Island削除 → 上部は縁のみ */
-    .phone-dynamic-island { display: none; }
+    .phone-dynamic-island {
+      position: absolute;
+      top: 11px;
+      left: 50%;
+      z-index: 3;
+      width: 52px;
+      height: 14px;
+      border-radius: 999px;
+      background: #171918;
+      transform: translateX(-50%);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+      pointer-events: none;
+    }
 
     .phone-screen {
       background: var(--sand);
-      border-radius: 32px;
+      border: 1px solid #d8ddda;
+      border-radius: 37px;
       overflow: hidden;
       min-height: 390px;
       display: flex;
@@ -1399,6 +1411,7 @@
   <div class="phone-mockup-wrap reveal d1">
     <div class="phone-mockup">
       <div class="phone-frame">
+        <div class="phone-dynamic-island" aria-hidden="true"></div>
         <!-- 画面 -->
         <div class="phone-screen">
           <!-- ステータスバー（Dynamic Island両脇） -->

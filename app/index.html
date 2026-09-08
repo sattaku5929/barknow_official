@@ -4075,7 +4075,21 @@ nav a:hover::after { width: 100%; }
       width: 1em;
       height: 1em;
     }
-  </style>
+    /* Match the top page logo sizing. */
+  .logo-img,
+  .footer-logo {
+    width: 42px;
+    height: auto;
+  }
+
+  @media (max-width: 480px) {
+    .logo-img,
+    .footer-logo {
+      width: 34px;
+      height: auto;
+    }
+  }
+</style>
   
 </head>
 <body>

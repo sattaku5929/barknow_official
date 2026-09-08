@@ -456,36 +456,21 @@
       perspective: 1000px;
     }
 
-    /* チタニウムフレーム */
+    /* Slim charcoal frame */
     .phone-frame {
       position: relative;
       width: 216px;
-      background: linear-gradient(160deg, #2a2a2a 0%, #1a1a1a 100%);
-      border-radius: 48px;
-      padding: 14px 7px 12px;
-      box-shadow:
-        /* チタンの外枠 */
-        0 0 0 1px #4a4a4a,
-        0 0 0 2.5px #2c2c2c,
-        0 0 0 4px #3a3a3a,
-        /* 光の反射（左上） */
-        inset 1px 1px 0 rgba(255,255,255,0.08),
-        /* ドロップシャドウ */
-        0 32px 72px rgba(0,0,0,0.45),
-        0 12px 28px rgba(0,134,97,0.14);
-      transform: rotateY(-6deg) rotateX(3deg);
-      transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+      padding: 4px;
+      background: #383d3a;
+      border-radius: 36px;
+      box-shadow: 0 0 0 1px rgba(39,55,47,.18),
+                  0 18px 38px rgba(27,48,38,.14);
+      transform: none;
+      transition: transform .3s var(--ease);
     }
 
-    .phone-frame:hover {
-      transform: rotateY(0deg) rotateX(0deg) translateY(-10px);
-      box-shadow:
-        0 0 0 1px #555,
-        0 0 0 2.5px #333,
-        0 0 0 4px #444,
-        inset 1px 1px 0 rgba(255,255,255,0.1),
-        0 48px 96px rgba(0,0,0,0.38),
-        0 20px 40px rgba(0,134,97,0.2);
+    @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+      .phone-frame:hover { transform: translateY(-3px); }
     }
 
     /* Dynamic Island削除 → 上部は縁のみ */
@@ -493,7 +478,7 @@
 
     .phone-screen {
       background: var(--sand);
-      border-radius: 38px;
+      border-radius: 32px;
       overflow: hidden;
       min-height: 390px;
       display: flex;
@@ -697,36 +682,36 @@
     /* 右：サイドボタン（電源） */
     .phone-btn-right {
       position: absolute;
-      top: 100px; right: -4px;
-      width: 3.5px; height: 60px;
-      background: linear-gradient(to right, #3a3a3a, #4a4a4a);
+      top: 100px; right: -2px;
+      width: 2px; height: 60px;
+      background: #606962;
       border-radius: 0 3px 3px 0;
     }
 
     /* 左上：アクションボタン（新機能） */
     .phone-btn-action {
       position: absolute;
-      top: 62px; left: -4px;
-      width: 3.5px; height: 22px;
-      background: linear-gradient(to left, #3a3a3a, #4a4a4a);
+      top: 62px; left: -2px;
+      width: 2px; height: 22px;
+      background: #606962;
       border-radius: 3px 0 0 3px;
     }
 
     /* 左：音量UP */
     .phone-btn-left-1 {
       position: absolute;
-      top: 94px; left: -4px;
-      width: 3.5px; height: 34px;
-      background: linear-gradient(to left, #3a3a3a, #4a4a4a);
+      top: 94px; left: -2px;
+      width: 2px; height: 34px;
+      background: #606962;
       border-radius: 3px 0 0 3px;
     }
 
     /* 左：音量DOWN */
     .phone-btn-left-2 {
       position: absolute;
-      top: 136px; left: -4px;
-      width: 3.5px; height: 34px;
-      background: linear-gradient(to left, #3a3a3a, #4a4a4a);
+      top: 136px; left: -2px;
+      width: 2px; height: 34px;
+      background: #606962;
       border-radius: 3px 0 0 3px;
     }
 

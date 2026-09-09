@@ -327,6 +327,12 @@ section{padding:4.2rem 0;}
 @media(min-width:981px){
 .hero-inner{grid-template-columns:minmax(0,1.05fr) minmax(360px,.95fr);gap:5rem;}
 }
+
+/* Keep the lead About story visually connected to the mobile hero. */
+@media(max-width:480px){
+  #hero .hero-inner{padding-bottom:1rem;}
+  #hero + #team{padding-top:1.5rem;}
+}
 </style>
 </head>
 <body>

@@ -3,9 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BarKnow | 愛犬との毎日を、もっと豊かに。</title>
-<meta name="description" content="大切な家族に、本当にいいものを。BarKnowは愛犬のケア用品、習慣づくり、WanToneを通じて犬との豊かな暮らしを支えます。">
-<link rel="preload" as="image" href="/images/main-1.jpg">
+<title>BarKnow — 愛犬との暮らしを、整える。</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
@@ -336,77 +334,11 @@ section{padding:4.2rem 0;}
   #hero + #team{padding-top:1.5rem;}
 }
 
-/* 2026 editorial brand refresh — layered overrides; routes and functionality unchanged */
-:root{--off-white:#f8f9f6;--warm-white:#fff;--text:#202522;--text-mid:#515d57;--text-light:#737a75}
-body{background:#fff;color:var(--text)}
-header{background:rgba(255,255,255,.94);border-bottom-color:rgba(30,40,34,.08)}
-section{scroll-margin-top:66px}
-.container{max-width:1380px}
-#hero.editorial-hero{isolation:isolate;display:block;position:relative;min-height:720px;min-height:100svh;padding:0;background:#27382e;color:#fff;overflow:hidden}
-.editorial-hero-photo{position:absolute;inset:0;z-index:-2;background-image:url('/images/main-1.jpg');background-position:center 48%;background-size:cover;transform:scale(1.025);animation:editorial-arrive 1.8s ease-out both}
-.editorial-hero-shade{position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(12,25,20,.68) 0%,rgba(12,25,20,.34) 54%,rgba(12,25,20,.12) 100%),linear-gradient(0deg,rgba(12,25,20,.42),transparent 35%)}
-.editorial-hero-copy{position:relative;padding:clamp(160px,25vh,260px) max(5vw,24px) 160px;max-width:1200px}
-.editorial-kicker{font-family:var(--display);letter-spacing:.28em;font-size:clamp(11px,1vw,14px);margin-bottom:36px}
-.editorial-hero h1{font-size:clamp(2.7rem,7.3vw,8.3rem);line-height:1.24;font-weight:500;letter-spacing:-.035em;color:#fff;text-wrap:balance}
-.editorial-hero h1 em{font-style:normal}
-.editorial-lead{font-size:clamp(13px,1.3vw,17px);letter-spacing:.09em;line-height:2.1;margin-top:44px;color:rgba(255,255,255,.93)}
-.editorial-scroll{position:absolute;bottom:42px;left:max(5vw,24px);color:#fff;text-decoration:none;font:400 11px var(--display);letter-spacing:.2em;display:flex;gap:20px;align-items:center}
-.editorial-scroll span{font-size:22px}
-.editorial-index{position:absolute;right:max(5vw,24px);bottom:43px;font:400 11px var(--display);letter-spacing:.2em}
-@keyframes editorial-arrive{from{opacity:.6;transform:scale(1.08)}to{opacity:1;transform:scale(1.025)}}
-#team,#about,#vision,#services,#app,#shop,#contact{padding-block:clamp(95px,12vw,180px)}
-#team{background:#fff}
-#team h2,#about h2,#vision h2,#services h2,#app h2,#shop h2,#contact h2{letter-spacing:-.02em;line-height:1.48}
-#about{background:#f8f9f6}
-#services{background:#fff}
-#shop{background:#f8f9f6}
-#contact{background:#fff}
-.section-label,.vision-label{letter-spacing:.25em}
-.services-cards{gap:22px}
-.service-card{border-radius:0!important;box-shadow:none!important}
-.service-card-img{overflow:hidden}
-.service-card-img img,.shop-visual img{transition:transform .9s cubic-bezier(.2,.8,.2,1)}
-.service-card:hover .service-card-img img,.shop-visual:hover img{transform:scale(1.045)}
-a:focus-visible,button:focus-visible{outline:3px solid #008661;outline-offset:4px}
-@media(max-width:700px){
- #hero.editorial-hero{min-height:680px;min-height:100svh}
- .editorial-hero-photo{background-position:56% center}
- .editorial-hero-shade{background:linear-gradient(90deg,rgba(11,25,19,.65),rgba(11,25,19,.22)),linear-gradient(0deg,rgba(11,25,19,.42),transparent 45%)}
- .editorial-hero-copy{padding:clamp(160px,24vh,220px) 24px 150px}
- .editorial-hero h1{font-size:clamp(2.45rem,9vw,4.2rem);line-height:1.45;letter-spacing:-.045em}
- .editorial-lead{margin-top:32px;font-size:13px}
- .editorial-scroll{left:24px;bottom:38px}
- .editorial-index{right:24px;bottom:39px;font-size:9px}
- #team,#about,#vision,#services,#app,#shop,#contact{padding-block:90px}
-}
-@media(prefers-reduced-motion:reduce){
- *,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition-duration:.01ms!important}
- .reveal,.reveal-left,.reveal-right,.reveal-scale{opacity:1!important;transform:none!important}
-}
-
-
-/* Refined editorial landscape — original BarKnow artwork, no borrowed assets */
-#about{position:relative;isolation:isolate;overflow:hidden;background:#fff!important;padding-block:clamp(145px,15vw,240px)!important}
-#about::before{content:"";position:absolute;z-index:-2;inset:0;pointer-events:none;background:linear-gradient(118deg,#effaf6 5%,#d4f0e7 46%,#bde6d9 100%);clip-path:polygon(0 35%,7% 39%,16% 42%,26% 44%,38% 44%,49% 41%,60% 35%,70% 28%,81% 23%,91% 20%,100% 22%,100% 100%,0 100%);border-radius:0}
-#about::after{content:"";position:absolute;z-index:-1;inset:0;pointer-events:none;opacity:.38;background-image:radial-gradient(ellipse at 79% 77%,rgba(255,255,255,.8),transparent 40%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='144' height='144' viewBox='0 0 144 144'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='144' height='144' filter='url(%23n)' opacity='.26'/%3E%3C/svg%3E");background-blend-mode:screen,soft-light;clip-path:polygon(0 35%,7% 39%,16% 42%,26% 44%,38% 44%,49% 41%,60% 35%,70% 28%,81% 23%,91% 20%,100% 22%,100% 100%,0 100%)}
-#about .container{position:relative;z-index:1}
-#about .section-label{color:#006d50;letter-spacing:.28em}
-#about .about-heading{font-size:clamp(2rem,4vw,4.4rem);letter-spacing:-.045em;line-height:1.45;text-wrap:balance}
-#about .about-body{line-height:2.25}
-@media(max-width:700px){#about{padding-block:130px 145px!important}#about::before,#about::after{clip-path:polygon(0 24%,18% 30%,40% 34%,60% 30%,80% 24%,100% 23%,100% 100%,0 100%)}#about::after{opacity:.23}#about .about-heading{font-size:clamp(1.85rem,7.4vw,2.6rem)}}
-
-/* Site-wide editorial accents: deliberately varied geometry and quiet textures */
-#team,#vision,#services,#app,#shop,#contact{position:relative;isolation:isolate;overflow:hidden}
-#team::before{content:"";position:absolute;inset:auto -16% -22% 38%;height:70%;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 55% 75%,rgba(188,230,215,.40),rgba(239,250,246,.36) 55%,transparent 73%);border-radius:56% 44% 0 0 / 85% 65% 0 0;transform:rotate(-8deg)}
-#vision::before{content:"";position:absolute;z-index:-1;pointer-events:none;inset:0;background:linear-gradient(145deg,rgba(237,249,244,.94),rgba(203,235,223,.58));clip-path:polygon(0 0,100% 0,100% 86%,78% 91%,55% 95%,31% 94%,12% 89%,0 85%)}
-#vision::after{content:"";position:absolute;z-index:-1;pointer-events:none;right:-15%;top:8%;width:48vw;height:48vw;border:1px solid rgba(0,134,97,.10);border-radius:50%;box-shadow:0 0 0 48px rgba(0,134,97,.025),0 0 0 96px rgba(0,134,97,.018)}
-#services::before{content:"";position:absolute;z-index:-1;pointer-events:none;left:-22%;top:3%;width:65%;height:75%;border-radius:47% 53% 66% 34% / 54% 42% 58% 46%;background:radial-gradient(ellipse at 45% 45%,rgba(205,239,228,.48),rgba(246,251,248,.3) 62%,transparent 72%);transform:rotate(12deg)}
-#app::before{content:"";position:absolute;z-index:-1;pointer-events:none;inset:0;background:linear-gradient(125deg,rgba(239,250,246,.68),rgba(196,232,219,.48));clip-path:ellipse(86% 63% at 8% 100%)}
-#app::after{content:"";position:absolute;z-index:-1;pointer-events:none;inset:0;opacity:.12;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23g)'/%3E%3C/svg%3E");clip-path:ellipse(86% 63% at 8% 100%)}
-#shop::before{content:"";position:absolute;z-index:-1;pointer-events:none;inset:0;background:linear-gradient(115deg,rgba(223,245,237,.65),rgba(255,255,255,0) 66%);clip-path:polygon(0 0,43% 0,51% 11%,58% 28%,57% 48%,45% 67%,22% 81%,0 88%)}
-#contact::before{content:"";position:absolute;z-index:-1;pointer-events:none;left:-18%;right:-18%;bottom:-58%;height:95%;background:linear-gradient(150deg,rgba(210,241,230,.8),rgba(237,249,244,.42));border-radius:50% 50% 0 0 / 45% 65% 0 0;transform:rotate(4deg)}
-#team>.container,#vision>.container,#services>.container,#app>.container,#shop>.container,#contact>.container{position:relative;z-index:1}
-@media(max-width:700px){#team::before{left:5%;right:-35%;height:46%}#vision::before{clip-path:polygon(0 0,100% 0,100% 91%,55% 97%,0 91%)}#vision::after{width:75vw;height:75vw;right:-40%}#services::before{width:110%;left:-65%;height:50%}#app::before,#app::after{clip-path:ellipse(145% 55% at 10% 100%)}#shop::before{clip-path:polygon(0 0,65% 0,90% 30%,70% 62%,0 84%)}#contact::before{bottom:-48%;height:72%}}
+/* Restrained, seamless decorative washes; no clipped section boundaries */
+#about{background:radial-gradient(ellipse 75% 65% at 100% 90%,rgba(0,134,97,.045),transparent 78%),#fff}
+#services{background:radial-gradient(ellipse 70% 55% at 0% 10%,rgba(0,134,97,.035),transparent 78%),#fff}
+#app{background:radial-gradient(ellipse 75% 65% at 100% 85%,rgba(0,134,97,.04),transparent 78%),#fff}
+@media(max-width:700px){#about,#services,#app{background:#fff}}
 </style>
 </head>
 <body>
@@ -440,16 +372,25 @@ a:focus-visible,button:focus-visible{outline:3px solid #008661;outline-offset:4p
 </div>
 
 <!-- HERO -->
-<section id="hero" class="editorial-hero">
-  <div class="editorial-hero-photo" role="img" aria-label="愛犬との暮らしを彩るBarKnowのビジュアル"></div>
-  <div class="editorial-hero-shade"></div>
-  <div class="editorial-hero-copy">
-    <p class="editorial-kicker">LIFE WITH DOGS — BarKnow</p>
-    <h1>愛犬との毎日を、<br><em>もっと豊かに。</em></h1>
-    <p class="editorial-lead">大切な家族に、本当にいいものを。<br>小さなケアから、心地よい未来へ。</p>
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-texture"></div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-eyebrow">愛犬のケア習慣を支えるブランド</div>
+      <h1 class="hero-headline">ケアの時間を、<br><span class="accent">愛犬との信頼へ。</span></h1>
+      <p class="hero-sub">BarKnowは、愛犬に合うケア用品と、無理なく続けるための習慣づくりを通して、毎日の暮らしを心地よく整えます。</p>
+      <div class="hero-ctas">
+        <a href="https://lin.ee/qOOobxv" target="_blank" class="btn-primary">LINEで最新情報を受け取る</a>
+        <a href="https://barknow.base.shop/" target="_blank" class="btn-secondary">オンラインショップを見る</a>
+      </div>
+    </div>
+    <div class="hero-visual" aria-hidden="true">
+      <div class="hero-img-main">
+        <img src="images/ragar-noriko.jpg" alt="">
+      </div>
+    </div>
   </div>
-  <a class="editorial-scroll" href="#team" aria-label="BarKnowについてスクロールする">SCROLL TO EXPLORE <span aria-hidden="true">↓</span></a>
-  <span class="editorial-index" aria-hidden="true">01 / THE STORY</span>
 </section>
 
 <!-- TEAM -->
@@ -523,7 +464,7 @@ a:focus-visible,button:focus-visible{outline:3px solid #008661;outline-offset:4p
     <div class="services-cards">
       <div class="service-card reveal">
         <div class="service-card-img">
-          <img src="images/ragar-shampoo.JPG" alt="ケア用品" loading="lazy">
+          <img src="images/ragar-noriko.jpg" alt="ケア用品" loading="lazy">
         </div>
         <div class="service-card-body">
           <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
@@ -533,7 +474,7 @@ a:focus-visible,button:focus-visible{outline:3px solid #008661;outline-offset:4p
       </div>
       <div class="service-card reveal reveal-delay-1">
         <div class="service-card-img">
-          <img src="images/main-1.jpg" alt="愛犬と過ごす日常" loading="lazy">
+          <img src="images/ragar-noriko.jpg" alt="伴走・サポート" loading="lazy">
         </div>
         <div class="service-card-body">
           <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
@@ -543,7 +484,7 @@ a:focus-visible,button:focus-visible{outline:3px solid #008661;outline-offset:4p
       </div>
       <div class="service-card reveal reveal-delay-2">
         <div class="service-card-img">
-          <img src="images/ragar-noriko.jpg" alt="愛犬との暮らし" loading="lazy">
+          <img src="images/ragar-noriko.jpg" alt="アプリ開発" loading="lazy">
         </div>
         <div class="service-card-body">
           <div class="service-icon"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
@@ -562,7 +503,7 @@ a:focus-visible,button:focus-visible{outline:3px solid #008661;outline-offset:4p
       <div>
         <span class="section-label reveal">Coming Soon</span>
         <div class="section-divider reveal reveal-delay-1"></div>
-        <h2 class="app-heading reveal reveal-delay-1">毎日の小さな気づきを、<br><span class="accent">未来につなぐ。</span></h2>
+        <h2 class="app-heading reveal reveal-delay-1">「続けられた」が、<br><span class="accent">見える。</span></h2>
         <p class="app-desc reveal reveal-delay-2">毎日のケアを記録し、愛犬の状態の変化を振り返り、小さな継続を積み重ねる。そんな体験をスマートフォンひとつで実現するアプリを、現在開発しています。</p>
         <p class="app-desc reveal reveal-delay-2">「また忘れてしまった」ではなく、「今日もできた」と思える仕組みをつくること。それがBarKnow Appの目指す姿です。</p>
         <div class="app-keywords reveal reveal-delay-2">

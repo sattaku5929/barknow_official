@@ -384,6 +384,13 @@ a:focus-visible,button:focus-visible{outline:3px solid #008661;outline-offset:4p
  .reveal,.reveal-left,.reveal-right,.reveal-scale{opacity:1!important;transform:none!important}
 }
 
+
+/* Mint editorial wave: original decorative interpretation of the supplied reference */
+#about{position:relative;isolation:isolate;overflow:hidden;background:#fff!important;padding-top:clamp(150px,19vw,290px)!important;padding-bottom:clamp(150px,19vw,270px)!important}
+#about::before{content:"";position:absolute;z-index:-2;pointer-events:none;inset:0;background:linear-gradient(135deg,#d9f5ed 0%,#ccefe5 54%,#dff6ee 100%);clip-path:ellipse(105% 69% at 62% 98%)}
+#about::after{content:"";position:absolute;z-index:-1;pointer-events:none;inset:0;opacity:.32;background-image:radial-gradient(circle,#55cbb1 1px,transparent 1.5px),radial-gradient(circle,#83dbc7 1.2px,transparent 2px),radial-gradient(circle,#008661 .65px,transparent 1.2px);background-size:23px 29px,41px 37px,13px 19px;background-position:0 0,12px 9px,4px 12px;mask-image:linear-gradient(to bottom,transparent 0%,transparent 20%,#000 52%,#000 100%);-webkit-mask-image:linear-gradient(to bottom,transparent 0%,transparent 20%,#000 52%,#000 100%);clip-path:ellipse(105% 69% at 62% 98%)}
+#about .container{position:relative;z-index:1}
+@media(max-width:700px){#about{padding-top:140px!important;padding-bottom:150px!important}#about::before,#about::after{clip-path:ellipse(170% 73% at 61% 96%)}#about::after{opacity:.2;background-size:29px 31px,43px 47px,19px 23px}}
 </style>
 </head>
 <body>

@@ -385,12 +385,15 @@ a:focus-visible,button:focus-visible{outline:3px solid #008661;outline-offset:4p
 }
 
 
-/* Mint editorial wave: original decorative interpretation of the supplied reference */
-#about{position:relative;isolation:isolate;overflow:hidden;background:#fff!important;padding-top:clamp(150px,19vw,290px)!important;padding-bottom:clamp(150px,19vw,270px)!important}
-#about::before{content:"";position:absolute;z-index:-2;pointer-events:none;inset:0;background:linear-gradient(135deg,#d9f5ed 0%,#ccefe5 54%,#dff6ee 100%);clip-path:ellipse(105% 69% at 62% 98%)}
-#about::after{content:"";position:absolute;z-index:-1;pointer-events:none;inset:0;opacity:.32;background-image:radial-gradient(circle,#55cbb1 1px,transparent 1.5px),radial-gradient(circle,#83dbc7 1.2px,transparent 2px),radial-gradient(circle,#008661 .65px,transparent 1.2px);background-size:23px 29px,41px 37px,13px 19px;background-position:0 0,12px 9px,4px 12px;mask-image:linear-gradient(to bottom,transparent 0%,transparent 20%,#000 52%,#000 100%);-webkit-mask-image:linear-gradient(to bottom,transparent 0%,transparent 20%,#000 52%,#000 100%);clip-path:ellipse(105% 69% at 62% 98%)}
+/* Refined editorial landscape — original BarKnow artwork, no borrowed assets */
+#about{position:relative;isolation:isolate;overflow:hidden;background:#fff!important;padding-block:clamp(145px,15vw,240px)!important}
+#about::before{content:"";position:absolute;z-index:-2;inset:0;pointer-events:none;background:linear-gradient(118deg,#effaf6 5%,#d4f0e7 46%,#bde6d9 100%);clip-path:polygon(0 35%,7% 39%,16% 42%,26% 44%,38% 44%,49% 41%,60% 35%,70% 28%,81% 23%,91% 20%,100% 22%,100% 100%,0 100%);border-radius:0}
+#about::after{content:"";position:absolute;z-index:-1;inset:0;pointer-events:none;opacity:.38;background-image:radial-gradient(ellipse at 79% 77%,rgba(255,255,255,.8),transparent 40%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='144' height='144' viewBox='0 0 144 144'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='144' height='144' filter='url(%23n)' opacity='.26'/%3E%3C/svg%3E");background-blend-mode:screen,soft-light;clip-path:polygon(0 35%,7% 39%,16% 42%,26% 44%,38% 44%,49% 41%,60% 35%,70% 28%,81% 23%,91% 20%,100% 22%,100% 100%,0 100%)}
 #about .container{position:relative;z-index:1}
-@media(max-width:700px){#about{padding-top:140px!important;padding-bottom:150px!important}#about::before,#about::after{clip-path:ellipse(170% 73% at 61% 96%)}#about::after{opacity:.2;background-size:29px 31px,43px 47px,19px 23px}}
+#about .section-label{color:#006d50;letter-spacing:.28em}
+#about .about-heading{font-size:clamp(2rem,4vw,4.4rem);letter-spacing:-.045em;line-height:1.45;text-wrap:balance}
+#about .about-body{line-height:2.25}
+@media(max-width:700px){#about{padding-block:130px 145px!important}#about::before,#about::after{clip-path:polygon(0 24%,18% 30%,40% 34%,60% 30%,80% 24%,100% 23%,100% 100%,0 100%)}#about::after{opacity:.23}#about .about-heading{font-size:clamp(1.85rem,7.4vw,2.6rem)}}
 </style>
 </head>
 <body>
